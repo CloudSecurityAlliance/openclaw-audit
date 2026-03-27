@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openclaw-audit"
+version = "1.0.0"
+description = "OpenClaw Security Audit Tool — CSAI Hardening Guide Compliance Scanner"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Cloud Security Alliance AI Safety Initiative"},
+    {name = "CSAI Foundation"},
+]
+keywords = [
+    "openclaw", "security", "audit", "agentic-ai", "hardening",
+    "OWASP", "MITRE-ATLAS", "AICM", "CSAI",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+    "Topic :: Software Development :: Quality Assurance",
+]
+
+[project.scripts]
+openclaw-audit = "openclaw_audit.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/cloudsecurityalliance/openclaw-audit"
+Documentation = "https://github.com/cloudsecurityalliance/openclaw-audit#readme"
+Issues = "https://github.com/cloudsecurityalliance/openclaw-audit/issues"
+
+[tool.setuptools.packages.find]
+include = ["openclaw_audit*"]
