@@ -151,13 +151,26 @@ def run(ctx: ScanContext) -> list[Finding]:
             st = hb_path.stat()
             content = hb_path.read_text(encoding="utf-8", errors="replace")
             writable = st.st_mode & (stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH)
-            has_suspicious = bool(_SHELL_RE.search(content) or
-                                  _OVERRIDE_RE.search(content) or
-                                  _URL_RE.search(content))
-            if writable or has_suspicious:
+
+            suspicious_hits = []
+            shell_match = _SHELL_RE.findall(content)
+            if shell_match:
+                suspicious_hits.append(f"shell: {shell_match[:2]}")
+            override_match = _OVERRIDE_RE.findall(content)
+            if override_match:
+                suspicious_hits.append(f"override: {override_match[:2]}")
+            urls = _URL_RE.findall(content)
+            if urls:
+                suspicious_hits.append(f"URLs: {urls[:2]}")
+
+            if writable or suspicious_hits:
+                evidence_parts = []
+                if writable:
+                    evidence_parts.append(f"writable ({oct(st.st_mode & 0o777)})")
+                if suspicious_hits:
+                    evidence_parts.extend(suspicious_hits)
                 findings.append(_make("OC-SOUL-007", Status.FAIL,
-                    evidence=f"Writable: {bool(writable)}, "
-                             f"Suspicious content: {has_suspicious}",
+                    evidence="; ".join(evidence_parts),
                     file_path=fp))
             else:
                 findings.append(_make("OC-SOUL-007", Status.PASS,

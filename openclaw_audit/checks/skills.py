@@ -43,9 +43,10 @@ _DOWNLOAD_PATTERNS = [
      "External download instruction"),
     (r'(?:prerequisites?|requirements?)\s*:?\s*\n.*(?:download|install|curl|wget)',
      "Prerequisite download (ClawHavoc pattern)"),
-    (r'hxxps?://|https?://(?!(?:github\.com|npmjs\.com|docs\.))',
-     "External URL in skill"),
+    (r'hxxps?://', "Defanged URL (malware indicator)"),
     (r'vercel\.app', "Vercel app URL (used in ClawHavoc)"),
+    (r'(?:download|install)\s+(?:and\s+)?run\s+(?:this|the)\s+(?:tool|binary|script|executable)',
+     "External binary download instruction"),
 ]
 
 # --- Shell execution patterns ---

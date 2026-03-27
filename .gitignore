@@ -10,3 +10,4 @@ venv/
 .env
 *.bak
 .quarantine/
+.DS_Store

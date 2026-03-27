@@ -54,6 +54,18 @@ def _looks_like_instance(p: Path) -> bool:
     # Check if it's ~/.openclaw itself
     if p.name in (".openclaw", ".clawdbot", "openclaw"):
         return True
+    # Check for .openclaw/ subdirectory (common when scanning a home directory)
+    for subdir in (".openclaw", ".clawdbot"):
+        if (p / subdir).is_dir():
+            return True
+    # Check for SOUL.md or SKILL.md anywhere under target (shallow)
+    for child in p.iterdir() if p.is_dir() else []:
+        if child.name in ("SOUL.md", "SKILL.md"):
+            return True
+        if child.is_dir():
+            for grandchild in child.iterdir():
+                if grandchild.name in ("SOUL.md", "SKILL.md", "config.json"):
+                    return True
     return False
 
 
