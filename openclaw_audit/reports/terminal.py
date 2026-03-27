@@ -96,7 +96,15 @@ def render(report: ScanReport, file=None) -> None:
         # Compact pass/skip summary
         passed = [f for f in findings if f.status == Status.PASS]
         if passed:
-            ids = ", ".join(f.check_id for f in passed)
+            # Deduplicate check IDs and truncate if too many
+            seen = []
+            for f in passed:
+                if f.check_id not in seen:
+                    seen.append(f.check_id)
+            if len(seen) <= 8:
+                ids = ", ".join(seen)
+            else:
+                ids = ", ".join(seen[:6]) + f", ...+{len(seen) - 6} more"
             print(f"    {_GREEN} PASS{_RESET}  {_GRAY}{ids}{_RESET}", file=out)
 
         print(file=out)

@@ -38,15 +38,23 @@ _INJECTION_PATTERNS = [
 ]
 
 # --- Download/prerequisite patterns (ClawHavoc) ---
+# These target the specific social engineering pattern where skills trick users
+# into downloading and running external binaries, NOT legitimate install docs.
 _DOWNLOAD_PATTERNS = [
-    (r'(?:download|install|run)\s+(?:this|the)\s+(?:tool|binary|script)',
-     "External download instruction"),
-    (r'(?:prerequisites?|requirements?)\s*:?\s*\n.*(?:download|install|curl|wget)',
-     "Prerequisite download (ClawHavoc pattern)"),
+    # Specific ClawHavoc pattern: "Prerequisites" section with a direct download URL
+    (r'(?:prerequisites?|requirements?)\s*:?\s*\n.*(?:download\s+and\s+(?:run|install|execute)|'
+     r'run\s+(?:this|the)\s+(?:following|below))',
+     "Prerequisite with download-and-run instruction (ClawHavoc pattern)"),
+    # Direct "download and run this binary/tool/script" instruction
+    (r'(?:download|install)\s+(?:and\s+)?(?:run|execute)\s+(?:this|the)\s+'
+     r'(?:tool|binary|script|executable|program|installer)',
+     "External binary download-and-run instruction"),
+    # Defanged URLs are always suspicious — legitimate docs don't use them
     (r'hxxps?://', "Defanged URL (malware indicator)"),
-    (r'vercel\.app', "Vercel app URL (used in ClawHavoc)"),
-    (r'(?:download|install)\s+(?:and\s+)?run\s+(?:this|the)\s+(?:tool|binary|script|executable)',
-     "External binary download instruction"),
+    # Vercel app URLs used as C2/payload hosting in ClawHavoc
+    (r'openclawcli\.vercel\.app', "Known ClawHavoc payload URL"),
+    # Base64 encoded shell commands in download instructions
+    (r'(?:curl|wget)\s+.*\|\s*(?:bash|sh|python)', "Pipe-to-shell download pattern"),
 ]
 
 # --- Shell execution patterns ---
