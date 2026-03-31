@@ -109,6 +109,26 @@ def render(report: ScanReport, file=None) -> None:
 
         print(file=out)
 
+    # OWASP Agentic Top 10 summary
+    _ASI_IDS = [f"ASI{i:02d}" for i in range(1, 11)]
+    asi_status: list[str] = []
+    for asi_id in _ASI_IDS:
+        related = [f for f in report.findings
+                   if f.frameworks and asi_id in f.frameworks.owasp_asi]
+        has_fail = any(f.status == Status.FAIL for f in related)
+        has_warn = any(f.status == Status.WARN for f in related)
+        if has_fail:
+            asi_status.append(f"{_RED}{asi_id}{_RESET}")
+        elif has_warn:
+            asi_status.append(f"{_YELLOW}{asi_id}{_RESET}")
+        elif related:
+            asi_status.append(f"{_GREEN}{asi_id}{_RESET}")
+        else:
+            asi_status.append(f"{_GRAY}{asi_id}{_RESET}")
+
+    print(f"  {_BOLD}OWASP ASI:{_RESET} {' '.join(asi_status)}", file=out)
+    print(file=out)
+
     # Overall verdict
     print(f"{_BOLD}{'─' * 70}{_RESET}", file=out)
     if fail_n == 0 and warn_n == 0:

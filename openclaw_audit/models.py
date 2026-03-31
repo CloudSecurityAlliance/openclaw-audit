@@ -48,6 +48,7 @@ class FrameworkMapping:
     owasp_asi: list[str] = field(default_factory=list)
     atlas: list[str] = field(default_factory=list)
     aicm: list[str] = field(default_factory=list)
+    maestro: list[str] = field(default_factory=list)
     whitepaper_section: str = ""
 
     def to_dict(self) -> dict:
@@ -58,6 +59,8 @@ class FrameworkMapping:
             d["MITRE_ATLAS"] = self.atlas
         if self.aicm:
             d["AICM"] = self.aicm
+        if self.maestro:
+            d["MAESTRO"] = self.maestro
         if self.whitepaper_section:
             d["whitepaper_section"] = self.whitepaper_section
         return d

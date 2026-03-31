@@ -57,7 +57,7 @@ def run(ctx: ScanContext) -> list[Finding]:
 
     if not ctx.config_files:
         # No config files found — everything is default (mostly insecure)
-        for cid in [f"OC-CFG-{i:03d}" for i in range(1, 14)]:
+        for cid in [f"OC-CFG-{i:03d}" for i in range(1, 19)]:
             if cid in CHECKS:
                 findings.append(_make_finding(
                     cid, Status.WARN,
@@ -218,5 +218,82 @@ def run(ctx: ScanContext) -> list[Finding]:
                 file_path=fp))
         else:
             findings.append(_make_finding("OC-CFG-013", Status.PASS, file_path=fp))
+
+        # OC-CFG-014: Auto-update not disabled
+        auto_update = _deep_get(data, "updates", "autoUpdate")
+        update_mode = _deep_get(data, "updates", "mode")
+        if auto_update is False or update_mode in ("off", "disabled", "manual"):
+            findings.append(_make_finding("OC-CFG-014", Status.PASS, file_path=fp))
+        else:
+            findings.append(_make_finding("OC-CFG-014", Status.FAIL,
+                evidence=f"updates.autoUpdate = {auto_update!r}, updates.mode = {update_mode!r}",
+                file_path=fp))
+
+        # OC-CFG-015: Moltbook heartbeat connectivity
+        mb_enabled = _deep_get(data, "moltbook", "enabled")
+        mb_heartbeat = _deep_get(data, "moltbook", "heartbeat", "enabled")
+        if mb_enabled is False:
+            findings.append(_make_finding("OC-CFG-015", Status.PASS,
+                detail="Moltbook disabled", file_path=fp))
+        elif mb_heartbeat is False:
+            findings.append(_make_finding("OC-CFG-015", Status.WARN,
+                detail="Moltbook enabled but heartbeat disabled", file_path=fp))
+        else:
+            findings.append(_make_finding("OC-CFG-015", Status.FAIL,
+                evidence=f"moltbook.enabled = {mb_enabled!r}, "
+                         f"moltbook.heartbeat.enabled = {mb_heartbeat!r}",
+                file_path=fp))
+
+        # OC-CFG-016: Gateway auth token length
+        if auth_mode == "token":
+            token = _deep_get(data, "gateway", "auth", "token", default="")
+            if isinstance(token, str) and len(token) >= 32:
+                findings.append(_make_finding("OC-CFG-016", Status.PASS, file_path=fp))
+            elif isinstance(token, str) and token:
+                findings.append(_make_finding("OC-CFG-016", Status.FAIL,
+                    evidence=f"Token length: {len(token)} (minimum 32 required)",
+                    file_path=fp))
+            else:
+                findings.append(_make_finding("OC-CFG-016", Status.FAIL,
+                    evidence="Token mode set but no token value configured",
+                    file_path=fp))
+        else:
+            findings.append(_make_finding("OC-CFG-016", Status.SKIP,
+                detail="Not using token auth mode", file_path=fp))
+
+        # OC-CFG-017: config.patch not restricted
+        if "config.patch" in deny_list:
+            findings.append(_make_finding("OC-CFG-017", Status.PASS, file_path=fp))
+        else:
+            findings.append(_make_finding("OC-CFG-017", Status.FAIL,
+                evidence="config.patch not in tools.deny list",
+                file_path=fp))
+
+        # OC-CFG-018: Sensitive directories not excluded
+        fs_exclude = _deep_get(data, "tools", "fs", "exclude", default=[])
+        fs_deny = _deep_get(data, "tools", "fs", "deny", default=[])
+        if not isinstance(fs_exclude, list):
+            fs_exclude = []
+        if not isinstance(fs_deny, list):
+            fs_deny = []
+        all_exclusions = " ".join(fs_exclude + fs_deny).lower()
+        sensitive_dirs = [".ssh", ".gnupg", ".aws", ".kube", ".docker"]
+        missing_dirs = [d for d in sensitive_dirs if d not in all_exclusions]
+        if not missing_dirs:
+            findings.append(_make_finding("OC-CFG-018", Status.PASS, file_path=fp))
+        else:
+            findings.append(_make_finding("OC-CFG-018", Status.FAIL,
+                evidence=f"Sensitive dirs not excluded: {missing_dirs}",
+                file_path=fp))
+
+        # OC-NET-002: Network egress restrictions
+        egress_mode = _deep_get(data, "network", "egress", "mode")
+        egress_allow = _deep_get(data, "network", "egress", "allowlist", default=[])
+        if egress_mode in ("restrict", "allowlist", "deny-all") or egress_allow:
+            findings.append(_make_finding("OC-NET-002", Status.PASS, file_path=fp))
+        else:
+            findings.append(_make_finding("OC-NET-002", Status.FAIL,
+                evidence="No network egress restrictions configured",
+                file_path=fp))
 
     return findings

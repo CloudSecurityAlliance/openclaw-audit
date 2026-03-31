@@ -1,4 +1,4 @@
-"""MCP server audit checks (OC-MCP-001 through OC-MCP-004)."""
+"""MCP server audit checks (OC-MCP-001 through OC-MCP-005)."""
 
 from __future__ import annotations
 
@@ -116,12 +116,29 @@ def _check_server(name: str, cfg: dict[str, Any], fp: str,
                 return  # One finding per server is sufficient
     # If tool descriptions not in config, we can't check — skip this check
 
+    # OC-MCP-005: Public source detection
+    _PUBLIC_SOURCES = re.compile(
+        r'clawhub\.com|clawhub\.io|'
+        r'registry\.npmjs\.org|'
+        r'npx\s+(?!@[\w-]+/)',  # npx without org scope
+        re.IGNORECASE,
+    )
+    source_str = full_cmd + " " + url
+    if _PUBLIC_SOURCES.search(source_str):
+        findings.append(_make("OC-MCP-005", Status.FAIL,
+            evidence=f"Server '{name}' sourced from public registry: "
+                     f"{source_str[:120]}",
+            file_path=fp))
+    else:
+        findings.append(_make("OC-MCP-005", Status.PASS,
+            detail=f"Server '{name}'", file_path=fp))
+
 
 def run(ctx: ScanContext) -> list[Finding]:
     findings: list[Finding] = []
 
     if not ctx.mcp_config_files:
-        for cid in [f"OC-MCP-{i:03d}" for i in range(1, 5)]:
+        for cid in [f"OC-MCP-{i:03d}" for i in range(1, 6)]:
             findings.append(_make(cid, Status.SKIP,
                 detail="No MCP config files found"))
         return findings

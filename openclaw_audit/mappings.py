@@ -254,6 +254,103 @@ _reg(CheckDefinition(
     fix_level=FixLevel.MEDIUM,
 ))
 
+_reg(CheckDefinition(
+    check_id="OC-CFG-014",
+    title="Auto-update not disabled",
+    description="Automatic updates are not disabled. Enterprise deployments should "
+                "use a controlled update pipeline where security evaluates each release.",
+    category="Configuration",
+    severity=Severity.MEDIUM,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI04"],
+        aicm=["Change Control and Configuration Management"],
+        maestro=["L3"],
+        whitepaper_section="16",
+    ),
+    recommendation="Set updates.autoUpdate to false. Use controlled update pipelines.",
+    fix_level=FixLevel.MEDIUM,
+))
+
+_reg(CheckDefinition(
+    check_id="OC-CFG-015",
+    title="Moltbook heartbeat connectivity enabled",
+    description="Moltbook connectivity is not explicitly disabled. The 4-hour heartbeat "
+                "polling moltbook.com is a documented C2 vector; 1.5M tokens were exposed "
+                "in the Moltbook database breach.",
+    category="Configuration",
+    severity=Severity.HIGH,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI10", "ASI07"],
+        atlas=["AML.T0080"],
+        aicm=["Infrastructure Security", "Application and Interface Security"],
+        maestro=["L7"],
+        whitepaper_section="2",
+    ),
+    recommendation="Set moltbook.enabled to false and moltbook.heartbeat.enabled to false.",
+    fix_level=FixLevel.MEDIUM,
+))
+
+_reg(CheckDefinition(
+    check_id="OC-CFG-016",
+    title="Gateway auth token too short",
+    description="Gateway authentication token is shorter than 32 characters, making "
+                "it vulnerable to brute-force attacks.",
+    category="Configuration",
+    severity=Severity.HIGH,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI03"],
+        atlas=["AML.T0040"],
+        aicm=["IAM", "Cryptography, Encryption and Key Management"],
+        maestro=["L4"],
+        whitepaper_section="16",
+    ),
+    recommendation="Use a minimum 32-character random token for gateway.auth.token.",
+))
+
+_reg(CheckDefinition(
+    check_id="OC-CFG-017",
+    title="config.patch not restricted",
+    description="config.patch is not in the tools deny list. OpenClaw config restrictions "
+                "cover config.apply and config.update but omit config.patch, allowing "
+                "unrestricted configuration modification.",
+    category="Configuration",
+    severity=Severity.HIGH,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI02", "ASI10"],
+        atlas=["AML.T0081"],
+        aicm=["Change Control and Configuration Management"],
+        maestro=["L3"],
+        whitepaper_section="4",
+    ),
+    recommendation="Add config.patch to tools.deny list.",
+    fix_level=FixLevel.MEDIUM,
+))
+
+_reg(CheckDefinition(
+    check_id="OC-CFG-018",
+    title="Sensitive directories not excluded from agent access",
+    description="File system exclusions do not cover critical sensitive directories "
+                "(~/.ssh, ~/.aws, ~/.gnupg, ~/.kube, browser profiles, keychains, "
+                "cryptocurrency wallets). A compromised agent can access these.",
+    category="Configuration",
+    severity=Severity.HIGH,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI03", "ASI05"],
+        atlas=["AML.T0082", "AML.T0083"],
+        aicm=["Data Security and Privacy Lifecycle Management"],
+        maestro=["L2"],
+        whitepaper_section="19",
+    ),
+    recommendation="Add ~/.ssh, ~/.gnupg, ~/.aws, ~/.kube, ~/.docker, browser profiles, "
+                   "and keychain directories to tools.fs.exclude.",
+    fix_level=FixLevel.MEDIUM,
+))
+
 # ── SOUL.md Integrity (OC-SOUL) ──────────────────────────────────────────
 
 _reg(CheckDefinition(
@@ -556,6 +653,26 @@ _reg(CheckDefinition(
     recommendation="Remove MCP server. Tool poisoning is a critical attack vector.",
 ))
 
+_reg(CheckDefinition(
+    check_id="OC-MCP-005",
+    title="MCP server from unvetted public source",
+    description="MCP server is sourced directly from a public registry (ClawHub, npm) "
+                "rather than an internal vetted registry. Direct public pulls enable "
+                "supply chain attacks including rug-pull updates.",
+    category="MCP Server",
+    severity=Severity.MEDIUM,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI04"],
+        atlas=["AML.T0104"],
+        aicm=["Supply Chain Management, Transparency and Accountability"],
+        maestro=["L7"],
+        whitepaper_section="17",
+    ),
+    recommendation="Use an internal MCP server registry. Do not pull directly from "
+                   "ClawHub or public npm.",
+))
+
 # ── File Permissions (OC-PERM) ────────────────────────────────────────────
 
 _reg(CheckDefinition(
@@ -613,6 +730,26 @@ _reg(CheckDefinition(
     fix_level=FixLevel.COMPLETE,
 ))
 
+_reg(CheckDefinition(
+    check_id="OC-NET-002",
+    title="No network egress restrictions configured",
+    description="No egress allowlist or network restriction policy is configured. "
+                "Without egress controls, prompt injection attacks can exfiltrate data "
+                "via URL parameters, DNS queries, or outbound HTTP requests.",
+    category="Network Exposure",
+    severity=Severity.MEDIUM,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI05", "ASI08"],
+        atlas=["AML.T0086"],
+        aicm=["Infrastructure Security"],
+        maestro=["L4"],
+        whitepaper_section="19",
+    ),
+    recommendation="Configure network.egress.allowlist with approved endpoints only. "
+                   "Block all other outbound connections.",
+))
+
 # ── Credential Hygiene (OC-CRED) ─────────────────────────────────────────
 
 _reg(CheckDefinition(
@@ -665,6 +802,26 @@ _reg(CheckDefinition(
     ),
     recommendation="Purge session transcripts containing credentials. "
                    "Implement output redaction.",
+))
+
+_reg(CheckDefinition(
+    check_id="OC-CRED-004",
+    title="Standing long-lived API keys detected",
+    description="Configuration contains static API keys or tokens without JIT "
+                "provisioning, rotation, or vault integration. Standing credentials "
+                "increase blast radius upon compromise (cf. Salesloft Drift: 700+ orgs).",
+    category="Credential Hygiene",
+    severity=Severity.MEDIUM,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI03"],
+        atlas=["AML.T0083"],
+        aicm=["Cryptography, Encryption and Key Management", "IAM"],
+        maestro=["L1", "L4"],
+        whitepaper_section="19",
+    ),
+    recommendation="Replace standing API keys with JIT credentials (5-15 min TTL) "
+                   "via HashiCorp Vault, AWS STS, or OS keychain integration.",
 ))
 
 # ── Docker Sandbox Audit (OC-DOCK) ───────────────────────────────────────

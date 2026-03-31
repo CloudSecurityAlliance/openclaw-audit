@@ -1,4 +1,4 @@
-"""Credential hygiene checks (OC-CRED-001 through OC-CRED-003)."""
+"""Credential hygiene checks (OC-CRED-001 through OC-CRED-004)."""
 
 from __future__ import annotations
 
@@ -127,5 +127,39 @@ def run(ctx: ScanContext) -> list[Finding]:
             detail="No session directories found"))
     else:
         findings.append(_make("OC-CRED-003", Status.PASS))
+
+    # OC-CRED-004: Standing long-lived API keys (no JIT/rotation/vault)
+    _VAULT_INDICATORS = re.compile(
+        r'vault://|vault\.hashicorp|secretsmanager|'
+        r'keychain|credential[_-]?helper|'
+        r'sts\.amazonaws|workload.?identity|'
+        r'managed.?identity|ttl|rotation|ephemeral',
+        re.IGNORECASE,
+    )
+    standing_keys: list[tuple[str, str]] = []
+    for cfg_path in ctx.config_files:
+        try:
+            content = cfg_path.read_text(encoding="utf-8", errors="replace")
+            # Only flag if we found secrets AND no vault/rotation indicators
+            if _scan_for_secrets(content) and not _VAULT_INDICATORS.search(content):
+                standing_keys.append((str(cfg_path), "static credentials without JIT/vault"))
+        except OSError:
+            pass
+    for env_path in ctx.env_files:
+        try:
+            content = env_path.read_text(encoding="utf-8", errors="replace")
+            if _scan_for_secrets(content) and not _VAULT_INDICATORS.search(content):
+                standing_keys.append((str(env_path), "static credentials in .env"))
+        except OSError:
+            pass
+
+    if standing_keys:
+        evidence = "; ".join(f"{p}: {d}" for p, d in standing_keys[:5])
+        findings.append(_make("OC-CRED-004", Status.FAIL, evidence=evidence))
+    elif not ctx.config_files and not ctx.env_files:
+        findings.append(_make("OC-CRED-004", Status.SKIP,
+            detail="No config or .env files found"))
+    else:
+        findings.append(_make("OC-CRED-004", Status.PASS))
 
     return findings
