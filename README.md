@@ -2,7 +2,7 @@
 
 **OpenClaw Security Audit Tool — CSAI Hardening Guide Compliance Scanner**
 
-A static analysis tool that scans OpenClaw installations and deployment repositories against the [CSAI "Hardening OpenClaw" whitepaper](https://cloudsecurityalliance.org), producing structured security gap reports with optional auto-remediation.
+A static analysis tool that scans OpenClaw installations and deployment repositories against the CSAI ["Securing OpenClaw in the Enterprise: A Zero Trust Approach to Agentic AI Hardening"](https://labs.cloudsecurityalliance.org/research/enterprise-openclaw-zero-trust-hardening-guide-v1/) whitepaper, producing structured security gap reports with optional auto-remediation.
 
 ## Features
 
