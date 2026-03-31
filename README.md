@@ -192,7 +192,7 @@ Apache 2.0
 
 ## References
 
-- [CSAI "Hardening OpenClaw" Whitepaper](https://cloudsecurityalliance.org)
+- [Securing OpenClaw in the Enterprise: A Zero Trust Approach to Agentic AI Hardening](https://labs.cloudsecurityalliance.org/research/enterprise-openclaw-zero-trust-hardening-guide-v1/)
 - [OWASP Top 10 for Agentic Applications](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/)
 - [MITRE ATLAS](https://atlas.mitre.org/)
 - [MAESTRO Framework](https://cloudsecurityalliance.org/artifacts/maestro-multi-agent-security-framework)
