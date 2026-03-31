@@ -11,3 +11,7 @@ venv/
 *.bak
 .quarantine/
 .DS_Store
+data/
+Dockerfile
+main.py
+requirements.txt
