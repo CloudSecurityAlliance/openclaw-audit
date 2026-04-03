@@ -33,6 +33,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI03"],
         atlas=["AML.T0040"],
         aicm=["IAM", "Application and Interface Security"],
+        maestro=["L4", "L6"],
         whitepaper_section="2.2",
     ),
     recommendation="Set gateway.auth.mode to 'token' with a minimum 32-character random value.",
@@ -51,6 +52,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI05"],
         atlas=["AML.T0040"],
         aicm=["Infrastructure Security"],
+        maestro=["L4"],
         whitepaper_section="6.2",
     ),
     recommendation="Set gateway.bind to 'loopback' (127.0.0.1).",
@@ -68,6 +70,7 @@ _reg(CheckDefinition(
     frameworks=FrameworkMapping(
         owasp_asi=["ASI08"],
         aicm=["Infrastructure Security"],
+        maestro=["L4"],
         whitepaper_section="2.2",
     ),
     recommendation="Set discovery.mdns.mode to 'off' or OPENCLAW_DISABLE_BONJOUR=1.",
@@ -86,6 +89,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI05", "ASI01"],
         atlas=["AML.T0051.000", "AML.T0051.001"],
         aicm=["Application and Interface Security"],
+        maestro=["L3", "L6"],
         whitepaper_section="2.2",
     ),
     recommendation="Set tools.exec.security to 'deny' and tools.exec.ask to 'always'.",
@@ -103,6 +107,7 @@ _reg(CheckDefinition(
     frameworks=FrameworkMapping(
         owasp_asi=["ASI02", "ASI09"],
         aicm=["Application and Interface Security"],
+        maestro=["L3", "L5"],
         whitepaper_section="2.2",
     ),
     recommendation="Set tools.exec.ask to 'always'.",
@@ -121,6 +126,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI02", "ASI10"],
         atlas=["AML.T0081"],
         aicm=["Application and Interface Security"],
+        maestro=["L3"],
         whitepaper_section="2.2",
     ),
     recommendation="Add gateway, cron, sessions_spawn, sessions_send, "
@@ -140,6 +146,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI05"],
         atlas=["AML.T0105"],
         aicm=["Infrastructure Security"],
+        maestro=["L4"],
         whitepaper_section="5.2",
     ),
     recommendation="Set sandbox.mode to 'all' for full Docker isolation.",
@@ -158,6 +165,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI03", "ASI05"],
         atlas=["AML.T0105"],
         aicm=["Application and Interface Security"],
+        maestro=["L3", "L4"],
         whitepaper_section="5.2",
     ),
     recommendation="Set tools.elevated.enabled to false unless specific elevated "
@@ -176,6 +184,7 @@ _reg(CheckDefinition(
     frameworks=FrameworkMapping(
         owasp_asi=["ASI01", "ASI03"],
         aicm=["IAM"],
+        maestro=["L6"],
         whitepaper_section="2.2",
     ),
     recommendation="Set dmPolicy to 'pairing' or 'allowlist'.",
@@ -193,6 +202,7 @@ _reg(CheckDefinition(
     frameworks=FrameworkMapping(
         owasp_asi=["ASI06", "ASI07"],
         aicm=["Data Security and Privacy Lifecycle Management"],
+        maestro=["L2"],
         whitepaper_section="2.2",
     ),
     recommendation="Set session.dmScope to 'per-channel-peer'.",
@@ -211,6 +221,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI02", "ASI05"],
         atlas=["AML.T0100"],
         aicm=["Application and Interface Security"],
+        maestro=["L4"],
         whitepaper_section="2.2",
     ),
     recommendation="Set dangerouslyAllowPrivateNetwork to false. Disable browser "
@@ -230,6 +241,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI02", "ASI03"],
         atlas=["AML.T0085"],
         aicm=["Data Security and Privacy Lifecycle Management"],
+        maestro=["L2", "L6"],
         whitepaper_section="6.1",
     ),
     recommendation="Set tools.fs.workspaceOnly to true.",
@@ -248,6 +260,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI05"],
         atlas=["AML.T0105"],
         aicm=["Infrastructure Security"],
+        maestro=["L4"],
         whitepaper_section="5.2",
     ),
     recommendation="Set dangerouslyAllowContainerNamespaceJoin to false.",
@@ -365,6 +378,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI01", "ASI06"],
         atlas=["AML.T0081", "AML.T0080"],
         aicm=["Change Control and Configuration Management"],
+        maestro=["L1", "L2"],
         whitepaper_section="2.2",
     ),
     recommendation="Set SOUL.md to read-only (chmod 444) owned by admin.",
@@ -383,6 +397,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI01", "ASI06"],
         atlas=["AML.T0080"],
         aicm=["Model Security"],
+        maestro=["L1"],
         whitepaper_section="2.2",
     ),
     recommendation="Remove base64-encoded content. Review decoded payload.",
@@ -400,6 +415,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI01", "ASI06"],
         atlas=["AML.T0080"],
         aicm=["Model Security"],
+        maestro=["L1"],
         whitepaper_section="2.2",
     ),
     recommendation="Strip all zero-width Unicode characters from SOUL.md.",
@@ -417,6 +433,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI01", "ASI05"],
         atlas=["AML.T0080", "AML.T0051.001"],
         aicm=["Model Security"],
+        maestro=["L1", "L6"],
         whitepaper_section="2.2",
     ),
     recommendation="Remove shell commands from SOUL.md. Investigate source.",
@@ -434,6 +451,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI01", "ASI10"],
         atlas=["AML.T0080", "AML.T0051.001"],
         aicm=["Model Security"],
+        maestro=["L1", "L6"],
         whitepaper_section="2.2",
     ),
     recommendation="Remove override instructions. Investigate how they were added.",
@@ -451,6 +469,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI01", "ASI10"],
         atlas=["AML.T0080"],
         aicm=["Model Security"],
+        maestro=["L1", "L4"],
         whitepaper_section="2.2",
     ),
     recommendation="Review all URLs. Remove any that are not organizationally approved.",
@@ -468,6 +487,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI06", "ASI10"],
         atlas=["AML.T0080", "AML.T0081"],
         aicm=["Change Control and Configuration Management"],
+        maestro=["L1", "L2"],
         whitepaper_section="2.2",
     ),
     recommendation="Lock HEARTBEAT.md to read-only. Review for injected instructions.",
@@ -488,6 +508,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI01", "ASI04"],
         atlas=["AML.T0051.001", "AML.T0104"],
         aicm=["Supply Chain Management, Transparency and Accountability"],
+        maestro=["L1", "L7"],
         whitepaper_section="3.1",
     ),
     recommendation="Quarantine skill. Review SKILL.md content for hidden instructions.",
@@ -506,6 +527,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI04"],
         atlas=["AML.T0104"],
         aicm=["Supply Chain Management, Transparency and Accountability"],
+        maestro=["L7"],
         whitepaper_section="3.1",
     ),
     recommendation="Remove skill immediately. This matches the ClawHavoc attack pattern.",
@@ -524,6 +546,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI04", "ASI05"],
         atlas=["AML.T0104"],
         aicm=["Supply Chain Management, Transparency and Accountability"],
+        maestro=["L3", "L7"],
         whitepaper_section="3.1",
     ),
     recommendation="Review all shell commands. Quarantine if not justified.",
@@ -542,6 +565,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI04"],
         atlas=["AML.T0104"],
         aicm=["Supply Chain Management, Transparency and Accountability"],
+        maestro=["L7"],
         whitepaper_section="3.1",
     ),
     recommendation="Remove skill. Obfuscated code in skills is a strong malware indicator.",
@@ -560,6 +584,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI04"],
         atlas=["AML.T0086", "AML.T0104"],
         aicm=["Supply Chain Management, Transparency and Accountability"],
+        maestro=["L4", "L7"],
         whitepaper_section="3.1",
     ),
     recommendation="Verify all network endpoints are legitimate and approved.",
@@ -577,6 +602,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI04"],
         atlas=["AML.T0082", "AML.T0083", "AML.T0104"],
         aicm=["Supply Chain Management, Transparency and Accountability"],
+        maestro=["L2", "L7"],
         whitepaper_section="3.1",
     ),
     recommendation="Remove skill immediately. Credential access is the primary "
@@ -597,6 +623,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI07"],
         atlas=["AML.T0099"],
         aicm=["IAM", "Application and Interface Security"],
+        maestro=["L3", "L6"],
         whitepaper_section="4.4",
     ),
     recommendation="Configure authentication for all MCP server connections.",
@@ -606,17 +633,22 @@ _reg(CheckDefinition(
     check_id="OC-MCP-002",
     title="MCP server not version-pinned",
     description="MCP server uses 'latest' tag or no version pin, enabling "
-                "rug-pull attacks via silent updates.",
+                "rug-pull attacks where tool behavior silently changes after "
+                "user approval. With 82% of MCP implementations vulnerable to "
+                "path traversal and 66% to code injection, unpinned versions "
+                "are a high-risk supply chain vector.",
     category="MCP Server",
-    severity=Severity.MEDIUM,
+    severity=Severity.HIGH,
     applicability=Applicability.BOTH,
     frameworks=FrameworkMapping(
         owasp_asi=["ASI04"],
         atlas=["AML.T0099", "AML.T0104"],
         aicm=["Supply Chain Management, Transparency and Accountability"],
+        maestro=["L7"],
         whitepaper_section="4.2",
     ),
-    recommendation="Pin MCP server versions to specific releases. Never use 'latest'.",
+    recommendation="Pin MCP server versions to specific releases. Never use 'latest'. "
+                   "Use hash-pinning where supported to prevent tag mutation.",
     fix_level=FixLevel.COMPLETE,
 ))
 
@@ -631,6 +663,7 @@ _reg(CheckDefinition(
     frameworks=FrameworkMapping(
         owasp_asi=["ASI07"],
         aicm=["Cryptography, Encryption and Key Management"],
+        maestro=["L4"],
         whitepaper_section="4.4",
     ),
     recommendation="Use HTTPS/TLS for all remote MCP server connections.",
@@ -648,6 +681,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI01", "ASI02"],
         atlas=["AML.T0099"],
         aicm=["Model Security"],
+        maestro=["L1", "L7"],
         whitepaper_section="4.3",
     ),
     recommendation="Remove MCP server. Tool poisoning is a critical attack vector.",
@@ -657,10 +691,12 @@ _reg(CheckDefinition(
     check_id="OC-MCP-005",
     title="MCP server from unvetted public source",
     description="MCP server is sourced directly from a public registry (ClawHub, npm) "
-                "rather than an internal vetted registry. Direct public pulls enable "
-                "supply chain attacks including rug-pull updates.",
+                "rather than an internal vetted registry. Antiy CERT confirmed 1,184 "
+                "malicious skills on ClawHub (~20% of packages); Koi Security found "
+                "820+ more. Direct public pulls enable supply chain attacks including "
+                "rug-pull updates and the ClawHavoc campaign.",
     category="MCP Server",
-    severity=Severity.MEDIUM,
+    severity=Severity.HIGH,
     applicability=Applicability.BOTH,
     frameworks=FrameworkMapping(
         owasp_asi=["ASI04"],
@@ -670,7 +706,30 @@ _reg(CheckDefinition(
         whitepaper_section="17",
     ),
     recommendation="Use an internal MCP server registry. Do not pull directly from "
-                   "ClawHub or public npm.",
+                   "ClawHub or public npm. Audit all existing ClawHub-sourced servers "
+                   "against known-malicious package lists.",
+))
+
+_reg(CheckDefinition(
+    check_id="OC-MCP-006",
+    title="MCP server exposed to DNS rebinding on localhost",
+    description="Localhost-bound MCP servers using HTTP (not stdio) are vulnerable "
+                "to DNS rebinding attacks that allow remote websites to invoke "
+                "tools (CVE-2026-34742). Attacker-controlled DNS can resolve to "
+                "127.0.0.1 and bypass same-origin protections.",
+    category="MCP Server",
+    severity=Severity.HIGH,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI01", "ASI03"],
+        atlas=["AML.T0040"],
+        aicm=["Application and Interface Security"],
+        maestro=["L4"],
+        whitepaper_section="12",
+    ),
+    recommendation="Use stdio transport instead of HTTP for local MCP servers. "
+                   "If HTTP is required, enable DNS rebinding protection and bind "
+                   "to a Unix socket rather than a TCP port.",
 ))
 
 # ── File Permissions (OC-PERM) ────────────────────────────────────────────
@@ -686,6 +745,7 @@ _reg(CheckDefinition(
     frameworks=FrameworkMapping(
         owasp_asi=["ASI03"],
         aicm=["Data Security and Privacy Lifecycle Management"],
+        maestro=["L4"],
         whitepaper_section="6.1",
     ),
     recommendation="Set config directory permissions to 700 (chmod 700).",
@@ -704,6 +764,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI03"],
         atlas=["AML.T0083"],
         aicm=["Data Security and Privacy Lifecycle Management"],
+        maestro=["L4", "L6"],
         whitepaper_section="6.1",
     ),
     recommendation="Set credential file permissions to 600 (chmod 600).",
@@ -724,6 +785,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI05"],
         atlas=["AML.T0105"],
         aicm=["Infrastructure Security"],
+        maestro=["L4"],
         whitepaper_section="5.2",
     ),
     recommendation="Remove 'network: host'. Use a bridge network with explicit egress rules.",
@@ -763,6 +825,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI03"],
         atlas=["AML.T0083"],
         aicm=["Cryptography, Encryption and Key Management", "IAM"],
+        maestro=["L6"],
         whitepaper_section="7.2",
     ),
     recommendation="Move credentials to OS keychain or secrets manager. "
@@ -781,6 +844,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI03"],
         atlas=["AML.T0083"],
         aicm=["Cryptography, Encryption and Key Management"],
+        maestro=["L6"],
         whitepaper_section="7.2",
     ),
     recommendation="Migrate to secrets manager. Remove .env files with credentials.",
@@ -798,6 +862,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI03"],
         atlas=["AML.T0085"],
         aicm=["Data Security and Privacy Lifecycle Management"],
+        maestro=["L2", "L5"],
         whitepaper_section="7.2",
     ),
     recommendation="Purge session transcripts containing credentials. "
@@ -838,6 +903,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI05"],
         atlas=["AML.T0105"],
         aicm=["Infrastructure Security"],
+        maestro=["L4"],
         whitepaper_section="5.2",
     ),
     recommendation="Add cap_drop: ALL and selectively re-add only required capabilities.",
@@ -855,6 +921,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI05"],
         atlas=["AML.T0105"],
         aicm=["Infrastructure Security"],
+        maestro=["L4"],
         whitepaper_section="5.2",
     ),
     recommendation="Set read_only: true and add explicit tmpfs/writable mounts.",
@@ -873,6 +940,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI05"],
         atlas=["AML.T0105"],
         aicm=["Infrastructure Security"],
+        maestro=["L4"],
         whitepaper_section="5.2",
     ),
     recommendation="Configure a custom seccomp profile restricting available syscalls.",
@@ -891,6 +959,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI05", "ASI03"],
         atlas=["AML.T0105", "AML.T0083"],
         aicm=["Infrastructure Security"],
+        maestro=["L4"],
         whitepaper_section="5.2",
     ),
     recommendation="Remove dangerous bind mounts. Copy required files into container instead.",
@@ -907,6 +976,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI05"],
         atlas=["AML.T0105"],
         aicm=["Infrastructure Security"],
+        maestro=["L4"],
         whitepaper_section="5.2",
     ),
     recommendation="Set user: to a non-root UID in the Docker configuration.",
@@ -924,6 +994,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI05"],
         atlas=["AML.T0105"],
         aicm=["Infrastructure Security"],
+        maestro=["L4"],
         whitepaper_section="5.2",
     ),
     recommendation="Remove privileged: true. Use specific capabilities instead.",
@@ -941,6 +1012,7 @@ _reg(CheckDefinition(
         owasp_asi=["ASI05"],
         atlas=["AML.T0105"],
         aicm=["Infrastructure Security"],
+        maestro=["L4"],
         whitepaper_section="5.2",
     ),
     recommendation="Remove 'unconfined' setting. Use default or custom profiles.",
@@ -952,17 +1024,23 @@ _reg(CheckDefinition(
 _reg(CheckDefinition(
     check_id="OC-VER-001",
     title="OpenClaw version below minimum safe",
-    description="Installed version is below v2026.2.26, which addresses all "
-                "known critical CVEs through early March 2026.",
+    description="Installed version is below v2026.3.12, which addresses all "
+                "known critical CVEs including the March 2026 CVE flood "
+                "(CVE-2026-22172 CVSS 9.9 WebSocket scope hijack, "
+                "CVE-2026-32051 privilege escalation, CVE-2026-32048 sandbox "
+                "inheritance bypass, CVE-2026-32913 fetch-guard credential "
+                "leakage, CVE-2026-30741 prompt-injection RCE).",
     category="Version",
     severity=Severity.CRITICAL,
     applicability=Applicability.INSTANCE_ONLY,
     frameworks=FrameworkMapping(
         owasp_asi=["ASI04"],
         aicm=["Threat and Vulnerability Management"],
+        maestro=["L5"],
         whitepaper_section="1.3",
     ),
-    recommendation="Update to v2026.2.26 or later immediately.",
+    recommendation="Update to v2026.3.12 or later immediately. v2026.4.1 is "
+                   "the latest stable release.",
 ))
 
 _reg(CheckDefinition(
@@ -975,6 +1053,7 @@ _reg(CheckDefinition(
     applicability=Applicability.INSTANCE_ONLY,
     frameworks=FrameworkMapping(
         aicm=["Threat and Vulnerability Management"],
+        maestro=["L5"],
         whitepaper_section="1.3",
     ),
     recommendation="Verify installation integrity. Ensure OpenClaw is installed "

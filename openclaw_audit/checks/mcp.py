@@ -116,6 +116,21 @@ def _check_server(name: str, cfg: dict[str, Any], fp: str,
                 return  # One finding per server is sufficient
     # If tool descriptions not in config, we can't check — skip this check
 
+    # OC-MCP-006: DNS rebinding on localhost HTTP servers
+    _LOCALHOST = re.compile(
+        r'https?://(?:localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])(?::\d+)?',
+        re.IGNORECASE,
+    )
+    source_for_rebind = full_cmd + " " + url
+    if _LOCALHOST.search(source_for_rebind) and not url.startswith("https://"):
+        findings.append(_make("OC-MCP-006", Status.FAIL,
+            evidence=f"Server '{name}' uses HTTP on localhost — vulnerable to "
+                     f"DNS rebinding (CVE-2026-34742)",
+            file_path=fp))
+    else:
+        findings.append(_make("OC-MCP-006", Status.PASS,
+            detail=f"Server '{name}' uses stdio or HTTPS", file_path=fp))
+
     # OC-MCP-005: Public source detection
     _PUBLIC_SOURCES = re.compile(
         r'clawhub\.com|clawhub\.io|'
@@ -138,7 +153,7 @@ def run(ctx: ScanContext) -> list[Finding]:
     findings: list[Finding] = []
 
     if not ctx.mcp_config_files:
-        for cid in [f"OC-MCP-{i:03d}" for i in range(1, 6)]:
+        for cid in [f"OC-MCP-{i:03d}" for i in range(1, 7)]:
             findings.append(_make(cid, Status.SKIP,
                 detail="No MCP config files found"))
         return findings

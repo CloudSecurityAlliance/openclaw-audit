@@ -7,7 +7,7 @@ import re
 from ..models import Finding, ScanContext, Severity, Status
 from ..mappings import CHECKS
 
-MINIMUM_SAFE_VERSION = "2026.2.26"
+MINIMUM_SAFE_VERSION = "2026.3.12"
 
 
 def _make(check_id: str, status: Status, detail: str = "",
