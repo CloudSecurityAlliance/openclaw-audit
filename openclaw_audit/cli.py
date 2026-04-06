@@ -7,7 +7,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from .models import FixLevel
+from .models import FixLevel, ScanMode, compute_score
 from .remote import (
     parse_remote_target, prompt_password, push_fixes, scan_hosts_file,
     scan_remote,
@@ -129,6 +129,7 @@ def _scan_single(target_str: str, args, password: str | None = None) -> int:
                 fix=args.fix or args.dry_run,
                 fix_level=fix_level,
                 dry_run=args.dry_run,
+                scan_mode=args.scan_mode,
             )
             # Override target name in report to show remote path
             report.target = remote.display
@@ -201,6 +202,7 @@ def _scan_single(target_str: str, args, password: str | None = None) -> int:
             fix=args.fix or args.dry_run,
             fix_level=fix_level,
             dry_run=args.dry_run,
+            scan_mode=args.scan_mode,
         )
 
         _render_report(report, args.format, args.output, args.quiet)
@@ -208,6 +210,227 @@ def _scan_single(target_str: str, args, password: str | None = None) -> int:
 
         fail_count = report.summary.get("by_status", {}).get("FAIL", 0)
         return 1 if fail_count > 0 else 0
+
+
+def _clone_repo(repo: str, quiet: bool = False) -> Path | None:
+    """Clone a git repo to a temp directory. Returns the path or None on failure.
+
+    Accepts: owner/repo (GitHub shorthand) or a full git URL.
+    """
+    import tempfile
+    import subprocess as sp
+
+    if "/" in repo and not repo.startswith(("http", "git@", "ssh://")):
+        url = f"https://github.com/{repo}.git"
+    else:
+        url = repo
+
+    tmp = Path(tempfile.mkdtemp(prefix="openclaw-audit-clone-"))
+    if not quiet:
+        print(f"  Cloning {url} ...", flush=True)
+
+    try:
+        sp.run(
+            ["git", "clone", "--depth", "1", "--single-branch", url, str(tmp / "repo")],
+            capture_output=True, text=True, timeout=120, check=True,
+        )
+        return tmp / "repo"
+    except (sp.CalledProcessError, sp.TimeoutExpired, FileNotFoundError) as e:
+        err = getattr(e, "stderr", str(e))
+        print(f"Error: Failed to clone {url}: {err}", file=sys.stderr)
+        shutil.rmtree(tmp, ignore_errors=True)
+        return None
+
+
+def _clone_and_scan(repo: str, args) -> int:
+    """Clone a single repo and scan it."""
+    clone_dir = _clone_repo(repo, quiet=args.quiet)
+    if clone_dir is None:
+        return 1
+
+    try:
+        fix_level = FixLevel(args.fix_level)
+        report = scan(
+            target=clone_dir,
+            fix=args.fix or args.dry_run,
+            fix_level=fix_level,
+            dry_run=args.dry_run,
+            scan_mode=args.scan_mode,
+        )
+        # Show the repo name instead of the temp path
+        report.target = repo
+
+        # Remap temp paths in findings
+        local_prefix = str(clone_dir)
+        private_prefix = "/private" + local_prefix
+        for f in report.findings:
+            if f.file_path:
+                f.file_path = f.file_path.replace(private_prefix, repo)
+                f.file_path = f.file_path.replace(local_prefix, repo)
+            if f.evidence:
+                f.evidence = f.evidence.replace(private_prefix, repo)
+                f.evidence = f.evidence.replace(local_prefix, repo)
+
+        report.findings = _consolidate_findings(report.findings)
+        _render_report(report, args.format, args.output, args.quiet)
+        _print_fix_actions(report, args.dry_run, args.quiet)
+
+        fail_count = report.summary.get("by_status", {}).get("FAIL", 0)
+        return 1 if fail_count > 0 else 0
+    finally:
+        shutil.rmtree(clone_dir.parent, ignore_errors=True)
+
+
+def _scan_github_org(org: str, args) -> int:
+    """Scan all public repos in a GitHub org using the gh CLI."""
+    import subprocess as sp
+
+    if not args.quiet:
+        print(f"\nDiscovering repos in {org} ...", flush=True)
+
+    try:
+        result = sp.run(
+            ["gh", "repo", "list", org, "--json", "nameWithOwner",
+             "--limit", "500", "--no-archived"],
+            capture_output=True, text=True, timeout=30, check=True,
+        )
+    except FileNotFoundError:
+        print("Error: 'gh' CLI not found. Install it: https://cli.github.com/", file=sys.stderr)
+        return 1
+    except (sp.CalledProcessError, sp.TimeoutExpired) as e:
+        print(f"Error listing repos: {getattr(e, 'stderr', str(e))}", file=sys.stderr)
+        return 1
+
+    import json
+    repos = [r["nameWithOwner"] for r in json.loads(result.stdout)]
+    if not repos:
+        print(f"No repos found in {org}", file=sys.stderr)
+        return 1
+
+    if not args.quiet:
+        print(f"Found {len(repos)} repo(s)\n")
+
+    if args.output:
+        args.output.mkdir(parents=True, exist_ok=True)
+
+    any_failed = False
+    scored_repos = []
+    for i, repo in enumerate(repos, 1):
+        if not args.quiet:
+            print(f"\n[{i}/{len(repos)}] {repo}")
+            print(f"{'─' * 60}")
+
+        clone_dir = _clone_repo(repo, quiet=args.quiet)
+        if clone_dir is None:
+            any_failed = True
+            continue
+
+        try:
+            fix_level = FixLevel(args.fix_level)
+            report = scan(
+                target=clone_dir,
+                fix=False,  # Don't fix cloned repos
+                fix_level=fix_level,
+                dry_run=False,
+                scan_mode=args.scan_mode,
+            )
+            report.target = repo
+
+            # Remap temp paths
+            local_prefix = str(clone_dir)
+            private_prefix = "/private" + local_prefix
+            for f in report.findings:
+                if f.file_path:
+                    f.file_path = f.file_path.replace(private_prefix, repo)
+                    f.file_path = f.file_path.replace(local_prefix, repo)
+                if f.evidence:
+                    f.evidence = f.evidence.replace(private_prefix, repo)
+                    f.evidence = f.evidence.replace(local_prefix, repo)
+
+            report.findings = _consolidate_findings(report.findings)
+
+            # Collect scoring for master summary
+            scored_repos.append((repo, compute_score(report.findings)))
+
+            # Per-repo output
+            output = args.output
+            if output:
+                repo_slug = repo.replace("/", "-")
+                output = output / repo_slug
+
+            _render_report(report, args.format, output, args.quiet)
+
+            fail_count = report.summary.get("by_status", {}).get("FAIL", 0)
+            if fail_count > 0:
+                any_failed = True
+        finally:
+            shutil.rmtree(clone_dir.parent, ignore_errors=True)
+
+    # Generate master summary
+    if scored_repos:
+        summary_path = args.output / "openclaw-variant-summary.md" if args.output else None
+        summary_text = markdown.render_master_summary(scored_repos, summary_path)
+        if not args.quiet:
+            print(f"\n{'═' * 60}")
+            print(summary_text)
+            if summary_path:
+                print(f"  Master summary written to {summary_path}")
+
+    if not args.quiet:
+        print(f"\nOrg scan complete: {len(repos)} repo(s)")
+
+    return 1 if any_failed else 0
+
+
+def _generate_summary(report_dir: Path, output: Path | None, quiet: bool) -> int:
+    """Generate a master summary from existing JSON report files."""
+    import json as _json
+    from .models import Finding, Status, Severity, compute_score as _compute_score
+
+    if not report_dir.is_dir():
+        print(f"Error: Not a directory: {report_dir}", file=sys.stderr)
+        return 1
+
+    json_files = sorted(report_dir.rglob("*.json"))
+    if not json_files:
+        print(f"Error: No JSON reports found in {report_dir}", file=sys.stderr)
+        return 1
+
+    scored_repos: list[tuple[str, any]] = []
+    for jf in json_files:
+        try:
+            data = _json.loads(jf.read_text(encoding="utf-8"))
+        except (ValueError, OSError):
+            continue
+        if data.get("tool") != "openclaw-audit":
+            continue
+        # Reconstruct findings for scoring
+        findings = []
+        for fd in data.get("findings", []):
+            findings.append(Finding(
+                check_id=fd.get("id", ""),
+                status=Status(fd.get("status", "SKIP")),
+                title=fd.get("title", ""),
+                severity=Severity(fd.get("severity", "INFO")),
+                category=fd.get("category", ""),
+                description=fd.get("description", ""),
+                detail=fd.get("detail", ""),
+            ))
+        repo_name = data.get("target", jf.stem)
+        scored_repos.append((repo_name, _compute_score(findings)))
+
+    if not scored_repos:
+        print(f"Error: No valid openclaw-audit reports in {report_dir}", file=sys.stderr)
+        return 1
+
+    summary_path = output or report_dir / "openclaw-variant-summary.md"
+    summary_text = markdown.render_master_summary(scored_repos, summary_path)
+
+    if not quiet:
+        print(summary_text)
+        print(f"\n  Master summary written to {summary_path}")
+
+    return 0
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -289,10 +512,66 @@ def main(argv: list[str] | None = None) -> int:
         help="Suppress terminal output.",
     )
 
+    # Scan mode flags
+    mode_group = parser.add_mutually_exclusive_group()
+    mode_group.add_argument(
+        "--repo-only",
+        action="store_true",
+        help="Scan as source repository. Skips instance-only checks "
+             "(file permissions, version, session transcripts). "
+             "Implied when using --clone.",
+    )
+    mode_group.add_argument(
+        "--instance-only",
+        action="store_true",
+        help="Scan as installed instance. Skips repo-only checks.",
+    )
+
+    # Clone support
+    parser.add_argument(
+        "--clone",
+        metavar="REPO",
+        default=None,
+        help="Clone a Git repo to a temp directory, scan it, and clean up. "
+             "Accepts owner/repo (GitHub) or a full Git URL. "
+             "Implies --repo-only.",
+    )
+
+    parser.add_argument(
+        "--github-org",
+        metavar="ORG",
+        default=None,
+        help="Scan all public repos in a GitHub org. Clones each repo to "
+             "a temp directory. Implies --repo-only. Requires 'gh' CLI.",
+    )
+
+    parser.add_argument(
+        "--summarize",
+        metavar="DIR",
+        type=Path,
+        default=None,
+        help="Generate a master summary (openclaw-variant-summary.md) from "
+             "existing JSON report files in DIR. Scans recursively for *.json.",
+    )
+
     args = parser.parse_args(argv)
 
-    if not args.target and not args.hosts:
-        parser.error("Provide a target path/host or --hosts file.")
+    # Resolve scan mode
+    if args.clone or args.github_org:
+        args.repo_only = True
+    if args.repo_only:
+        args.scan_mode = ScanMode.REPO_ONLY
+    elif args.instance_only:
+        args.scan_mode = ScanMode.INSTANCE_ONLY
+    else:
+        args.scan_mode = ScanMode.AUTO
+
+    # Summarize mode: generate master summary from existing JSON reports
+    if args.summarize:
+        return _generate_summary(args.summarize, args.output, args.quiet)
+
+    if not args.target and not args.hosts and not args.clone and not args.github_org:
+        parser.error("Provide a target path/host, --hosts file, --clone, or --github-org.")
 
     # For password auth, prompt once upfront
     password = None
@@ -305,6 +584,14 @@ def main(argv: list[str] | None = None) -> int:
         elif args.hosts:
             import getpass
             password = getpass.getpass("  SSH password (used for all hosts): ")
+
+    # Clone mode: clone a single repo and scan it
+    if args.clone:
+        return _clone_and_scan(args.clone, args)
+
+    # GitHub org mode: scan all repos in an org
+    if args.github_org:
+        return _scan_github_org(args.github_org, args)
 
     # Fleet mode: scan multiple hosts
     if args.hosts:

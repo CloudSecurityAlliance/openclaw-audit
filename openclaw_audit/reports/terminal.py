@@ -38,17 +38,32 @@ def _severity_badge(sev: str) -> str:
     return f"{c}{sev}{_RESET}"
 
 
+_SCAN_MODE_LABELS = {
+    "repo_only": "Source Code Scan",
+    "instance_only": "Instance Audit",
+    "auto": "Auto-detected",
+}
+
+
 def render(report: ScanReport, file=None) -> None:
     """Print the report to terminal."""
     out = file or sys.stdout
     report.compute_summary()
     s = report.summary
 
+    mode_label = _SCAN_MODE_LABELS.get(report.scan_mode, report.scan_mode)
+
     print(f"\n{_BOLD}{'=' * 70}{_RESET}", file=out)
-    print(f"{_BOLD}  OpenClaw Security Audit Report{_RESET}", file=out)
+    if report.scan_mode == "repo_only":
+        print(f"{_BOLD}  OpenClaw Source Code Audit Report{_RESET}", file=out)
+    elif report.scan_mode == "instance_only":
+        print(f"{_BOLD}  OpenClaw Instance Audit Report{_RESET}", file=out)
+    else:
+        print(f"{_BOLD}  OpenClaw Security Audit Report{_RESET}", file=out)
     print(f"{_BOLD}{'=' * 70}{_RESET}", file=out)
     print(f"  Target:  {report.target}", file=out)
     print(f"  Context: {report.context_type}", file=out)
+    print(f"  Mode:    {mode_label}", file=out)
     print(f"  Checks:  {s['total_checks']}", file=out)
     print(file=out)
 
@@ -115,13 +130,18 @@ def render(report: ScanReport, file=None) -> None:
     for asi_id in _ASI_IDS:
         related = [f for f in report.findings
                    if f.frameworks and asi_id in f.frameworks.owasp_asi]
-        has_fail = any(f.status == Status.FAIL for f in related)
-        has_warn = any(f.status == Status.WARN for f in related)
-        if has_fail:
+        # Exclude mode-skipped findings from consideration
+        active = [f for f in related if f.status != Status.SKIP]
+        has_fail = any(f.status == Status.FAIL for f in active)
+        has_warn = any(f.status == Status.WARN for f in active)
+        all_skipped = related and not active
+        if all_skipped:
+            asi_status.append(f"{_GRAY}{asi_id}(N/A){_RESET}")
+        elif has_fail:
             asi_status.append(f"{_RED}{asi_id}{_RESET}")
         elif has_warn:
             asi_status.append(f"{_YELLOW}{asi_id}{_RESET}")
-        elif related:
+        elif active:
             asi_status.append(f"{_GREEN}{asi_id}{_RESET}")
         else:
             asi_status.append(f"{_GRAY}{asi_id}{_RESET}")

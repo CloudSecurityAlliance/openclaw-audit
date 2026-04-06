@@ -98,6 +98,7 @@ def render(report: ScanReport, output_path: Path | None = None) -> str:
                 "properties": {
                     "target": report.target,
                     "contextType": report.context_type,
+                    "scanMode": report.scan_mode,
                 },
             }],
         }],

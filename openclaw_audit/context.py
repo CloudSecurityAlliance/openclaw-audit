@@ -8,28 +8,34 @@ import subprocess
 from pathlib import Path
 from typing import Optional
 
-from .models import ContextType, ScanContext
+from .models import ContextType, ScanContext, ScanMode
 
 
-def detect_context(target: Path) -> ScanContext:
+def detect_context(target: Path, scan_mode: ScanMode = ScanMode.AUTO) -> ScanContext:
     """Scan a target path and build a ScanContext describing what we found."""
-    ctx = ScanContext(target_path=target.resolve())
+    ctx = ScanContext(target_path=target.resolve(), scan_mode=scan_mode)
 
     if not target.exists():
         ctx.context_type = ContextType.UNKNOWN
         return ctx
 
-    is_instance = _looks_like_instance(target)
-    is_repo = _looks_like_repo(target)
-
-    if is_instance and is_repo:
-        ctx.context_type = ContextType.HYBRID
-    elif is_instance:
-        ctx.context_type = ContextType.INSTALLED_INSTANCE
-    elif is_repo:
+    # If scan mode is forced, override auto-detection
+    if scan_mode == ScanMode.REPO_ONLY:
         ctx.context_type = ContextType.GIT_REPO
+    elif scan_mode == ScanMode.INSTANCE_ONLY:
+        ctx.context_type = ContextType.INSTALLED_INSTANCE
     else:
-        ctx.context_type = ContextType.UNKNOWN
+        is_instance = _looks_like_instance(target)
+        is_repo = _looks_like_repo(target)
+
+        if is_instance and is_repo:
+            ctx.context_type = ContextType.HYBRID
+        elif is_instance:
+            ctx.context_type = ContextType.INSTALLED_INSTANCE
+        elif is_repo:
+            ctx.context_type = ContextType.GIT_REPO
+        else:
+            ctx.context_type = ContextType.UNKNOWN
 
     # Discover all security-relevant files
     _discover_configs(ctx, target)
@@ -217,7 +223,9 @@ def _detect_version(ctx: ScanContext, root: Path) -> None:
         except (json.JSONDecodeError, OSError):
             pass
 
-    # Try CLI
+    # Try CLI — skip in repo-only mode (irrelevant and will fail on CI)
+    if ctx.scan_mode == ScanMode.REPO_ONLY:
+        return
     try:
         result = subprocess.run(
             ["openclaw", "--version"],
