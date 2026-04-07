@@ -151,14 +151,14 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="hero-card">
   <h2>cnodfcuellar/Nemoclaw-cno.dfcuellar</h2>
   <div class="hero-meta">
-    <span class="grade-badge grade-green">GREEN</span>
-    <span>Exposure Score: <strong class="hero-score">0</strong></span>
-    <span>❓ Confidence</span>
-    <span>Source Code Scan | Total Checks: 46</span>
+    <span class="grade-badge grade-yellow">YELLOW</span>
+    <span>Exposure Score: <strong class="hero-score">4</strong></span>
+    <span>➖ Confidence</span>
+    <span>Source Code Scan | Total Checks: 50</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **0 failure(s)** and **18 warning(s)** across 46 checks.</p>
+<div class="exec-tables"><p>The audit identified **0 failure(s)** and **22 warning(s)** across 50 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>WARN</td>
-<td>18</td>
+<td>22</td>
 </tr>
 <tr>
 <td>PASS</td>
@@ -184,10 +184,56 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>INFO</td>
-<td>18</td>
+<td>22</td>
 </tr>
 </tbody></table></div>
   <details class="section-group">
+  <summary><span class="section-h2">Agent Safety</span> <span class="count-badge">4 findings</span></summary>
+  <div class="finding-card sev-yellow">
+  <div class="finding-header">
+    <span class="finding-title">🟡 OC-AGENT-001: No loop / runaway protection</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-warn">WARN</span>
+  </div>
+  <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
+  
+  <div class="recommendation-box"><strong>Recommendation:</strong> Set an explicit iteration or step limit (e.g. agent.max_iterations) and a wall-clock timeout for agent execution.</div>
+  
+</div>
+<div class="finding-card sev-yellow">
+  <div class="finding-header">
+    <span class="finding-title">🟡 OC-AGENT-002: No human-in-the-loop enforcement</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-warn">WARN</span>
+  </div>
+  <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
+  
+  <div class="recommendation-box"><strong>Recommendation:</strong> Enable human-in-the-loop for dangerous operations. Set agent.require_approval or auto_approve=false for file writes, network access, and command execution.</div>
+  
+</div>
+<div class="finding-card sev-yellow">
+  <div class="finding-header">
+    <span class="finding-title">🟡 OC-AGENT-003: No audit logging configured</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-warn">WARN</span>
+  </div>
+  <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
+  
+  <div class="recommendation-box"><strong>Recommendation:</strong> Enable audit logging for all agent actions. Configure logging.audit or telemetry.enabled in the agent config.</div>
+  
+</div>
+<div class="finding-card sev-yellow">
+  <div class="finding-header">
+    <span class="finding-title">🟡 OC-AGENT-004: No tool access scope restrictions</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-warn">WARN</span>
+  </div>
+  <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
+  
+  <div class="recommendation-box"><strong>Recommendation:</strong> Define an explicit tool allowlist (agent.allowed_tools) scoped to the minimum set of tools needed for the task.</div>
+  
+</div>
+</details><details class="section-group">
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">18 findings</span></summary>
   <div class="finding-card sev-yellow">
   <div class="finding-header">
