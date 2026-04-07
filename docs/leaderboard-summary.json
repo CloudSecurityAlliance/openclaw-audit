@@ -43,12 +43,12 @@
     "has_soul_artifacts": true,
     "has_runtime_artifacts": true,
     "categories_present": [
-      "SOUL.md Integrity",
-      "Configuration",
       "Docker Sandbox",
       "Skill Vetting",
       "Network Exposure",
-      "Credential Hygiene"
+      "SOUL.md Integrity",
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
       "External URL references in SOUL.md",
@@ -105,9 +105,9 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
       "Skill Vetting",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
       "Prompt injection patterns in SKILL.md",
@@ -165,7 +165,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-linuxhsj-openclaw-zero-token.html",
     "_skill_fail_count": 0,
@@ -190,7 +190,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -202,7 +202,7 @@
     "pass_count": 7,
     "skip_count": 22,
     "is_likely_deployable": true,
-    "is_unknown_or_low_confidence": false,
+    "is_unknown_or_low_confidence": true,
     "has_skill_risk": false,
     "has_docker_risk": false,
     "has_credential_risk": false,
@@ -217,12 +217,13 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
       "Skill Vetting",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Config inference only"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-bytepioneer-ai-openclaw-china.html",
     "_skill_fail_count": 0,
@@ -276,11 +277,13 @@
     "categories_present": [
       "Docker Sandbox",
       "Network Exposure",
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Dangerous bind mounts detected"
+      "No capability dropping configured",
+      "Root filesystem not read-only",
+      "No seccomp profile configured"
     ],
     "detail_page_url": "rr-repo-justlovemaki-openclaw-docker-cn-im.html",
     "_skill_fail_count": 0,
@@ -334,12 +337,13 @@
     "categories_present": [
       "Docker Sandbox",
       "Network Exposure",
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Dangerous bind mounts detected",
-      "Container runs as root"
+      "No capability dropping configured",
+      "Root filesystem not read-only",
+      "No seccomp profile configured"
     ],
     "detail_page_url": "rr-repo-tianyidatascience-openclaw-control-center.html",
     "_skill_fail_count": 0,
@@ -391,9 +395,9 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
       "Skill Vetting",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
       "API keys in .env files",
@@ -422,7 +426,7 @@
     "review_score": 8,
     "exposure_score": 4,
     "grade": "YELLOW",
-    "confidence": "✔",
+    "confidence": "➖",
     "tier1_count": 0,
     "tier2_count": 4,
     "tier3_count": 18,
@@ -449,14 +453,16 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": true,
     "categories_present": [
-      "Configuration",
       "Docker Sandbox",
       "Skill Vetting",
       "Network Exposure",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Container runs as root"
+      "No capability dropping configured",
+      "Root filesystem not read-only",
+      "No seccomp profile configured"
     ],
     "detail_page_url": "rr-repo-miaoxworld-openclawinstaller.html",
     "_skill_fail_count": 0,
@@ -481,7 +487,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -508,11 +514,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-grp06-openclaw-studio.html",
     "_skill_fail_count": 0,
@@ -564,16 +571,16 @@
     "has_soul_artifacts": true,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "SOUL.md Integrity",
-      "Configuration",
       "Skill Vetting",
       "Network Exposure",
-      "Credential Hygiene"
+      "SOUL.md Integrity",
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Browser SSRF protection disabled",
-      "HEARTBEAT.md writable or contains suspicious content",
-      "Prompt injection patterns in SKILL.md"
+      "Gateway authentication not configured",
+      "mDNS/Bonjour broadcasting enabled",
+      "Shell execution not restricted"
     ],
     "detail_page_url": "rr-repo-leoyeai-openclaw-master-skills.html",
     "_skill_fail_count": 5,
@@ -598,7 +605,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -625,11 +632,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-mithun50-openclaw-termux.html",
     "_skill_fail_count": 0,
@@ -654,7 +662,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -681,11 +689,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-aidanpark-openclaw-android.html",
     "_skill_fail_count": 0,
@@ -737,9 +746,9 @@
     "has_soul_artifacts": true,
     "has_runtime_artifacts": false,
     "categories_present": [
+      "Credential Hygiene",
       "SOUL.md Integrity",
-      "Configuration",
-      "Credential Hygiene"
+      "Configuration"
     ],
     "key_signals": [
       "HEARTBEAT.md writable or contains suspicious content"
@@ -767,7 +776,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -794,11 +803,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-henryxiaoyang-wechat-openclaw-channel.html",
     "_skill_fail_count": 0,
@@ -823,7 +833,7 @@
     "review_score": 6,
     "exposure_score": 3,
     "grade": "YELLOW",
-    "confidence": "✔",
+    "confidence": "➖",
     "tier1_count": 0,
     "tier2_count": 3,
     "tier3_count": 18,
@@ -852,10 +862,14 @@
     "categories_present": [
       "Docker Sandbox",
       "Network Exposure",
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
-    "key_signals": [],
+    "key_signals": [
+      "No capability dropping configured",
+      "Root filesystem not read-only",
+      "No seccomp profile configured"
+    ],
     "detail_page_url": "rr-repo-phioranex-openclaw-docker.html",
     "_skill_fail_count": 0,
     "_skill_warn_count": 0,
@@ -906,9 +920,9 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
       "Skill Vetting",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
       "Shell command execution in skill scripts"
@@ -936,7 +950,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -948,7 +962,7 @@
     "pass_count": 7,
     "skip_count": 21,
     "is_likely_deployable": true,
-    "is_unknown_or_low_confidence": false,
+    "is_unknown_or_low_confidence": true,
     "has_skill_risk": false,
     "has_docker_risk": false,
     "has_credential_risk": false,
@@ -963,12 +977,13 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
       "Skill Vetting",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Config inference only"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-leoyeai-openclaw-auto-dream.html",
     "_skill_fail_count": 0,
@@ -993,7 +1008,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -1020,11 +1035,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-openclaw-openclaw-ansible.html",
     "_skill_fail_count": 0,
@@ -1049,7 +1065,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -1076,11 +1092,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-dingxiang-me-openclaw-wechat.html",
     "_skill_fail_count": 0,
@@ -1105,7 +1122,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -1132,11 +1149,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-rookiestar28-comfyui-openclaw.html",
     "_skill_fail_count": 0,
@@ -1188,8 +1206,8 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
       "API keys in .env files",
@@ -1218,7 +1236,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -1245,11 +1263,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-openclaw-openclaw-windows-node.html",
     "_skill_fail_count": 0,
@@ -1301,8 +1320,8 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
       "API keys in .env files",
@@ -1331,7 +1350,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -1358,11 +1377,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-byjoey-openclawctl.html",
     "_skill_fail_count": 0,
@@ -1387,7 +1407,7 @@
     "review_score": 0,
     "exposure_score": 14,
     "grade": "RED",
-    "confidence": "✔",
+    "confidence": "➖",
     "tier1_count": 0,
     "tier2_count": 14,
     "tier3_count": 0,
@@ -1415,11 +1435,13 @@
     "has_runtime_artifacts": false,
     "categories_present": [
       "Network Exposure",
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Browser SSRF protection disabled"
+      "Gateway authentication not configured",
+      "mDNS/Bonjour broadcasting enabled",
+      "Shell execution not restricted"
     ],
     "detail_page_url": "rr-repo-mudrii-openclaw-dashboard.html",
     "_skill_fail_count": 0,
@@ -1473,13 +1495,13 @@
     "categories_present": [
       "Docker Sandbox",
       "Network Exposure",
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
       "API keys in .env files",
       "Standing long-lived API keys detected",
-      "Container runs as root"
+      "No capability dropping configured"
     ],
     "detail_page_url": "rr-repo-coollabsio-openclaw.html",
     "_skill_fail_count": 0,
@@ -1504,7 +1526,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -1531,11 +1553,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-memtensor-memos-cloud-openclaw-plugin.html",
     "_skill_fail_count": 0,
@@ -1587,9 +1610,9 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
       "Skill Vetting",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
       "Prompt injection patterns in SKILL.md",
@@ -1647,7 +1670,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-itq5-openclaw-admin.html",
     "_skill_fail_count": 0,
@@ -1672,7 +1695,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -1684,7 +1707,7 @@
     "pass_count": 7,
     "skip_count": 13,
     "is_likely_deployable": true,
-    "is_unknown_or_low_confidence": false,
+    "is_unknown_or_low_confidence": true,
     "has_skill_risk": false,
     "has_docker_risk": false,
     "has_credential_risk": false,
@@ -1699,12 +1722,13 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
       "Skill Vetting",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Config inference only"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-openclaw-rocks-openclaw-operator.html",
     "_skill_fail_count": 0,
@@ -1757,7 +1781,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-suyoumo-openclawprobench.html",
     "_skill_fail_count": 0,
@@ -1810,7 +1834,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-enderfga-openclaw-claude-code.html",
     "_skill_fail_count": 0,
@@ -1835,7 +1859,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -1862,11 +1886,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-hillerliao-install-openclaw-on-termux.html",
     "_skill_fail_count": 0,
@@ -1891,7 +1916,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -1918,11 +1943,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-androidmalware-openclaw_termux.html",
     "_skill_fail_count": 0,
@@ -1947,7 +1973,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -1974,11 +2000,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-orange2ai-openclaw-killer.html",
     "_skill_fail_count": 0,
@@ -2031,7 +2058,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-yuga-hashimoto-openclaw-assistant.html",
     "_skill_fail_count": 0,
@@ -2084,7 +2111,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-0xtresser-openclaw-book.html",
     "_skill_fail_count": 0,
@@ -2136,9 +2163,9 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
       "Skill Vetting",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
       "Shell command execution in skill scripts",
@@ -2196,7 +2223,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mrfadiai-openclaw-manager.html",
     "_skill_fail_count": 0,
@@ -2249,7 +2276,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-clawdotnet-openclaw.net.html",
     "_skill_fail_count": 0,
@@ -2302,7 +2329,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-serithemage-serverless-openclaw.html",
     "_skill_fail_count": 0,
@@ -2355,7 +2382,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-liandu2024-openclaw-chat-gateway.html",
     "_skill_fail_count": 0,
@@ -2408,7 +2435,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-pwrdrvr-openclaw-codex-app-server.html",
     "_skill_fail_count": 0,
@@ -2461,7 +2488,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-hismax-awesome-openclaw-ob.html",
     "_skill_fail_count": 0,
@@ -2514,7 +2541,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-virtual-protocol-openclaw-acp.html",
     "_skill_fail_count": 0,
@@ -2567,7 +2594,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rshodoskar-star-openclaw-desktop.html",
     "_skill_fail_count": 0,
@@ -2620,7 +2647,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-aws-samples-sample-host-openclaw-on-amazon-bedrock-agentcore.html",
     "_skill_fail_count": 0,
@@ -2673,7 +2700,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-liyupi-openclaw-guide.html",
     "_skill_fail_count": 0,
@@ -2726,7 +2753,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-freema-openclaw-mcp.html",
     "_skill_fail_count": 0,
@@ -2779,7 +2806,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-tunmax-openclaw_computer.html",
     "_skill_fail_count": 0,
@@ -2832,7 +2859,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-minddock-openclaw-dev-guide.html",
     "_skill_fail_count": 0,
@@ -2885,7 +2912,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-purple-horizons-openclaw-voice.html",
     "_skill_fail_count": 0,
@@ -2910,7 +2937,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -2937,11 +2964,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-iyeoh88-svg-openclaw-android.html",
     "_skill_fail_count": 0,
@@ -2994,7 +3022,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-zhjiang22-openclaw-xhs.html",
     "_skill_fail_count": 0,
@@ -3047,7 +3075,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-laolin5564-openclaw-wechat.html",
     "_skill_fail_count": 0,
@@ -3100,7 +3128,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-daxiondi-openclaw-desktop.html",
     "_skill_fail_count": 0,
@@ -3153,7 +3181,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-next-kick-openclaw-hardened-ansible.html",
     "_skill_fail_count": 0,
@@ -3206,7 +3234,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-yuenkang-openclaw-java.html",
     "_skill_fail_count": 0,
@@ -3259,7 +3287,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-nclamvn-openclawvn.html",
     "_skill_fail_count": 0,
@@ -3312,7 +3340,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-openxjarvis-openclaw-python.html",
     "_skill_fail_count": 0,
@@ -3365,7 +3393,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-voltagent-awesome-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -3418,7 +3446,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mholovetskyi-openclawenterprise.html",
     "_skill_fail_count": 0,
@@ -3471,7 +3499,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-smlsoft-openclawminicrm.html",
     "_skill_fail_count": 0,
@@ -3524,7 +3552,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sidu-openclaw-teams-setup.html",
     "_skill_fail_count": 0,
@@ -3577,7 +3605,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-brooks376-nemoclaw-ai-agent-platform.html",
     "_skill_fail_count": 0,
@@ -3630,7 +3658,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jetsonhacks-nemoclaw-orin.html",
     "_skill_fail_count": 0,
@@ -3683,7 +3711,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-alberthild-vainplex-openclaw.html",
     "_skill_fail_count": 0,
@@ -3736,7 +3764,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jetsonhacks-nemoclaw-thor.html",
     "_skill_fail_count": 0,
@@ -3789,7 +3817,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-thanhan92-f1-nemoclaw-openclaw-sandbox.html",
     "_skill_fail_count": 0,
@@ -3842,7 +3870,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-thenewguardai-tng-nemoclaw-quickstart.html",
     "_skill_fail_count": 0,
@@ -3895,7 +3923,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-howisyour-nemoclaw_on_wsl_use_powershell_deploy-script.html",
     "_skill_fail_count": 0,
@@ -3948,7 +3976,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-phioranex-nemoclaw-installer.html",
     "_skill_fail_count": 0,
@@ -4001,7 +4029,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-lazauk-aifoundry-nemoclaw-aks.html",
     "_skill_fail_count": 0,
@@ -4054,7 +4082,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rosary-mom-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -4107,7 +4135,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-bcharleson-nemoclaw-macmini-setup.html",
     "_skill_fail_count": 0,
@@ -4160,7 +4188,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-evthedev-nemoclaw-powerup.html",
     "_skill_fail_count": 0,
@@ -4213,7 +4241,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-nemoclaw-nvidia-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -4266,7 +4294,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-osamatech786-clawdbot-openclaw.html",
     "_skill_fail_count": 0,
@@ -4319,7 +4347,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-1clawai-1claw-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -4371,8 +4399,8 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
       "API keys in .env files",
@@ -4429,7 +4457,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-clawbuilders-nemoclaw-setup.html",
     "_skill_fail_count": 0,
@@ -4482,7 +4510,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-hekun-nvidia-nemoclaw_on_dgx_spark.html",
     "_skill_fail_count": 0,
@@ -4535,7 +4563,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-nemoclawlabs-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -4588,7 +4616,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-openclawschool-nemoclaw-101.html",
     "_skill_fail_count": 0,
@@ -4641,7 +4669,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-subthedev-quantumx-openclaw-agents.html",
     "_skill_fail_count": 0,
@@ -4694,7 +4722,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ac12644-nemoclaw-hub.html",
     "_skill_fail_count": 0,
@@ -4747,7 +4775,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-adadrag-nemoclaw-dgx-spark.html",
     "_skill_fail_count": 0,
@@ -4800,7 +4828,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ai-in-pm-nemoclawd.html",
     "_skill_fail_count": 0,
@@ -4853,7 +4881,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-avighub-nemoclaw-ai-assistant.html",
     "_skill_fail_count": 0,
@@ -4906,7 +4934,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-curtburk-nemoclaw_autonomous_ai_factory.html",
     "_skill_fail_count": 0,
@@ -4959,7 +4987,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-kubespark-nemoclaw-k8s.html",
     "_skill_fail_count": 0,
@@ -5012,7 +5040,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-oktsec-oktsec-openclaw.html",
     "_skill_fail_count": 0,
@@ -5065,7 +5093,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-soy-tuber-nemoclaw-local-inference-guide.html",
     "_skill_fail_count": 0,
@@ -5118,7 +5146,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-stevenrick-nemoclaw-cookbook.html",
     "_skill_fail_count": 0,
@@ -5171,7 +5199,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-zhou0810-nemoclaw-claude.html",
     "_skill_fail_count": 0,
@@ -5224,7 +5252,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-aheadrgtj-ahead-nemoclaw-challenge.html",
     "_skill_fail_count": 0,
@@ -5277,7 +5305,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-adarsh1313-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -5330,7 +5358,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-agentherowork-nemoclaw-cern-research.html",
     "_skill_fail_count": 0,
@@ -5383,7 +5411,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-agentherowork-nemoclaw-privacy-preserving-federated-learning-for-cern-det-research.html",
     "_skill_fail_count": 0,
@@ -5436,7 +5464,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-arnabsen08-nemoclaw-aerospace.html",
     "_skill_fail_count": 0,
@@ -5489,7 +5517,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-bigc7292-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -5542,7 +5570,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-calebjkim-nemoclaw-sandbox-test.html",
     "_skill_fail_count": 0,
@@ -5595,7 +5623,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-clawkingai-unified-openclaw-enhanced.html",
     "_skill_fail_count": 0,
@@ -5648,7 +5676,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-craftaleagency-terminia-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -5701,7 +5729,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-gengetau-nemoclaw-forge.html",
     "_skill_fail_count": 0,
@@ -5754,7 +5782,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-geronimo-basso-nemoclaw-on-azure.html",
     "_skill_fail_count": 0,
@@ -5807,7 +5835,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-kaval-rathod-nemoclaw-setup.html",
     "_skill_fail_count": 0,
@@ -5859,9 +5887,9 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
       "Skill Vetting",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
       "Prompt injection patterns in SKILL.md",
@@ -5919,7 +5947,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mcorsato78-nemoclaw-agentic-governance.html",
     "_skill_fail_count": 0,
@@ -5972,7 +6000,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mramiballes-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -6025,7 +6053,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-manishsv-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -6078,7 +6106,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mettleforgelab-neo-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -6131,7 +6159,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-muhammad-binsalman-nemoclaw-agent-free.html",
     "_skill_fail_count": 0,
@@ -6184,7 +6212,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-networkbuild3r-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -6237,7 +6265,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-nomlom-nemoclaw-enterprise.html",
     "_skill_fail_count": 0,
@@ -6290,7 +6318,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-primadetaautomation-nemoclaw-linkedin-bot.html",
     "_skill_fail_count": 0,
@@ -6343,7 +6371,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rogmar0071-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -6396,7 +6424,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-shmayro-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -6449,7 +6477,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-spifflab-nemoclaw-azure.html",
     "_skill_fail_count": 0,
@@ -6502,7 +6530,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sutramind-nemoclaw-sandbox.html",
     "_skill_fail_count": 0,
@@ -6555,7 +6583,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-trustlessmike-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -6608,7 +6636,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-walnutthinh-openclaw.html",
     "_skill_fail_count": 0,
@@ -6661,7 +6689,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-yash-kavaiya-nemoclaw-aws-cicd.html",
     "_skill_fail_count": 0,
@@ -6714,7 +6742,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-zac-chen-2001-nemoclaw-.html",
     "_skill_fail_count": 0,
@@ -6767,7 +6795,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-advath7-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -6820,7 +6848,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ai-security-laboratory-nemoclaw-sysdig.html",
     "_skill_fail_count": 0,
@@ -6873,7 +6901,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-aiagentwithdhruv-nvidia-nemoclaw-guide.html",
     "_skill_fail_count": 0,
@@ -6926,7 +6954,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ajeetraina-labspace-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -6979,7 +7007,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-akshayadav-nemoclawsetup.html",
     "_skill_fail_count": 0,
@@ -7032,7 +7060,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-anthony-maio-nemoclaw-on-wsl.html",
     "_skill_fail_count": 0,
@@ -7085,7 +7113,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-aporeddi1416-nemoclaw-installer-.html",
     "_skill_fail_count": 0,
@@ -7138,7 +7166,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ashish-ty-openclaw-security-audit.html",
     "_skill_fail_count": 0,
@@ -7191,7 +7219,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-az9713-nemoclaw-tutorial.html",
     "_skill_fail_count": 0,
@@ -7244,7 +7272,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-az9713-nemoclaw-wsl-guide.html",
     "_skill_fail_count": 0,
@@ -7297,7 +7325,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-baarsma2-nemoclaw-setup.html",
     "_skill_fail_count": 0,
@@ -7322,7 +7350,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -7349,11 +7377,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-bbylw-nemoclaw-cn.html",
     "_skill_fail_count": 0,
@@ -7406,7 +7435,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-bforecast-openclaw-guard.html",
     "_skill_fail_count": 0,
@@ -7459,7 +7488,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-bhnjawad-openclaw.html",
     "_skill_fail_count": 0,
@@ -7512,7 +7541,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-butterlatticelab-nemoclaw-oauth.html",
     "_skill_fail_count": 0,
@@ -7565,7 +7594,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-cabregana-aspen-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -7618,7 +7647,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-chambear2809-openclaw-o11y.html",
     "_skill_fail_count": 0,
@@ -7671,7 +7700,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-chandra1123-nemoclaw-hardened-sandbox.html",
     "_skill_fail_count": 0,
@@ -7724,7 +7753,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-colygon-nemoclaw-cloud.html",
     "_skill_fail_count": 0,
@@ -7777,7 +7806,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-devpenclaw-nemoclaw-guide.html",
     "_skill_fail_count": 0,
@@ -7830,7 +7859,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-dpickem-nemoclaw_escapades.html",
     "_skill_fail_count": 0,
@@ -7883,7 +7912,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-evidence-gate-nemoclaw-governance.html",
     "_skill_fail_count": 0,
@@ -7936,7 +7965,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-fth83-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -7989,7 +8018,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-habeeba-ahead-nemoclaw-finshield.html",
     "_skill_fail_count": 0,
@@ -8042,7 +8071,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-harche-nemoclaw-operator.html",
     "_skill_fail_count": 0,
@@ -8095,7 +8124,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ktrysmt-nemoclaw-safe.html",
     "_skill_fail_count": 0,
@@ -8148,7 +8177,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-kvchampa-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -8201,7 +8230,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-leofle-nemoclaw-memory-plugin.html",
     "_skill_fail_count": 0,
@@ -8254,7 +8283,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-leonwooster-nemoclaw_terraform.html",
     "_skill_fail_count": 0,
@@ -8307,7 +8336,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-macayaven-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -8360,7 +8389,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-matchmoments-admin-openclaw-agents.html",
     "_skill_fail_count": 0,
@@ -8413,7 +8442,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-millzy7665-beep-openclaw.html",
     "_skill_fail_count": 0,
@@ -8466,7 +8495,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-miramar-labs-nemoclaw-agx-orin.html",
     "_skill_fail_count": 0,
@@ -8519,7 +8548,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mmckeen-nv-nemoclaw-dashboard.html",
     "_skill_fail_count": 0,
@@ -8572,7 +8601,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mrls-dev-aifoundry-nemoclaw-eks.html",
     "_skill_fail_count": 0,
@@ -8625,7 +8654,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mysticrenji-nvidia-nemoclaw-selfhosted.html",
     "_skill_fail_count": 0,
@@ -8678,7 +8707,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-nemocli-nemoclawcli.html",
     "_skill_fail_count": 0,
@@ -8730,9 +8759,9 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
       "Skill Vetting",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
       "Prompt injection patterns in SKILL.md",
@@ -8790,7 +8819,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ohoachuck-nemoclaw-dgx-spark-guide.html",
     "_skill_fail_count": 0,
@@ -8843,7 +8872,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-pablodelarco-oneapps-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -8896,7 +8925,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-r-caamano-ziti-nemoclaw-integration.html",
     "_skill_fail_count": 0,
@@ -8949,7 +8978,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-r10d1nsec-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -9002,7 +9031,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rayaspring-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -9055,7 +9084,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-repolhomp3-nemoclaw-cmmc.html",
     "_skill_fail_count": 0,
@@ -9108,7 +9137,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-repolhomp3-nemoclaw-code.html",
     "_skill_fail_count": 0,
@@ -9161,7 +9190,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-satyamprasad15-dev-nemoclaw-secops-agent.html",
     "_skill_fail_count": 0,
@@ -9214,7 +9243,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-scosaje-nemoclaw-operations.html",
     "_skill_fail_count": 0,
@@ -9267,7 +9296,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sdburde-openclaw-nemoclaw-local-free.html",
     "_skill_fail_count": 0,
@@ -9320,7 +9349,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sinha-abhash-vllm-openclaw-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -9373,7 +9402,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-stlalpha-local-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -9426,7 +9455,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-suryakumaran2611-nemoclaw-podman-wsl2.html",
     "_skill_fail_count": 0,
@@ -9479,7 +9508,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-szepol-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -9532,7 +9561,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-tklim-nemoclaw-backup.html",
     "_skill_fail_count": 0,
@@ -9585,7 +9614,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-tolchx-nemoclaw_ollama_gemma4.html",
     "_skill_fail_count": 0,
@@ -9610,7 +9639,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -9622,7 +9651,7 @@
     "pass_count": 1,
     "skip_count": 19,
     "is_likely_deployable": true,
-    "is_unknown_or_low_confidence": false,
+    "is_unknown_or_low_confidence": true,
     "has_skill_risk": false,
     "has_docker_risk": false,
     "has_credential_risk": false,
@@ -9637,11 +9666,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Config inference only"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-trewwwsec-nemoclaw-docker-devenv.html",
     "_skill_fail_count": 0,
@@ -9694,7 +9724,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-x402agent-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -9747,7 +9777,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ykirpichev-jetson-nemoclaw-openshell.html",
     "_skill_fail_count": 0,
@@ -9800,7 +9830,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-yuviip-nemoclaw-guard.html",
     "_skill_fail_count": 0,
@@ -9853,7 +9883,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-zaristei-nemoclaw-stack.html",
     "_skill_fail_count": 0,
@@ -9906,7 +9936,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-zerada-nemoclaw-agent.html",
     "_skill_fail_count": 0,
@@ -9959,7 +9989,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-pjasicek-openclaw.html",
     "_skill_fail_count": 0,
@@ -10012,7 +10042,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-msitarzewski-agency-agents.html",
     "_skill_fail_count": 0,
@@ -10065,7 +10095,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-paperclipai-paperclip.html",
     "_skill_fail_count": 0,
@@ -10118,7 +10148,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-siyuan-note-siyuan.html",
     "_skill_fail_count": 0,
@@ -10171,7 +10201,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-farion1231-cc-switch.html",
     "_skill_fail_count": 0,
@@ -10224,7 +10254,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-1panel-dev-1panel.html",
     "_skill_fail_count": 0,
@@ -10277,7 +10307,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-hkuds-cli-anything.html",
     "_skill_fail_count": 0,
@@ -10330,7 +10360,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sipeed-picoclaw.html",
     "_skill_fail_count": 0,
@@ -10383,7 +10413,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-yeachan-heo-oh-my-claudecode.html",
     "_skill_fail_count": 0,
@@ -10436,7 +10466,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-alexsjones-llmfit.html",
     "_skill_fail_count": 0,
@@ -10489,7 +10519,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-othmanadi-planning-with-files.html",
     "_skill_fail_count": 0,
@@ -10542,7 +10572,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-yeachan-heo-oh-my-codex.html",
     "_skill_fail_count": 0,
@@ -10595,7 +10625,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rightnow-ai-openfang.html",
     "_skill_fail_count": 0,
@@ -10648,7 +10678,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-thu-maic-openmaic.html",
     "_skill_fail_count": 0,
@@ -10701,7 +10731,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-trycua-cua.html",
     "_skill_fail_count": 0,
@@ -10754,7 +10784,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-yikart-aitoearn.html",
     "_skill_fail_count": 0,
@@ -10807,7 +10837,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-nearai-ironclaw.html",
     "_skill_fail_count": 0,
@@ -10860,7 +10890,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-cloudflare-moltworker.html",
     "_skill_fail_count": 0,
@@ -10913,7 +10943,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-friuns2-blackfriday-gpts-prompts.html",
     "_skill_fail_count": 0,
@@ -10966,7 +10996,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-activeloopai-deeplake.html",
     "_skill_fail_count": 0,
@@ -11019,7 +11049,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-hkuds-clawwork.html",
     "_skill_fail_count": 0,
@@ -11072,7 +11102,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-nullclaw-nullclaw.html",
     "_skill_fail_count": 0,
@@ -11125,7 +11155,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mksglu-context-mode.html",
     "_skill_fail_count": 0,
@@ -11178,7 +11208,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-valuecell-ai-clawx.html",
     "_skill_fail_count": 0,
@@ -11231,7 +11261,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-lintsinghua-deepaudit.html",
     "_skill_fail_count": 0,
@@ -11284,7 +11314,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jacklandrin-onlyswitch.html",
     "_skill_fail_count": 0,
@@ -11337,7 +11367,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-memovai-mimiclaw.html",
     "_skill_fail_count": 0,
@@ -11390,7 +11420,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-netease-youdao-lobsterai.html",
     "_skill_fail_count": 0,
@@ -11442,12 +11472,12 @@
     "has_soul_artifacts": true,
     "has_runtime_artifacts": true,
     "categories_present": [
-      "SOUL.md Integrity",
-      "Configuration",
       "Docker Sandbox",
       "Skill Vetting",
       "Network Exposure",
-      "Credential Hygiene"
+      "SOUL.md Integrity",
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
       "HEARTBEAT.md writable or contains suspicious content",
@@ -11505,7 +11535,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jnmetacode-agency-agents-zh.html",
     "_skill_fail_count": 0,
@@ -11558,7 +11588,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-icip-cas-pptagent.html",
     "_skill_fail_count": 0,
@@ -11611,7 +11641,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-agentscope-ai-hiclaw.html",
     "_skill_fail_count": 0,
@@ -11664,7 +11694,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-badrisnarayanan-antigravity-claude-proxy.html",
     "_skill_fail_count": 0,
@@ -11717,7 +11747,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-openagents-org-openagents.html",
     "_skill_fail_count": 0,
@@ -11770,7 +11800,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-golutra-golutra.html",
     "_skill_fail_count": 0,
@@ -11823,7 +11853,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-dataelement-clawith.html",
     "_skill_fail_count": 0,
@@ -11876,7 +11906,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-davepoon-buildwithclaude.html",
     "_skill_fail_count": 0,
@@ -11929,7 +11959,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-xpf0000-flyenv.html",
     "_skill_fail_count": 0,
@@ -11982,7 +12012,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-open-gitagent-gitagent.html",
     "_skill_fail_count": 0,
@@ -12035,7 +12065,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-moltis-org-moltis.html",
     "_skill_fail_count": 0,
@@ -12088,7 +12118,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-nexu-io-nexu.html",
     "_skill_fail_count": 0,
@@ -12140,17 +12170,17 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": true,
     "categories_present": [
-      "Configuration",
       "Docker Sandbox",
-      "MCP Server",
       "Skill Vetting",
       "Network Exposure",
-      "Credential Hygiene"
+      "Configuration",
+      "Credential Hygiene",
+      "MCP Server"
     ],
     "key_signals": [
       "Network exfiltration patterns in skill",
       "MCP server without authentication",
-      "API keys in .env files"
+      "MCP server not version-pinned"
     ],
     "detail_page_url": "rr-repo-iflytek-skillhub.html",
     "_skill_fail_count": 0,
@@ -12203,7 +12233,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-turixai-turix-cua.html",
     "_skill_fail_count": 0,
@@ -12256,7 +12286,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-q00-ouroboros.html",
     "_skill_fail_count": 0,
@@ -12309,7 +12339,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-heshengtao-super-agent-party.html",
     "_skill_fail_count": 0,
@@ -12362,7 +12392,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-intent-lab-visionclaw.html",
     "_skill_fail_count": 0,
@@ -12415,7 +12445,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-openclaw-acpx.html",
     "_skill_fail_count": 0,
@@ -12468,7 +12498,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-bcg-x-official-agentkit.html",
     "_skill_fail_count": 0,
@@ -12521,7 +12551,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-alishahryar1-free-claude-code.html",
     "_skill_fail_count": 0,
@@ -12574,7 +12604,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-saladday-cc-switch-cli.html",
     "_skill_fail_count": 0,
@@ -12627,7 +12657,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-wwbin2017-bailing.html",
     "_skill_fail_count": 0,
@@ -12680,7 +12710,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-kevinluosl-deepbot.html",
     "_skill_fail_count": 0,
@@ -12733,7 +12763,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-openakita-openakita.html",
     "_skill_fail_count": 0,
@@ -12786,7 +12816,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-simpleyyt-ai-manus.html",
     "_skill_fail_count": 0,
@@ -12839,7 +12869,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rafska-awesome-local-llm.html",
     "_skill_fail_count": 0,
@@ -12892,7 +12922,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rightnow-ai-picolm.html",
     "_skill_fail_count": 0,
@@ -12945,7 +12975,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-iofficeai-officecli.html",
     "_skill_fail_count": 0,
@@ -12998,7 +13028,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-limecloud-lime.html",
     "_skill_fail_count": 0,
@@ -13051,7 +13081,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-uniround-tec-aurogen.html",
     "_skill_fail_count": 0,
@@ -13104,7 +13134,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-arcreel-arcreel.html",
     "_skill_fail_count": 0,
@@ -13157,7 +13187,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-iotsharp-iotsharp.html",
     "_skill_fail_count": 0,
@@ -13210,7 +13240,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-poco-ai-poco-claw.html",
     "_skill_fail_count": 0,
@@ -13263,7 +13293,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-dongsheng123132-u-claw.html",
     "_skill_fail_count": 0,
@@ -13316,7 +13346,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-iamlukethedev-claw3d.html",
     "_skill_fail_count": 0,
@@ -13369,7 +13399,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-hitsz-tmg-aigc-claw.html",
     "_skill_fail_count": 0,
@@ -13422,7 +13452,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-zevorn-rt-claw.html",
     "_skill_fail_count": 0,
@@ -13475,7 +13505,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-greensheep01201-claw-empire.html",
     "_skill_fail_count": 0,
@@ -13528,7 +13558,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-zylos-ai-zylos-core.html",
     "_skill_fail_count": 0,
@@ -13581,7 +13611,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-natively-ai-assistant-natively-cluely-ai-assistant.html",
     "_skill_fail_count": 0,
@@ -13634,7 +13664,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-cjackhwang-ds2api.html",
     "_skill_fail_count": 0,
@@ -13687,7 +13717,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-steve02081504-fount.html",
     "_skill_fail_count": 0,
@@ -13740,7 +13770,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-openlair-dr-claw.html",
     "_skill_fail_count": 0,
@@ -13793,7 +13823,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-iniwap-aiwritex.html",
     "_skill_fail_count": 0,
@@ -13846,7 +13876,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-photon-hq-qclaw-wechat-client.html",
     "_skill_fail_count": 0,
@@ -13899,7 +13929,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rounak-phoneagent.html",
     "_skill_fail_count": 0,
@@ -13952,7 +13982,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-iflytek-astronclaw-tutorial.html",
     "_skill_fail_count": 0,
@@ -14005,7 +14035,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-atilaahmettaner-tradingview-mcp.html",
     "_skill_fail_count": 0,
@@ -14058,7 +14088,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-greyhaven-ai-autocontext.html",
     "_skill_fail_count": 0,
@@ -14111,7 +14141,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-quoroom-ai-room.html",
     "_skill_fail_count": 0,
@@ -14164,7 +14194,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-etiennelescot-n8n-as-code.html",
     "_skill_fail_count": 0,
@@ -14217,7 +14247,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-codephiliax-youclaw.html",
     "_skill_fail_count": 0,
@@ -14270,7 +14300,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-agbcloud-agbcloud-sdk.html",
     "_skill_fail_count": 0,
@@ -14323,7 +14353,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-195440-nof1.ai.html",
     "_skill_fail_count": 0,
@@ -14376,7 +14406,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-microclaw-microclaw.html",
     "_skill_fail_count": 0,
@@ -14429,7 +14459,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mosaxiv-clawlet.html",
     "_skill_fail_count": 0,
@@ -14482,7 +14512,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-unbrowse-ai-unbrowse.html",
     "_skill_fail_count": 0,
@@ -14535,7 +14565,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sixhq-overture.html",
     "_skill_fail_count": 0,
@@ -14588,7 +14618,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-steipete-discrawl.html",
     "_skill_fail_count": 0,
@@ -14641,7 +14671,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-xintaofei-codeg.html",
     "_skill_fail_count": 0,
@@ -14694,7 +14724,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-duanyytop-agents-radar.html",
     "_skill_fail_count": 0,
@@ -14747,7 +14777,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sachaa-openbrowserclaw.html",
     "_skill_fail_count": 0,
@@ -14800,7 +14830,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-qhkm-zeptoclaw.html",
     "_skill_fail_count": 0,
@@ -14853,7 +14883,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-riba2534-happyclaw.html",
     "_skill_fail_count": 0,
@@ -14906,7 +14936,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-beita6969-scienceclaw.html",
     "_skill_fail_count": 0,
@@ -14959,7 +14989,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-gcwing-bitfun.html",
     "_skill_fail_count": 0,
@@ -15012,7 +15042,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-billionsnetwork-verified-agent-identity.html",
     "_skill_fail_count": 0,
@@ -15065,7 +15095,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-yuan-lab-llm-clawmanager.html",
     "_skill_fail_count": 0,
@@ -15118,7 +15148,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-oneclaw-oneclaw.html",
     "_skill_fail_count": 0,
@@ -15171,7 +15201,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-hydro13-tandem-browser.html",
     "_skill_fail_count": 0,
@@ -15224,7 +15254,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-flomesh-io-ztm.html",
     "_skill_fail_count": 0,
@@ -15277,7 +15307,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-fastclaw-ai-fastclaw.html",
     "_skill_fail_count": 0,
@@ -15330,7 +15360,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-win4r-lossless-claw-enhanced.html",
     "_skill_fail_count": 0,
@@ -15383,7 +15413,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-imkkingshuk-lockknife.html",
     "_skill_fail_count": 0,
@@ -15436,7 +15466,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-clawdeckx-clawdeckx.html",
     "_skill_fail_count": 0,
@@ -15489,7 +15519,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-marshallrichards-clawphone.html",
     "_skill_fail_count": 0,
@@ -15542,7 +15572,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-safeai-lab-x-clawkeeper.html",
     "_skill_fail_count": 0,
@@ -15595,7 +15625,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mindsdb-anton.html",
     "_skill_fail_count": 0,
@@ -15648,7 +15678,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-clawwork-ai-clawwork.html",
     "_skill_fail_count": 0,
@@ -15701,7 +15731,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-afshinm-zerobox.html",
     "_skill_fail_count": 0,
@@ -15754,7 +15784,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sympozium-ai-sympozium.html",
     "_skill_fail_count": 0,
@@ -15807,7 +15837,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jobrunr-javaclaw.html",
     "_skill_fail_count": 0,
@@ -15832,7 +15862,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -15859,11 +15889,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-machinae-awesome-claws.html",
     "_skill_fail_count": 0,
@@ -15916,7 +15947,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-simonschubert-kai.html",
     "_skill_fail_count": 0,
@@ -15969,7 +16000,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-goplussecurity-agentguard.html",
     "_skill_fail_count": 0,
@@ -16022,7 +16053,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-pegasi-ai-clawreins.html",
     "_skill_fail_count": 0,
@@ -16075,7 +16106,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-qingchencloud-clawapp.html",
     "_skill_fail_count": 0,
@@ -16128,7 +16159,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-zhixianio-botdrop-android.html",
     "_skill_fail_count": 0,
@@ -16181,7 +16212,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-freddy-schuetz-n8n-claw.html",
     "_skill_fail_count": 0,
@@ -16234,7 +16265,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-fastclaw-ai-clawhost.html",
     "_skill_fail_count": 0,
@@ -16287,7 +16318,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-lay2dev-clawpal.html",
     "_skill_fail_count": 0,
@@ -16340,7 +16371,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-openguardrails-openguardrails.html",
     "_skill_fail_count": 0,
@@ -16393,7 +16424,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-claw-eval-claw-eval.html",
     "_skill_fail_count": 0,
@@ -16445,9 +16476,9 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
       "Skill Vetting",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
       "Prompt injection patterns in SKILL.md",
@@ -16505,7 +16536,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-marian2js-opengoat.html",
     "_skill_fail_count": 0,
@@ -16558,7 +16589,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-bfzli-clawhost.html",
     "_skill_fail_count": 0,
@@ -16611,7 +16642,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-spoto-team-openclaw-wsl-guide.html",
     "_skill_fail_count": 0,
@@ -16664,7 +16695,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-oguzbilgic-agent-kernel.html",
     "_skill_fail_count": 0,
@@ -16689,7 +16720,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -16716,11 +16747,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-bbylw-clawdbot-cn.html",
     "_skill_fail_count": 0,
@@ -16773,7 +16805,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-instry-ocbot.html",
     "_skill_fail_count": 0,
@@ -16826,7 +16858,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-milady-ai-milady.html",
     "_skill_fail_count": 0,
@@ -16879,7 +16911,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-shengyu-meng-clawlibrary.html",
     "_skill_fail_count": 0,
@@ -16904,7 +16936,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -16931,11 +16963,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-natfii-zeroclaw-android.html",
     "_skill_fail_count": 0,
@@ -16988,7 +17021,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-swarmclawai-swarmclaw.html",
     "_skill_fail_count": 0,
@@ -17041,7 +17074,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-outsourc-e-clawsuite.html",
     "_skill_fail_count": 0,
@@ -17094,7 +17127,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-thinkinaixyz-clawdhome.html",
     "_skill_fail_count": 0,
@@ -17147,7 +17180,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-dominant-strategies-entropic.html",
     "_skill_fail_count": 0,
@@ -17200,7 +17233,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-kwalus-canopy.html",
     "_skill_fail_count": 0,
@@ -17253,7 +17286,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-aqbot-desktop-aqbot.html",
     "_skill_fail_count": 0,
@@ -17306,7 +17339,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-shelpuk-ai-technology-consulting-kindly-web-search-mcp-server.html",
     "_skill_fail_count": 0,
@@ -17359,7 +17392,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-atopos31-llmio.html",
     "_skill_fail_count": 0,
@@ -17412,7 +17445,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-dvlin-dev-moryflow.html",
     "_skill_fail_count": 0,
@@ -17465,7 +17498,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-romgx-openrelay.html",
     "_skill_fail_count": 0,
@@ -17518,7 +17551,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sawyerhood-gitclaw.html",
     "_skill_fail_count": 0,
@@ -17571,7 +17604,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-open-gitagent-clawless.html",
     "_skill_fail_count": 0,
@@ -17624,7 +17657,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-letsfg-letsfg.html",
     "_skill_fail_count": 0,
@@ -17677,7 +17710,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ymx10086-researchclaw.html",
     "_skill_fail_count": 0,
@@ -17730,7 +17763,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-gaoyangz77-rivonclaw.html",
     "_skill_fail_count": 0,
@@ -17783,7 +17816,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-miantiao-me-cloud-claw.html",
     "_skill_fail_count": 0,
@@ -17836,7 +17869,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-scouzi1966-maclocal-api.html",
     "_skill_fail_count": 0,
@@ -17889,7 +17922,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-internlm-wildclawbench.html",
     "_skill_fail_count": 0,
@@ -17942,7 +17975,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-saseq-discord-mcp.html",
     "_skill_fail_count": 0,
@@ -17995,7 +18028,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-hackers365-xiaozhi-esp32-server-golang.html",
     "_skill_fail_count": 0,
@@ -18048,7 +18081,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-bgdnvk-clanker.html",
     "_skill_fail_count": 0,
@@ -18101,7 +18134,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jd-opensource-joysafeter.html",
     "_skill_fail_count": 0,
@@ -18154,7 +18187,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-vivekchand-clawmetry.html",
     "_skill_fail_count": 0,
@@ -18207,7 +18240,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jgarzik-botmaker.html",
     "_skill_fail_count": 0,
@@ -18260,7 +18293,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-vignesh07-clawdbot-railway-template.html",
     "_skill_fail_count": 0,
@@ -18313,7 +18346,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-zhimaai-chatclaw.html",
     "_skill_fail_count": 0,
@@ -18366,7 +18399,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-team9ai-team9.html",
     "_skill_fail_count": 0,
@@ -18419,7 +18452,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-clawshell-clawshell.html",
     "_skill_fail_count": 0,
@@ -18472,7 +18505,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-superagenticai-superclaw.html",
     "_skill_fail_count": 0,
@@ -18525,7 +18558,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-abuzar-ansarii-clawbot.html",
     "_skill_fail_count": 0,
@@ -18578,7 +18611,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-celestoai-smolvm.html",
     "_skill_fail_count": 0,
@@ -18631,7 +18664,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-warengonzaga-tinyclaw.html",
     "_skill_fail_count": 0,
@@ -18684,7 +18717,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-lichas-maxclaw.html",
     "_skill_fail_count": 0,
@@ -18737,7 +18770,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-hashgraph-online-registry-broker-skills.html",
     "_skill_fail_count": 0,
@@ -18790,7 +18823,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-p697-clawket.html",
     "_skill_fail_count": 0,
@@ -18843,7 +18876,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-librefang-librefang.html",
     "_skill_fail_count": 0,
@@ -18896,7 +18929,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-78-tenbox.html",
     "_skill_fail_count": 0,
@@ -18949,7 +18982,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-builderz-labs-marketing-dashboard.html",
     "_skill_fail_count": 0,
@@ -19002,7 +19035,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-open-gitagent-gitclaw.html",
     "_skill_fail_count": 0,
@@ -19055,7 +19088,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-longyangxi-openoffice.html",
     "_skill_fail_count": 0,
@@ -19108,7 +19141,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-funny-vibes-agent-vibes.html",
     "_skill_fail_count": 0,
@@ -19161,7 +19194,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-evilfreelancer-openapi-to-cli.html",
     "_skill_fail_count": 0,
@@ -19214,7 +19247,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-friuns2-codexui.html",
     "_skill_fail_count": 0,
@@ -19267,7 +19300,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-andyrewlee-awesome-agent-orchestrators.html",
     "_skill_fail_count": 0,
@@ -19320,7 +19353,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-legendaryvibecoder-gigabrain.html",
     "_skill_fail_count": 0,
@@ -19373,7 +19406,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-learnprompt-cc-harness-skills.html",
     "_skill_fail_count": 0,
@@ -19426,7 +19459,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-gpt-agi-clawd-code.html",
     "_skill_fail_count": 0,
@@ -19479,7 +19512,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-hao-ji-xing-openclaw-weixin.html",
     "_skill_fail_count": 0,
@@ -19532,7 +19565,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-spoto-team-openclaw-minimax-guide.html",
     "_skill_fail_count": 0,
@@ -19585,7 +19618,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-bradagi-awesome-cli-coding-agents.html",
     "_skill_fail_count": 0,
@@ -19638,7 +19671,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jasonkneen-vibeclaw.html",
     "_skill_fail_count": 0,
@@ -19691,7 +19724,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-thepagent-claw-info.html",
     "_skill_fail_count": 0,
@@ -19744,7 +19777,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-luolin-ai-openclawwecomzh.html",
     "_skill_fail_count": 0,
@@ -19797,7 +19830,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-demondamon-agenticx.html",
     "_skill_fail_count": 0,
@@ -19850,7 +19883,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rizqcon-openclawdev-taskboard.html",
     "_skill_fail_count": 0,
@@ -19903,7 +19936,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-minhaoxiong-awesome-automated-research.html",
     "_skill_fail_count": 0,
@@ -19956,7 +19989,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-yeasy-openclaw_guide.html",
     "_skill_fail_count": 0,
@@ -20009,7 +20042,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ethereumphone-andyclaw.html",
     "_skill_fail_count": 0,
@@ -20062,7 +20095,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jackwener-crabclaw.html",
     "_skill_fail_count": 0,
@@ -20115,7 +20148,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-vamshi4001-saas-clawds.html",
     "_skill_fail_count": 0,
@@ -20168,7 +20201,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ibz-04-gloamy.html",
     "_skill_fail_count": 0,
@@ -20221,7 +20254,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-panguard-ai-panguard-ai.html",
     "_skill_fail_count": 0,
@@ -20274,7 +20307,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-c-bjorn-megamem.html",
     "_skill_fail_count": 0,
@@ -20327,7 +20360,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-faramesh-faramesh-core.html",
     "_skill_fail_count": 0,
@@ -20380,7 +20413,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-agenticros-agenticros.html",
     "_skill_fail_count": 0,
@@ -20433,7 +20466,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-opena2a-org-hackmyagent.html",
     "_skill_fail_count": 0,
@@ -20486,7 +20519,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-inceptionstack-loki-agent.html",
     "_skill_fail_count": 0,
@@ -20539,7 +20572,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-theshiphq-claw-spark.html",
     "_skill_fail_count": 0,
@@ -20592,7 +20625,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-theaisingularity-hermesclaw.html",
     "_skill_fail_count": 0,
@@ -20645,7 +20678,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-nemoclaw-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -20698,7 +20731,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-iblai-iblai-claw-agents.html",
     "_skill_fail_count": 0,
@@ -20751,7 +20784,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-zosmaai-openzosma.html",
     "_skill_fail_count": 0,
@@ -20804,7 +20837,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-thanhan92-f1-clawspark.html",
     "_skill_fail_count": 0,
@@ -20857,7 +20890,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-x-scale-ai-grits-audit.html",
     "_skill_fail_count": 0,
@@ -20910,7 +20943,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-clayton-littlejohn-nemoreconstruct.html",
     "_skill_fail_count": 0,
@@ -20963,7 +20996,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-yayashuxue-awesome-ai-auth.html",
     "_skill_fail_count": 0,
@@ -21016,7 +21049,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-hollyhongever-clawkeeper.html",
     "_skill_fail_count": 0,
@@ -21069,7 +21102,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-solomon2773-nora.html",
     "_skill_fail_count": 0,
@@ -21122,7 +21155,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-autopilotaitech-codexbar_ubuntudesktop.html",
     "_skill_fail_count": 0,
@@ -21175,7 +21208,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-pastoriomarco-nemoclaw-thor.html",
     "_skill_fail_count": 0,
@@ -21228,7 +21261,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-aiwithhassan-nemoclaw-setup.html",
     "_skill_fail_count": 0,
@@ -21281,7 +21314,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-dylanckawalec-mermate.html",
     "_skill_fail_count": 0,
@@ -21334,7 +21367,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ericksoa-lunchclaw.html",
     "_skill_fail_count": 0,
@@ -21387,7 +21420,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-uhstray-io-agent-cloud.html",
     "_skill_fail_count": 0,
@@ -21440,7 +21473,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-cloud-devx-engineering-k8s-hackathon-kit.html",
     "_skill_fail_count": 0,
@@ -21493,7 +21526,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-paragon-technology-solutions-claw-conduit.html",
     "_skill_fail_count": 0,
@@ -21546,7 +21579,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-shahbaig-6389-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -21599,7 +21632,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-shards-foundation-shards-agent-core.html",
     "_skill_fail_count": 0,
@@ -21652,7 +21685,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-guglxni-dolios-agent.html",
     "_skill_fail_count": 0,
@@ -21705,7 +21738,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ius-sharma-nemoclaw-try.html",
     "_skill_fail_count": 0,
@@ -21758,7 +21791,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-morpheum-labs-closeloopautomous.html",
     "_skill_fail_count": 0,
@@ -21811,7 +21844,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-tendlyeu-safeclaw.html",
     "_skill_fail_count": 0,
@@ -21864,7 +21897,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-dylanckawalec-opseeq.html",
     "_skill_fail_count": 0,
@@ -21917,7 +21950,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-managertg-nemoclaw-agent.html",
     "_skill_fail_count": 0,
@@ -21970,7 +22003,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-pat027-stratosguard.html",
     "_skill_fail_count": 0,
@@ -22023,7 +22056,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sajidscripts-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -22076,7 +22109,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-aistackinsights-stackinsights.html",
     "_skill_fail_count": 0,
@@ -22129,7 +22162,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-geoffsdesk-nemokube.html",
     "_skill_fail_count": 0,
@@ -22182,7 +22215,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-grob3-nemoclaw-agent-toolkit.html",
     "_skill_fail_count": 0,
@@ -22235,7 +22268,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-lujunlin-cn-miaoagent.html",
     "_skill_fail_count": 0,
@@ -22288,7 +22321,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rickyparmar-bot-my-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -22341,7 +22374,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-toxicoder-restoclaw.html",
     "_skill_fail_count": 0,
@@ -22394,7 +22427,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-useboundary-boundary.html",
     "_skill_fail_count": 0,
@@ -22447,7 +22480,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-winnerineast-office-claw.html",
     "_skill_fail_count": 0,
@@ -22500,7 +22533,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-yossitv-opencrane.html",
     "_skill_fail_count": 0,
@@ -22553,7 +22586,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-13ernkastel-13ernkastel.html",
     "_skill_fail_count": 0,
@@ -22606,7 +22639,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-3r33r3r-nemoclaw-.html",
     "_skill_fail_count": 0,
@@ -22659,7 +22692,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-4clickpro-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -22712,7 +22745,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-4yu5h-crtl-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -22765,7 +22798,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-aidevmanas-nemoclaw-agent-ai.html",
     "_skill_fail_count": 0,
@@ -22818,7 +22851,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-aireposignal-nvidia-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -22871,7 +22904,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-algorithmsingh-nemoclawcomparision.html",
     "_skill_fail_count": 0,
@@ -22924,7 +22957,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-amaanbarmare-clarity-bot.html",
     "_skill_fail_count": 0,
@@ -22977,7 +23010,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-anand21yd-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -23030,7 +23063,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-anand21yd-nemoclaw-free-agent1.html",
     "_skill_fail_count": 0,
@@ -23083,7 +23116,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-artleboss2-nemoclaw-install.html",
     "_skill_fail_count": 0,
@@ -23136,7 +23169,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-baltzreagen-nemoclaw-test.html",
     "_skill_fail_count": 0,
@@ -23189,7 +23222,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-boomerang9-foai.html",
     "_skill_fail_count": 0,
@@ -23242,7 +23275,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-coffeepropwash-s2.html",
     "_skill_fail_count": 0,
@@ -23295,7 +23328,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-consultingfuture4200-clawbot.html",
     "_skill_fail_count": 0,
@@ -23348,7 +23381,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-dpgorman-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -23401,7 +23434,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-digital-doctorz-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -23454,7 +23487,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-dracken-inc-gracey.html",
     "_skill_fail_count": 0,
@@ -23507,7 +23540,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-freddyaitest-nemoclaw-agent-workspace.html",
     "_skill_fail_count": 0,
@@ -23560,7 +23593,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-gkisi27-nemoclaw-agent.html",
     "_skill_fail_count": 0,
@@ -23613,7 +23646,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-gao-ming-085-nemoclaw_agent.html",
     "_skill_fail_count": 0,
@@ -23666,7 +23699,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-geeth-rath-nvidia-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -23719,7 +23752,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-hzami700-nemoclaw-free-agent-tt.html",
     "_skill_fail_count": 0,
@@ -23772,7 +23805,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-hawk050798-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -23825,7 +23858,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-inmodel-labs-ini_claw.html",
     "_skill_fail_count": 0,
@@ -23878,7 +23911,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jjardine919-lattice24.html",
     "_skill_fail_count": 0,
@@ -23931,7 +23964,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jzgaskin-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -23984,7 +24017,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jeremytchase-nemoclaw-ha-addon.html",
     "_skill_fail_count": 0,
@@ -24037,7 +24070,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-joshuaa-daniel-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -24090,7 +24123,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-kenelliott2-kayrepo.html",
     "_skill_fail_count": 0,
@@ -24143,7 +24176,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-kigmon-hazy.html",
     "_skill_fail_count": 0,
@@ -24196,7 +24229,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-lclim2928-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -24249,7 +24282,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-lobster-ki-nemoclaw-new.html",
     "_skill_fail_count": 0,
@@ -24302,7 +24335,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mcgatya09-nemoclaw2.html",
     "_skill_fail_count": 0,
@@ -24355,7 +24388,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mcorsato78-myopenclaw_nemoclaw.html",
     "_skill_fail_count": 0,
@@ -24408,7 +24441,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-macximuss-everthriveai-cell-nemoclaw-freeagent99.html",
     "_skill_fail_count": 0,
@@ -24461,7 +24494,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-manishsv-steward.html",
     "_skill_fail_count": 0,
@@ -24514,7 +24547,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-marcogonzales1970-nemoclaw-agente-ia.html",
     "_skill_fail_count": 0,
@@ -24567,7 +24600,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-marcogonzales1970-nemoclaw-ia---agente.html",
     "_skill_fail_count": 0,
@@ -24620,7 +24653,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mutigen-nemo-open-claw.html",
     "_skill_fail_count": 0,
@@ -24673,7 +24706,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-nivyanithya-nemoclaw1.html",
     "_skill_fail_count": 0,
@@ -24726,7 +24759,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-nizcaresend-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -24779,7 +24812,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-resoulboy14-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -24832,7 +24865,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-resoulboy14-nemoclaw1.html",
     "_skill_fail_count": 0,
@@ -24885,7 +24918,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rahulrajcode-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -24938,7 +24971,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-richard-accel-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -24991,7 +25024,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rohan5commit-lightning-ai-vm.html",
     "_skill_fail_count": 0,
@@ -25044,7 +25077,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rohitgogoi1999-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -25097,7 +25130,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sar0406-free-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -25150,7 +25183,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sanwar161-nemoclaw_agent.html",
     "_skill_fail_count": 0,
@@ -25203,7 +25236,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-samjutamat-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -25256,7 +25289,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sandygits-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -25309,7 +25342,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sargentng-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -25362,7 +25395,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-saurabhgautam007-nemoclaw.co.in.html",
     "_skill_fail_count": 0,
@@ -25415,7 +25448,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sivew-nemoclaw_deployment_terraform.html",
     "_skill_fail_count": 0,
@@ -25468,7 +25501,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-spotsmom-nemoclaw-daily-news-agent.html",
     "_skill_fail_count": 0,
@@ -25521,7 +25554,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-stormyisland-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -25574,7 +25607,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-substr8-labs-runproof-api.html",
     "_skill_fail_count": 0,
@@ -25627,7 +25660,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-tapasdash-nemoclaw-agent.html",
     "_skill_fail_count": 0,
@@ -25680,7 +25713,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-treborrr-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -25733,7 +25766,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-vishnu19hitam-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -25786,7 +25819,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-vitalvibe1-nemoclaw-.html",
     "_skill_fail_count": 0,
@@ -25839,7 +25872,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-yash-kavaiya-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -25892,7 +25925,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-younesic-nemoclaw-workspace.html",
     "_skill_fail_count": 0,
@@ -25945,7 +25978,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-zero-ace5-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -25998,7 +26031,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-znovia-llm-governance-pipeline.html",
     "_skill_fail_count": 0,
@@ -26051,7 +26084,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-aakashh0111-nemoclaw-freeagent.html",
     "_skill_fail_count": 0,
@@ -26104,7 +26137,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-abhixz13-auth0_hackathon.html",
     "_skill_fail_count": 0,
@@ -26157,7 +26190,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ac12644-ac12644.html",
     "_skill_fail_count": 0,
@@ -26210,7 +26243,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-adiiiii13-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -26263,7 +26296,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-agency-world-nemoclaw-demo-agent.html",
     "_skill_fail_count": 0,
@@ -26288,7 +26321,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -26315,11 +26348,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-aigem-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -26372,7 +26406,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ajayyadav9527-nemoclawfree.html",
     "_skill_fail_count": 0,
@@ -26425,7 +26459,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ajayyadav9527-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -26478,7 +26512,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-akayyt786-nemoclaw-setup-agent.html",
     "_skill_fail_count": 0,
@@ -26531,7 +26565,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-akmgta-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -26584,7 +26618,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-akobirrustamov-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -26637,7 +26671,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-animeshinvinci-nemoclaw-try-free.html",
     "_skill_fail_count": 0,
@@ -26690,7 +26724,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ansh17-code-nemoclaw-free-1.html",
     "_skill_fail_count": 0,
@@ -26743,7 +26777,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-antonio-030-sentinalclaw.html",
     "_skill_fail_count": 0,
@@ -26796,7 +26830,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-apharcha-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -26849,7 +26883,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-areebqatest19-beep-nemoclaw-test.html",
     "_skill_fail_count": 0,
@@ -26902,7 +26936,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-areycruzer-my-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -26955,7 +26989,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-aruneee3-nemoclaw-demo.html",
     "_skill_fail_count": 0,
@@ -27008,7 +27042,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-baryonai-openclaw-public-website-chat-agent.html",
     "_skill_fail_count": 0,
@@ -27061,7 +27095,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-botkevinvogel13-home-ai-architecture.html",
     "_skill_fail_count": 0,
@@ -27114,7 +27148,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-brayanranda-nemoclaw-react.html",
     "_skill_fail_count": 0,
@@ -27167,7 +27201,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-brentrockwood-ol4nc.html",
     "_skill_fail_count": 0,
@@ -27220,7 +27254,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-camit001-clawops.html",
     "_skill_fail_count": 0,
@@ -27273,7 +27307,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-cempire777-bit-nemoclaw-freeagent.html",
     "_skill_fail_count": 0,
@@ -27326,7 +27360,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-cieske-nemoclaw-study.html",
     "_skill_fail_count": 0,
@@ -27351,7 +27385,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -27378,11 +27412,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-cnodfcuellar-nemoclaw-cno.dfcuellar.html",
     "_skill_fail_count": 0,
@@ -27435,7 +27470,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-contactnerental-eng-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -27488,7 +27523,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-coolclaws-nemoclaw-book.html",
     "_skill_fail_count": 0,
@@ -27541,7 +27576,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-cp-coder9-nemoclaw-agent.html",
     "_skill_fail_count": 0,
@@ -27594,7 +27629,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-cryptonyte9-nemoclaw-portfolio.html",
     "_skill_fail_count": 0,
@@ -27647,7 +27682,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-cybersmeashish-aisoc_using_nemoclaw_openclaw.html",
     "_skill_fail_count": 0,
@@ -27700,7 +27735,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-darwinleonelmoreno-lab-nemoclaw-dm.html",
     "_skill_fail_count": 0,
@@ -27753,7 +27788,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-deadlyripper-ai-nemoclaw-free.html",
     "_skill_fail_count": 0,
@@ -27807,13 +27842,13 @@
     "categories_present": [
       "Docker Sandbox",
       "Network Exposure",
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Dangerous bind mounts detected",
-      "Container runs as root",
-      "Privileged container mode"
+      "No capability dropping configured",
+      "Root filesystem not read-only",
+      "No seccomp profile configured"
     ],
     "detail_page_url": "rr-repo-dijnie-nemoclaw-docker-deploy.html",
     "_skill_fail_count": 0,
@@ -27866,7 +27901,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-dixitsindha336-oss-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -27919,7 +27954,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-dmitryklavsut-max-sqwady.html",
     "_skill_fail_count": 0,
@@ -27972,7 +28007,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-dominionism-blackfort.html",
     "_skill_fail_count": 0,
@@ -28025,7 +28060,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-eric-kaplan-nemoclaw-contest.html",
     "_skill_fail_count": 0,
@@ -28078,7 +28113,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-eyadasn111-hue-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -28131,7 +28166,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-faredinfaretin-netizen-imperium.html",
     "_skill_fail_count": 0,
@@ -28184,7 +28219,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-fikoudaniel30-spec-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -28237,7 +28272,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-fynnom579b-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -28290,7 +28325,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-geniusraju9-nemo.html",
     "_skill_fail_count": 0,
@@ -28343,7 +28378,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-gito369-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -28396,7 +28431,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-godagoo-nemoclaw-comparison.html",
     "_skill_fail_count": 0,
@@ -28449,7 +28484,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-gorpacrate-nemoclaw-railway.html",
     "_skill_fail_count": 0,
@@ -28502,7 +28537,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-gwillclark-dot-trii.html",
     "_skill_fail_count": 0,
@@ -28555,7 +28590,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-gwjenseniii-nemoclaw-utils.html",
     "_skill_fail_count": 0,
@@ -28580,7 +28615,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -28607,11 +28642,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-hazrulxmiso-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -28664,7 +28700,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-hoyoboy0726123-nemoclaw-architecture.html",
     "_skill_fail_count": 0,
@@ -28717,7 +28753,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-iprashantbhatt-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -28770,7 +28806,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-itsaslamopenclawdata-nemoclawtest.html",
     "_skill_fail_count": 0,
@@ -28823,7 +28859,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jameschn99-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -28876,7 +28912,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jameschn99-nemoclaw11.html",
     "_skill_fail_count": 0,
@@ -28929,7 +28965,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jawhnycooke-nemoclaude.html",
     "_skill_fail_count": 0,
@@ -28982,7 +29018,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jerryb1976-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -29035,7 +29071,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jiio-code-jio-nemoclaw-codespace.html",
     "_skill_fail_count": 0,
@@ -29088,7 +29124,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jmesout-relax-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -29141,7 +29177,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jph2-nemoclaw-workspace.html",
     "_skill_fail_count": 0,
@@ -29194,7 +29230,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-jradtke-rgs-captain-nemo.html",
     "_skill_fail_count": 0,
@@ -29247,7 +29283,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-kemicalkidd-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -29300,7 +29336,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-kimattree-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -29353,7 +29389,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-konidev20-nemoclaw-setup.html",
     "_skill_fail_count": 0,
@@ -29406,7 +29442,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-lakamsani-nemoclaw-test.html",
     "_skill_fail_count": 0,
@@ -29459,7 +29495,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ljefford2-cmyk-local-ai-orchestrator.html",
     "_skill_fail_count": 0,
@@ -29512,7 +29548,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-lokixshrishi-nemoclawxtheshriks.html",
     "_skill_fail_count": 0,
@@ -29565,7 +29601,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-m-newhauser-nemoclaw-workspace.html",
     "_skill_fail_count": 0,
@@ -29618,7 +29654,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mbozzello-nemoclaw-demo.html",
     "_skill_fail_count": 0,
@@ -29671,7 +29707,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-miramar-labs-nemoclaw-dgx-spark.html",
     "_skill_fail_count": 0,
@@ -29724,7 +29760,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mjkstl-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -29777,7 +29813,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mmantc-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -29830,7 +29866,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-musical-shyam-nemoclaw-demo.html",
     "_skill_fail_count": 0,
@@ -29883,7 +29919,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-myppilot-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -29936,7 +29972,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-naveenmorla1901-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -29989,7 +30025,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-nemo-claw-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -30042,7 +30078,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-nikshepclaude1-cmyk-nemoclawnikshep.html",
     "_skill_fail_count": 0,
@@ -30095,7 +30131,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-notvikke-nemoclaw_agent.html",
     "_skill_fail_count": 0,
@@ -30148,7 +30184,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-nsvistunov-hash-nemoclaw_agent.html",
     "_skill_fail_count": 0,
@@ -30201,7 +30237,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-oohegor-nemoclaw-demo.html",
     "_skill_fail_count": 0,
@@ -30226,7 +30262,7 @@
     "review_score": 0,
     "exposure_score": 0,
     "grade": "GREEN",
-    "confidence": "✔",
+    "confidence": "❓",
     "tier1_count": 0,
     "tier2_count": 0,
     "tier3_count": 18,
@@ -30253,11 +30289,12 @@
     "has_soul_artifacts": false,
     "has_runtime_artifacts": false,
     "categories_present": [
-      "Configuration",
-      "Credential Hygiene"
+      "Credential Hygiene",
+      "Configuration"
     ],
     "key_signals": [
-      "Mostly inferred defaults"
+      "Mostly inferred defaults",
+      "Limited artifacts available"
     ],
     "detail_page_url": "rr-repo-perumalvijay2008-hue-nemoclaw-codespace.html",
     "_skill_fail_count": 0,
@@ -30310,7 +30347,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-phsfamily-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -30363,7 +30400,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-pleasebeavailable-news-agent.html",
     "_skill_fail_count": 0,
@@ -30416,7 +30453,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-pritzhub-nemoreconstruct.html",
     "_skill_fail_count": 0,
@@ -30469,7 +30506,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-priyam-02-pe_deal_tracker.html",
     "_skill_fail_count": 0,
@@ -30522,7 +30559,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-priyam-02-personal_agent.html",
     "_skill_fail_count": 0,
@@ -30575,7 +30612,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-purple-squirrel-network-indaloop.html",
     "_skill_fail_count": 0,
@@ -30628,7 +30665,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-qpdbcoocdbqp-drive.html",
     "_skill_fail_count": 0,
@@ -30681,7 +30718,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-quisermate-code-nemoclaw-free-ai-agent2.html",
     "_skill_fail_count": 0,
@@ -30734,7 +30771,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rabeyaislameshita-mm-nemito.html",
     "_skill_fail_count": 0,
@@ -30787,7 +30824,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-ranjats-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -30840,7 +30877,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-robbiesrobotics-bot-alice-agents.html",
     "_skill_fail_count": 0,
@@ -30893,7 +30930,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rp-tn-clawwatch.html",
     "_skill_fail_count": 0,
@@ -30946,7 +30983,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sanjukira-nemoclawo.html",
     "_skill_fail_count": 0,
@@ -30999,7 +31036,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-satyamyadav33-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -31052,7 +31089,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sau-verse-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -31105,7 +31142,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-serpapi-serpapi-search-skill.html",
     "_skill_fail_count": 0,
@@ -31158,7 +31195,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sg-surya-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -31211,7 +31248,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-shankarpandala-learn-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -31264,7 +31301,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-shigau97-nemoclawfree.html",
     "_skill_fail_count": 0,
@@ -31317,7 +31354,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-shivamahuja99-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -31370,7 +31407,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-shravan-kumar-nalacharla-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -31423,7 +31460,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-signatureofgod2018-basilica.html",
     "_skill_fail_count": 0,
@@ -31476,7 +31513,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-slopp-nemoclaw-demos.html",
     "_skill_fail_count": 0,
@@ -31529,7 +31566,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sshubham-dev-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -31582,7 +31619,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-sudeshgvp-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -31635,7 +31672,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-tanmaydesai07-openclaw-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -31688,7 +31725,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-tbgkiller-k3s-unraid-plugin.html",
     "_skill_fail_count": 0,
@@ -31741,7 +31778,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-thanhan92-f1-nemo-claw.html",
     "_skill_fail_count": 0,
@@ -31794,7 +31831,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-thierrypdamiba-qdrant-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -31847,7 +31884,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-tomisu76-nemoclaw.html",
     "_skill_fail_count": 0,
@@ -31900,7 +31937,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-tomisu76-nemoclaw-free-agent.html",
     "_skill_fail_count": 0,
@@ -31953,7 +31990,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-tranzmatt-nemoclaw-installer.html",
     "_skill_fail_count": 0,
@@ -32006,7 +32043,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-tummybutters-operator_ava.html",
     "_skill_fail_count": 0,
@@ -32059,7 +32096,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-university-claw-mjuclaw-server.html",
     "_skill_fail_count": 0,
@@ -32112,7 +32149,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-utkarshmacwork-create-nemoclaw-free-nvapi.html",
     "_skill_fail_count": 0,
@@ -32165,7 +32202,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-vinuraabeysundara1-cyber-nemoclaw-realtor.html",
     "_skill_fail_count": 0,
@@ -32218,7 +32255,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-yennanliu-nemoclaw-mba-intel-1.html",
     "_skill_fail_count": 0,
@@ -32271,7 +32308,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-yossitv-vibeverse.html",
     "_skill_fail_count": 0,
@@ -32324,7 +32361,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-zhiwehu-python-programming-exercises.html",
     "_skill_fail_count": 0,
@@ -32377,7 +32414,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-wethinkin-aigc-interview-book.html",
     "_skill_fail_count": 0,
@@ -32430,7 +32467,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-mutouyun-cpp-ipc.html",
     "_skill_fail_count": 0,
@@ -32483,7 +32520,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-decolua-9router.html",
     "_skill_fail_count": 0,
@@ -32536,7 +32573,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-versuscontrol-devops-ai-guidelines.html",
     "_skill_fail_count": 0,
@@ -32589,7 +32626,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-openraiser-nanoresearch.html",
     "_skill_fail_count": 0,
@@ -32642,7 +32679,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-rawwerks-ypi.html",
     "_skill_fail_count": 0,
@@ -32695,7 +32732,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-leoyeai-myclaw-bench.html",
     "_skill_fail_count": 0,
@@ -32748,7 +32785,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-adshao-publications.html",
     "_skill_fail_count": 0,
@@ -32801,7 +32838,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-denda188-clawintelligentmemory.html",
     "_skill_fail_count": 0,
@@ -32854,7 +32891,7 @@
     "has_runtime_artifacts": false,
     "categories_present": [],
     "key_signals": [
-      "Limited artifacts available"
+      "Not yet scanned"
     ],
     "detail_page_url": "rr-repo-openclaw-trust.html",
     "_skill_fail_count": 0,

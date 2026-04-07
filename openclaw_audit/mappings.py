@@ -1061,6 +1061,90 @@ _reg(CheckDefinition(
 ))
 
 
+# ── Agent Safety (OC-AGENT) ──────────────────────────────────────────────
+
+_reg(CheckDefinition(
+    check_id="OC-AGENT-001",
+    title="No loop / runaway protection",
+    description="No iteration limit, timeout, or circuit breaker configured. "
+                "The agent may loop indefinitely consuming resources or "
+                "taking repeated harmful actions.",
+    category="Agent Safety",
+    severity=Severity.HIGH,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI01", "ASI09"],
+        atlas=["AML.T0054"],
+        aicm=["Application and Interface Security"],
+        maestro=["L3", "L4"],
+        whitepaper_section="3.1",
+    ),
+    recommendation="Set an explicit iteration or step limit (e.g. agent.max_iterations) "
+                   "and a wall-clock timeout for agent execution.",
+))
+
+_reg(CheckDefinition(
+    check_id="OC-AGENT-002",
+    title="No human-in-the-loop enforcement",
+    description="No mechanism requires user approval before the agent executes "
+                "high-impact actions. The agent may take destructive or "
+                "irreversible actions without human oversight.",
+    category="Agent Safety",
+    severity=Severity.HIGH,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI01", "ASI04"],
+        atlas=["AML.T0054"],
+        aicm=["IAM", "Application and Interface Security"],
+        maestro=["L3", "L5"],
+        whitepaper_section="3.2",
+    ),
+    recommendation="Enable human-in-the-loop for dangerous operations. "
+                   "Set agent.require_approval or auto_approve=false for "
+                   "file writes, network access, and command execution.",
+))
+
+_reg(CheckDefinition(
+    check_id="OC-AGENT-003",
+    title="No audit logging configured",
+    description="Agent actions, tool calls, and decisions are not being logged. "
+                "This makes incident investigation and compliance auditing "
+                "impossible.",
+    category="Agent Safety",
+    severity=Severity.MEDIUM,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI08"],
+        atlas=["AML.T0054"],
+        aicm=["Logging and Monitoring", "Governance"],
+        maestro=["L5", "L7"],
+        whitepaper_section="3.3",
+    ),
+    recommendation="Enable audit logging for all agent actions. Configure "
+                   "logging.audit or telemetry.enabled in the agent config.",
+))
+
+_reg(CheckDefinition(
+    check_id="OC-AGENT-004",
+    title="No tool access scope restrictions",
+    description="The agent has no explicit allowlist or restrictions on which "
+                "tools it can invoke. It may access filesystem, network, "
+                "or system tools beyond what the task requires.",
+    category="Agent Safety",
+    severity=Severity.HIGH,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI02", "ASI04"],
+        atlas=["AML.T0040"],
+        aicm=["IAM", "Application and Interface Security"],
+        maestro=["L3", "L4"],
+        whitepaper_section="3.4",
+    ),
+    recommendation="Define an explicit tool allowlist (agent.allowed_tools) "
+                   "scoped to the minimum set of tools needed for the task.",
+))
+
+
 def get_check(check_id: str) -> CheckDefinition:
     return CHECKS[check_id]
 

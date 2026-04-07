@@ -250,17 +250,14 @@ def compute_score(findings: list[Finding]) -> ScoreResult:
     has_critical = False
     key_signals: list[str] = []
 
-    # Track artifact presence for confidence
+    # Track artifact presence for confidence — only count categories
+    # where there is a real (non-tier3) FAIL or WARN, not just PASS.
     has_tier1 = False
-    artifact_categories = set()
+    observed_artifact_categories = set()
 
     for f in findings:
         if f.status == Status.SKIP:
             continue
-
-        # Track artifact presence
-        if f.status in (Status.PASS, Status.FAIL, Status.WARN):
-            artifact_categories.add(f.category)
 
         if f.severity == Severity.CRITICAL and f.status == Status.FAIL:
             has_critical = True
@@ -272,12 +269,17 @@ def compute_score(findings: list[Finding]) -> ScoreResult:
                 key_signals.append(f"{f.check_id}: {f.title}")
             else:
                 tier2 += 1
+                key_signals.append(f"{f.check_id}: {f.title}")
+            observed_artifact_categories.add(f.category)
         elif f.status == Status.WARN:
             if _NO_CONFIG_NEEDLE in (f.detail or ""):
                 tier3 += 1
+                # Tier 3 config-inference warnings do NOT count as
+                # observed artifacts and are excluded from signals.
             else:
                 tier2 += 1
                 key_signals.append(f"{f.check_id}: {f.title}")
+                observed_artifact_categories.add(f.category)
 
     exposure_score = (tier1 * 3) + (tier2 * 1)
 
@@ -289,19 +291,18 @@ def compute_score(findings: list[Finding]) -> ScoreResult:
     else:
         grade, grade_icon = "GREEN", "\U0001f7e9"
 
-    # Confidence
-    # High: Tier1 findings exist OR meaningful artifacts found
-    meaningful_artifacts = {"Docker Sandbox", "Skill Vetting", "MCP Server Audit",
-                           "Credential Hygiene"}
-    has_meaningful = bool(artifact_categories & meaningful_artifacts)
-    if has_tier1 or has_meaningful:
+    # Confidence — based on strength of observed evidence, not just
+    # category presence.  Tier 3 config-inference findings and bare
+    # PASS results are intentionally excluded.
+    if has_tier1:
         confidence, confidence_icon = "High", "\u2714"
-    elif tier2 > 0 and len(artifact_categories) > 1:
+    elif len(observed_artifact_categories) >= 1:
+        # Real FAIL/WARN findings in at least one meaningful category
         confidence, confidence_icon = "Medium", "\u2796"
     else:
         confidence, confidence_icon = "Low", "\u2753"
 
-    # Cap key signals to top 5
+    # Cap key signals — prioritise tier1 (already first), then tier2
     key_signals = key_signals[:5]
 
     return ScoreResult(

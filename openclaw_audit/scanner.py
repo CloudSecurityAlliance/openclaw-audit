@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from .checks import config, credentials, docker_audit, mcp, permissions, skills, soul, version
+from .checks import agent_safety, config, credentials, docker_audit, mcp, permissions, skills, soul, version
 from .context import detect_context
 from .mappings import CHECKS
 from .models import (
@@ -23,6 +23,7 @@ ALL_CHECK_MODULES = [
     credentials,
     docker_audit,
     version,
+    agent_safety,
 ]
 
 

@@ -48,6 +48,18 @@ MCP_CHECK_IDS = {
     "OC-MCP-004", "OC-MCP-005", "OC-MCP-006",
 }
 
+# Tier 1 check IDs (must match models.py TIER1_CHECK_IDS)
+TIER1_CHECK_IDS = {
+    "OC-SKILL-001", "OC-SKILL-002", "OC-SKILL-003", "OC-SKILL-004",
+    "OC-CRED-002", "OC-CRED-004",
+    "OC-MCP-001",
+    "OC-DOCK-004", "OC-DOCK-006", "OC-NET-001",
+    "OC-PERM-002",
+    "OC-SOUL-001", "OC-SOUL-007",
+}
+
+_NO_CONFIG_NEEDLE = "No config file found"
+
 # Categories that indicate artifact presence
 DOCKER_CATEGORIES = {"Docker Sandbox"}
 SKILL_CATEGORIES = {"Skill Vetting"}
@@ -179,22 +191,65 @@ def compute_repo_entry(csv_row: dict, audit: dict | None) -> dict:
     updated_at = csv_row.get("updated_at", "")
     variant_score = int(csv_row.get("score", 0) or 0)
 
-    # --- Audit data extraction ---
-    scoring = {}
+    # --- Recompute scoring from raw findings (not stale scoring block) ---
     findings = []
     if audit:
-        scoring = audit.get("scoring", {})
         findings = audit.get("findings", [])
 
-    tier1_count = scoring.get("tier1_count", 0)
-    tier2_count = scoring.get("tier2_count", 0)
-    tier3_count = scoring.get("tier3_count", 0)
-    exposure_score = scoring.get("exposure_score", 0)
-    grade = scoring.get("grade", "GREEN")
-    confidence_text = scoring.get("confidence", "Low")
-    confidence = confidence_to_icon(confidence_text)
-    has_critical = scoring.get("has_critical", False)
-    key_signals_raw = scoring.get("key_signals", [])
+    tier1_count = 0
+    tier2_count = 0
+    tier3_count = 0
+    has_critical = False
+    key_signals_raw: list[str] = []
+    observed_artifact_categories: set[str] = set()
+
+    for f in findings:
+        fid = f.get("id", "")
+        status = f.get("status", "")
+        severity = f.get("severity", "")
+        detail = f.get("detail", "")
+
+        if status == "SKIP":
+            continue
+
+        if severity == "CRITICAL" and status == "FAIL":
+            has_critical = True
+
+        if status == "FAIL":
+            if fid in TIER1_CHECK_IDS:
+                tier1_count += 1
+                key_signals_raw.append(f"{fid}: {f.get('title', '')}")
+            else:
+                tier2_count += 1
+                key_signals_raw.append(f"{fid}: {f.get('title', '')}")
+            observed_artifact_categories.add(f.get("category", ""))
+        elif status == "WARN":
+            if _NO_CONFIG_NEEDLE in detail:
+                tier3_count += 1
+            else:
+                tier2_count += 1
+                key_signals_raw.append(f"{fid}: {f.get('title', '')}")
+                observed_artifact_categories.add(f.get("category", ""))
+
+    exposure_score = (tier1_count * 3) + (tier2_count * 1)
+
+    # Grade
+    if exposure_score >= 6 or has_critical:
+        grade = "RED"
+    elif exposure_score >= 2:
+        grade = "YELLOW"
+    else:
+        grade = "GREEN"
+
+    # Confidence — matches v2 model in models.py
+    if tier1_count > 0:
+        confidence = "\u2714"
+    elif len(observed_artifact_categories) >= 1:
+        confidence = "\u2796"
+    else:
+        confidence = "\u2753"
+
+    key_signals_raw = key_signals_raw[:5]
 
     # Count by status
     fail_count = sum(1 for f in findings if f.get("status") == "FAIL")
@@ -218,7 +273,8 @@ def compute_repo_entry(csv_row: dict, audit: dict | None) -> dict:
     finding_categories = {f.get("category", "") for f in findings
                           if f.get("status") in ("PASS", "FAIL", "WARN")}
     finding_ids_active = {f.get("id", "") for f in findings
-                          if f.get("status") in ("FAIL", "WARN")}
+                          if f.get("status") in ("FAIL", "WARN")
+                          and _NO_CONFIG_NEEDLE not in f.get("detail", "")}
 
     has_docker_artifacts = bool(finding_categories & DOCKER_CATEGORIES)
     has_skill_artifacts = bool(finding_categories & SKILL_CATEGORIES)
@@ -270,20 +326,22 @@ def compute_repo_entry(csv_row: dict, audit: dict | None) -> dict:
     if grade == "YELLOW":
         review_score = exposure_score + tier2_count
 
-    # --- Key signals ---
+    # --- Key signals (max 3, tier1 first then tier2, no config defaults) ---
     key_signals = []
     if key_signals_raw:
         key_signals = [s.split(": ", 1)[-1] if ": " in s else s
                        for s in key_signals_raw[:3]]
     if not key_signals:
         if is_unknown_or_low_confidence:
-            if skip_count > 10:
+            if tier3_count > 10:
                 key_signals.append("Mostly inferred defaults")
+            if not audit:
+                key_signals.append("Not yet scanned")
             else:
                 key_signals.append("Limited artifacts available")
         elif has_config_inference_only:
-            key_signals.append("Config inference only")
-        elif grade == "GREEN":
+            key_signals.append("Config inference only — no observed risk")
+        elif grade == "GREEN" and audit:
             key_signals.append("No significant issues found")
 
     # --- Detail page URL ---
