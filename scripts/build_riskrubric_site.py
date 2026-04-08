@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the RiskRubric Agent Repo Leaderboard static site.
+"""Build the RiskRubric Claw Repo Leaderboard static site.
 
 Reads:
   - site-data/leaderboard-summary.json  (master summary from build_leaderboard_summary.py)
@@ -595,14 +595,14 @@ def build_homepage(repos_json, csa_logo_uri, csai_logo_uri):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RiskRubric Agent Repo Leaderboard</title>
+<title>RiskRubric Claw Repo Leaderboard</title>
 <style>{COMMON_CSS}{HOMEPAGE_CSS}</style>
 </head>
 <body>
 <header class="site-header">
   {logo_left}
   <div class="header-center">
-    <h1>RiskRubric Agent Repo Leaderboard</h1>
+    <h1>RiskRubric Claw Repo Leaderboard</h1>
     <div class="subtitle">Powered by <a href="https://github.com/cloudsecurityalliance/openclaw-audit" target="_blank" rel="noopener" style="color:var(--csa-light-blue)">openclaw-audit</a> v1.0.0 — CSAI OpenClaw Hardening Guide Compliance Scanner</div>
   </div>
   {logo_right}
@@ -992,7 +992,7 @@ def build_report_page(repo_info, csa_logo_uri, csai_logo_uri):
 <header class="site-header">
   {logo_left}
   <div class="header-center">
-    <h1>RiskRubric Agent Repo Leaderboard</h1>
+    <h1>RiskRubric Claw Repo Leaderboard</h1>
     <a class="back-link" href="index.html">&larr; Back to Leaderboard</a>
   </div>
   {logo_right}
