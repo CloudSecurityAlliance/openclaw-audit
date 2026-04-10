@@ -122,7 +122,13 @@ table.leaderboard thead th {
     background: var(--csa-navy); color: white; padding: 10px 12px;
     text-align: left; font-size: 0.75rem; text-transform: uppercase;
     letter-spacing: 0.04em; white-space: nowrap;
+    cursor: pointer; user-select: none; position: relative;
 }
+table.leaderboard thead th:hover { background: #163a6e; }
+table.leaderboard thead th .sort-arrow {
+    font-size: 0.65em; margin-left: 4px; opacity: 0.4;
+}
+table.leaderboard thead th.sorted .sort-arrow { opacity: 1; }
 table.leaderboard tbody tr { cursor: pointer; transition: background 0.15s; }
 table.leaderboard tbody tr:nth-child(even) { background: var(--csa-light-gray); }
 table.leaderboard tbody tr:hover { background: #e3ecf7; }
@@ -130,6 +136,11 @@ table.leaderboard td { padding: 8px 12px; font-size: 0.84rem; vertical-align: mi
 td.rank { width: 40px; text-align: center; font-weight: 600; color: #999; }
 td.repo-name { max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 td.repo-name a { font-weight: 600; }
+td.repo-name a.gh-link {
+    font-weight: 400; font-size: 0.75rem; color: var(--csa-light-blue);
+    opacity: 0.6; vertical-align: super;
+}
+td.repo-name a.gh-link:hover { opacity: 1; }
 td.score { font-family: 'Fira Code', Consolas, monospace; text-align: center; }
 td.confidence { text-align: center; font-size: 1rem; }
 .signal-chip {
@@ -246,6 +257,8 @@ window.__LEADERBOARD_DATA__ = [{"repo": "openclaw/openclaw", "html_url": "https:
     let gradeFilter = 'all';
     let confidenceFilter = 'all';
     let variantTypeFilter = 'all';
+    let colSortKey = null;   // null = use view default sort
+    let colSortAsc = true;
 
     const CONFIDENCE_ORDER = {'\u2714': 0, '\u2796': 1, '\u2753': 2};
     const GRADE_ORDER = {'RED': 0, 'YELLOW': 1, 'GREEN': 2};
@@ -342,7 +355,43 @@ window.__LEADERBOARD_DATA__ = [{"repo": "openclaw/openclaw", "html_url": "https:
         return rows;
     }
 
+    // Map column keys to sort-value extractors
+    const COL_SORT_VALUE = {
+        rank: r => r.popularity_rank || 999,
+        repo: r => r.repo.toLowerCase(),
+        grade: r => GRADE_ORDER[r.grade] || 2,
+        confidence: r => CONFIDENCE_ORDER[r.confidence] || 2,
+        stars: r => r.stars || 0,
+        forks: r => r.forks || 0,
+        updated: r => r.updated_at || '',
+        exposure: r => r.exposure_score || 0,
+        critical: r => r.critical_count || 0,
+        high: r => r.high_count || 0,
+        review_score: r => r.review_score || 0,
+        type: r => r.variant_type || '',
+        skill_fail: r => r._skill_fail_count || 0,
+        skill_warn: r => r._skill_warn_count || 0,
+        docker_fail: r => r._docker_fail_count || 0,
+        danger: r => r.danger_score || 0,
+        cred_fail: r => r._cred_fail_count || 0,
+        signals: r => (r.key_signals || []).length
+    };
+
     function sortData(rows) {
+        // If user clicked a column header, sort by that column
+        if (colSortKey && COL_SORT_VALUE[colSortKey]) {
+            const extract = COL_SORT_VALUE[colSortKey];
+            rows.sort((a, b) => {
+                let av = extract(a), bv = extract(b);
+                if (typeof av === 'string') {
+                    const cmp = av.localeCompare(bv);
+                    return colSortAsc ? cmp : -cmp;
+                }
+                return colSortAsc ? av - bv : bv - av;
+            });
+            return rows;
+        }
+
         const confSort = (a, b) => (CONFIDENCE_ORDER[a.confidence]||2) - (CONFIDENCE_ORDER[b.confidence]||2);
         const gradeSort = (a, b) => (GRADE_ORDER[a.grade]||2) - (GRADE_ORDER[b.grade]||2);
 
@@ -470,11 +519,25 @@ window.__LEADERBOARD_DATA__ = [{"repo": "openclaw/openclaw", "html_url": "https:
 
         const cols = VIEW_COLUMNS[currentView];
 
-        // Update header
+        // Update header with sortable columns
         const thead = document.getElementById('leaderboardHead');
-        thead.innerHTML = '<tr>' + cols.map(c =>
-            '<th scope="col">' + COL_HEADERS[c] + '</th>'
-        ).join('') + '</tr>';
+        thead.innerHTML = '<tr>' + cols.map(c => {
+            const arrow = colSortKey === c
+                ? (colSortAsc ? ' \u25B2' : ' \u25BC')
+                : ' \u21C5';
+            const cls = colSortKey === c ? ' class="sorted"' : '';
+            return '<th scope="col" data-col="' + c + '"' + cls + '>'
+                + COL_HEADERS[c]
+                + '<span class="sort-arrow">' + arrow + '</span></th>';
+        }).join('') + '</tr>';
+        thead.querySelectorAll('th[data-col]').forEach(th => {
+            th.addEventListener('click', function() {
+                const col = this.dataset.col;
+                if (colSortKey === col) { colSortAsc = !colSortAsc; }
+                else { colSortKey = col; colSortAsc = true; }
+                render();
+            });
+        });
 
         // Update desc
         viewDescEl.innerHTML = VIEW_DESCRIPTIONS[currentView];
@@ -511,6 +574,17 @@ window.__LEADERBOARD_DATA__ = [{"repo": "openclaw/openclaw", "html_url": "https:
                     a.title = r.repo;
                     a.textContent = r.repo;
                     td.appendChild(a);
+                    if (r.html_url) {
+                        const gh = document.createElement('a');
+                        gh.href = r.html_url;
+                        gh.target = '_blank';
+                        gh.rel = 'noopener';
+                        gh.title = 'View on GitHub';
+                        gh.className = 'gh-link';
+                        gh.textContent = '\u2197';
+                        td.appendChild(document.createTextNode(' '));
+                        td.appendChild(gh);
+                    }
                 } else {
                     td.innerHTML = cellValue(r, col);
                 }
@@ -533,6 +607,7 @@ window.__LEADERBOARD_DATA__ = [{"repo": "openclaw/openclaw", "html_url": "https:
             viewTabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             currentView = tab.dataset.view;
+            colSortKey = null; colSortAsc = true;
             render();
         });
     });
