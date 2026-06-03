@@ -151,30 +151,34 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="hero-card">
   <h2>openclaw/openclaw-windows-node</h2>
   <div class="hero-meta">
-    <span class="grade-badge grade-green">GREEN</span>
-    <span>Exposure Score: <strong class="hero-score">0</strong></span>
-    <span>❓ Confidence</span>
-    <span>Source Code Scan | Total Checks: 46</span>
+    <span class="grade-badge grade-red">RED</span>
+    <span>Exposure Score: <strong class="hero-score">7</strong></span>
+    <span>✔ Confidence</span>
+    <span>Source Code Scan | Total Checks: 52</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **0 failure(s)** and **18 warning(s)** across 46 checks.</p>
+<div class="exec-tables"><p>The audit identified **2 failure(s)** and **19 warning(s)** across 52 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
+<td>FAIL</td>
+<td>2</td>
+</tr>
+<tr>
 <td>WARN</td>
-<td>18</td>
+<td>19</td>
 </tr>
 <tr>
 <td>PASS</td>
-<td>1</td>
+<td>9</td>
 </tr>
 <tr>
 <td>SKIP</td>
-<td>27</td>
+<td>22</td>
 </tr>
 </tbody></table>
 <table>
@@ -183,11 +187,28 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
+<td>HIGH</td>
+<td>2</td>
+</tr>
+<tr>
 <td>INFO</td>
-<td>18</td>
+<td>19</td>
 </tr>
 </tbody></table></div>
   <details class="section-group">
+  <summary><span class="section-h2">Agent Safety</span> <span class="count-badge">1 finding</span></summary>
+  <div class="finding-card sev-yellow">
+  <div class="finding-header">
+    <span class="finding-title">🟡 OC-AGENT-004: No tool access scope restrictions</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-warn">WARN</span>
+  </div>
+  <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
+  
+  <div class="recommendation-box"><strong>Recommendation:</strong> Define an explicit tool allowlist (agent.allowed_tools) scoped to the minimum set of tools needed for the task.</div>
+  
+</div>
+</details><details class="section-group">
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">18 findings</span></summary>
   <div class="finding-card sev-yellow">
   <div class="finding-header">
@@ -387,9 +408,88 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="recommendation-box"><strong>Recommendation:</strong> Add ~/.ssh, ~/.gnupg, ~/.aws, ~/.kube, ~/.docker, browser profiles, and keychain directories to tools.fs.exclude.</div>
   
 </div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">2 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [openclaw/openclaw-windows-node/.agents/skills/autoreview/SKILL.md, openclaw/openclaw-windows-node/src/skills/windows-a2ui/SKILL.md, openclaw/openclaw-windows-node/.agents/skills, ...and 1 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;, &#x27;Node child_process&#x27;, &#x27;execSync() call&#x27;] [openclaw/openclaw-windows-node/.agents/skills/autoreview/SKILL.md, openclaw/openclaw-windows-node/.agents/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
+  
+</div>
 </details><details class="section-group">
-  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">1 finding</span></summary>
+  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">9 findings</span></summary>
   <div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-002: External download instructions in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
+  <div class="evidence-block">openclaw/openclaw-windows-node/.agents/skills/autoreview/SKILL.md, openclaw/openclaw-windows-node/src/skills/windows-a2ui/SKILL.md, openclaw/openclaw-windows-node/.agents/skills, ...and 1 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  <div class="evidence-block">openclaw/openclaw-windows-node/.agents/skills/autoreview/SKILL.md, openclaw/openclaw-windows-node/src/skills/windows-a2ui/SKILL.md, openclaw/openclaw-windows-node/.agents/skills, ...and 1 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
+  <div class="evidence-block">openclaw/openclaw-windows-node/.agents/skills/autoreview/SKILL.md, openclaw/openclaw-windows-node/src/skills/windows-a2ui/SKILL.md, openclaw/openclaw-windows-node/.agents/skills, ...and 1 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  <div class="evidence-block">openclaw/openclaw-windows-node/.agents/skills/autoreview/SKILL.md, openclaw/openclaw-windows-node/src/skills/windows-a2ui/SKILL.md, openclaw/openclaw-windows-node/.agents/skills, ...and 1 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">openclaw/openclaw-windows-node/src/skills/windows-a2ui/SKILL.md, openclaw/openclaw-windows-node/src/skills</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
   <div class="finding-header">
     <span class="finding-title">🟢 OC-CRED-001: API keys in plaintext config files</span>
     <span class="severity-badge severity-info">INFO</span>
@@ -397,6 +497,39 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   </div>
   <div class="finding-desc">Plaintext API keys or tokens found in configuration files.</div>
   
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-AGENT-001: No loop / runaway protection</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
+  <div class="evidence-block">&quot;HealthTimeoutSeconds&quot;: 90,</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-AGENT-002: No human-in-the-loop enforcement</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
+  <div class="evidence-block">-- /bin/bash -c &#x27;export PATH=&quot;${RUNNER_TEMP}/gh-aw/mcp-cli/bin:$PATH&quot; &amp;&amp; export PATH=&quot;$(find /opt/hostedtoolcache /home/runner/work/_tool -maxdepth 4 -type d -name bin 2&gt;/dev/null | tr &#x27;\&#x27;&#x27;\n&#x27;\&#x27;&#x27; &#x27;\&#x27;&#x27;</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-AGENT-003: No audit logging configured</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
+  <div class="evidence-block">printf &#x27;%s\n&#x27; &#x27;{&quot;$schema&quot;:&quot;https://github.com/github/gh-aw-firewall/releases/download/v0.25.41/awf-config.schema.json&quot;,&quot;network&quot;:{&quot;allowDomains&quot;:[&quot;*.vsblob.vsassets.io&quot;,&quot;api.business.githubcopilot.com</div>
   
   
 </div>

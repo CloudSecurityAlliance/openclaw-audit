@@ -416,17 +416,6 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">3 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [szepol/NemoClaw/.agents/skills/nemoclaw-security-best/SKILL.md, szepol/NemoClaw/.agents/skills, szepol/NemoClaw/.claude/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
     <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
     <span class="severity-badge severity-critical">CRITICAL</span>
     <span class="status-badge status-fail">FAIL</span>
@@ -434,6 +423,17 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
   <div class="evidence-block">Download patterns: [&#x27;External binary download-and-run instruction&#x27;, &#x27;Pipe-to-shell download pattern&#x27;] [szepol/NemoClaw/.agents/skills/nemoclaw-get-started/SKILL.md, szepol/NemoClaw/.agents/skills, szepol/NemoClaw/.claude/skills]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [szepol/NemoClaw/.agents/skills/nemoclaw-security-best/SKILL.md, szepol/NemoClaw/.agents/skills, szepol/NemoClaw/.claude/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
   
 </div>
 <div class="finding-card sev-yellow">
@@ -456,7 +456,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">szepol/NemoClaw/.agents/skills/nemoclaw-manage-policy/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-workspace/SKILL.md, szepol/NemoClaw/.agents/skills/update-docs/SKILL.md, ...and 8 more</div>
+  <div class="evidence-block">szepol/NemoClaw/.agents/skills/nemoclaw-reference/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-overview/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-deploy-remote/SKILL.md, ...and 8 more</div>
   
   
 </div>
@@ -467,7 +467,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">szepol/NemoClaw/.agents/skills/nemoclaw-manage-policy/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-workspace/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-security-best/SKILL.md, ...and 8 more</div>
+  <div class="evidence-block">szepol/NemoClaw/.agents/skills/nemoclaw-reference/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-overview/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-deploy-remote/SKILL.md, ...and 8 more</div>
   
   
 </div>
@@ -478,7 +478,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">szepol/NemoClaw/.agents/skills/nemoclaw-manage-policy/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-workspace/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-security-best/SKILL.md, ...and 11 more</div>
+  <div class="evidence-block">szepol/NemoClaw/.agents/skills/nemoclaw-reference/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-overview/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-deploy-remote/SKILL.md, ...and 11 more</div>
   
   
 </div>
@@ -489,7 +489,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">szepol/NemoClaw/.agents/skills/nemoclaw-manage-policy/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-workspace/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-security-best/SKILL.md, ...and 11 more</div>
+  <div class="evidence-block">szepol/NemoClaw/.agents/skills/nemoclaw-reference/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-overview/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-deploy-remote/SKILL.md, ...and 11 more</div>
   
   
 </div>
@@ -500,7 +500,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">szepol/NemoClaw/.agents/skills/nemoclaw-manage-policy/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-workspace/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-security-best/SKILL.md, ...and 8 more</div>
+  <div class="evidence-block">szepol/NemoClaw/.agents/skills/nemoclaw-reference/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-overview/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-deploy-remote/SKILL.md, ...and 8 more</div>
   
   
 </div>
@@ -511,7 +511,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">szepol/NemoClaw/.agents/skills/nemoclaw-manage-policy/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-workspace/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-security-best/SKILL.md, ...and 11 more</div>
+  <div class="evidence-block">szepol/NemoClaw/.agents/skills/nemoclaw-reference/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-overview/SKILL.md, szepol/NemoClaw/.agents/skills/nemoclaw-deploy-remote/SKILL.md, ...and 11 more</div>
   
   
 </div>
@@ -533,7 +533,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">timeout-minutes: 15</div>
+  <div class="evidence-block">timeout-minutes: 45</div>
   
   
 </div>

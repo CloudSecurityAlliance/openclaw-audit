@@ -151,30 +151,34 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="hero-card">
   <h2>yuga-hashimoto/openclaw-assistant</h2>
   <div class="hero-meta">
-    <span class="grade-badge grade-yellow">YELLOW</span>
-    <span>Exposure Score: <strong class="hero-score">4</strong></span>
-    <span>➖ Confidence</span>
+    <span class="grade-badge grade-red">RED</span>
+    <span>Exposure Score: <strong class="hero-score">10</strong></span>
+    <span>✔ Confidence</span>
     <span>Source Code Scan | Total Checks: 50</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **0 failure(s)** and **22 warning(s)** across 50 checks.</p>
+<div class="exec-tables"><p>The audit identified **2 failure(s)** and **22 warning(s)** across 50 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
+<td>FAIL</td>
+<td>2</td>
+</tr>
+<tr>
 <td>WARN</td>
 <td>22</td>
 </tr>
 <tr>
 <td>PASS</td>
-<td>1</td>
+<td>5</td>
 </tr>
 <tr>
 <td>SKIP</td>
-<td>27</td>
+<td>21</td>
 </tr>
 </tbody></table>
 <table>
@@ -183,24 +187,21 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
+<td>CRITICAL</td>
+<td>1</td>
+</tr>
+<tr>
+<td>HIGH</td>
+<td>1</td>
+</tr>
+<tr>
 <td>INFO</td>
 <td>22</td>
 </tr>
 </tbody></table></div>
   <details class="section-group">
-  <summary><span class="section-h2">Agent Safety</span> <span class="count-badge">4 findings</span></summary>
+  <summary><span class="section-h2">Agent Safety</span> <span class="count-badge">3 findings</span></summary>
   <div class="finding-card sev-yellow">
-  <div class="finding-header">
-    <span class="finding-title">🟡 OC-AGENT-001: No loop / runaway protection</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-warn">WARN</span>
-  </div>
-  <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  
-  <div class="recommendation-box"><strong>Recommendation:</strong> Set an explicit iteration or step limit (e.g. agent.max_iterations) and a wall-clock timeout for agent execution.</div>
-  
-</div>
-<div class="finding-card sev-yellow">
   <div class="finding-header">
     <span class="finding-title">🟡 OC-AGENT-002: No human-in-the-loop enforcement</span>
     <span class="severity-badge severity-info">INFO</span>
@@ -433,9 +434,77 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="recommendation-box"><strong>Recommendation:</strong> Add ~/.ssh, ~/.gnupg, ~/.aws, ~/.kube, ~/.docker, browser profiles, and keychain directories to tools.fs.exclude.</div>
   
 </div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">3 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
+  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
+  
+</div>
+<div class="finding-card sev-yellow">
+  <div class="finding-header">
+    <span class="finding-title">🟡 OC-SKILL-005: Network exfiltration patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-warn">WARN</span>
+  </div>
+  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
+  
+</div>
 </details><details class="section-group">
-  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">1 finding</span></summary>
+  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">5 findings</span></summary>
   <div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  
+  
+  
+</div>
+<div class="finding-card sev-green">
   <div class="finding-header">
     <span class="finding-title">🟢 OC-CRED-001: API keys in plaintext config files</span>
     <span class="severity-badge severity-info">INFO</span>
@@ -443,6 +512,17 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   </div>
   <div class="finding-desc">Plaintext API keys or tokens found in configuration files.</div>
   
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-AGENT-001: No loop / runaway protection</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
+  <div class="evidence-block">timeout: float = 15.0</div>
   
   
 </div>

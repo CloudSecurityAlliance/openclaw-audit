@@ -421,7 +421,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Plaintext API keys found in .env files, accessible to any process running under the same user.</div>
-  <div class="evidence-block">itq5/OpenClaw-Admin/.env.example: Password (PASSWORD...3000); itq5/OpenClaw-Admin/.env.example: Password (PASSWORD...3000)</div>
+  <div class="evidence-block">itq5/OpenClaw-Admin/.env.example: API key (API_KEY=...-key); itq5/OpenClaw-Admin/.env.example: Password (PASSWORD...3000); itq5/OpenClaw-Admin/.env.example: API key (API_KEY=...-key); itq5/OpenClaw-Admin/.env.example: Password (PASSWORD...3000)</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Migrate to secrets manager. Remove .env files with credentials.</div>
   
 </div>
@@ -456,7 +456,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">timeout: 300,</div>
+  <div class="evidence-block">timeoutSeconds?: number</div>
   
   
 </div>
@@ -478,7 +478,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">ToolPolicyConfig,</div>
+  <div class="evidence-block">toolPolicy?: {</div>
   
   
 </div>

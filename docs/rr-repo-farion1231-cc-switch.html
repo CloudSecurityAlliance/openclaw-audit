@@ -420,7 +420,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">&quot;maxRetries&quot;: &quot;最大重试次数&quot;,</div>
+  <div class="evidence-block">&quot;maxRetries&quot;: &quot;Max Retries&quot;,</div>
   
   
 </div>
@@ -442,7 +442,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">&quot;allowedTools&quot;: [&quot;tool1&quot;, &quot;tool2&quot;]</div>
+  <div class="evidence-block">--disallowedTools Edit,Write,MultiEdit,NotebookEdit</div>
   
   
 </div>

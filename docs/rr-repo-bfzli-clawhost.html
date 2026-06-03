@@ -151,19 +151,23 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="hero-card">
   <h2>bfzli/clawhost</h2>
   <div class="hero-meta">
-    <span class="grade-badge grade-yellow">YELLOW</span>
-    <span>Exposure Score: <strong class="hero-score">3</strong></span>
-    <span>➖ Confidence</span>
+    <span class="grade-badge grade-red">RED</span>
+    <span>Exposure Score: <strong class="hero-score">9</strong></span>
+    <span>✔ Confidence</span>
     <span>Source Code Scan | Total Checks: 42</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **0 failure(s)** and **21 warning(s)** across 42 checks.</p>
+<div class="exec-tables"><p>The audit identified **2 failure(s)** and **21 warning(s)** across 42 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
 <th scope="col">Count</th>
 </tr></thead><tbody>
+<tr>
+<td>FAIL</td>
+<td>2</td>
+</tr>
 <tr>
 <td>WARN</td>
 <td>21</td>
@@ -174,7 +178,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 <tr>
 <td>SKIP</td>
-<td>19</td>
+<td>17</td>
 </tr>
 </tbody></table>
 <table>
@@ -182,6 +186,14 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <th scope="col">Severity</th>
 <th scope="col">Count</th>
 </tr></thead><tbody>
+<tr>
+<td>HIGH</td>
+<td>1</td>
+</tr>
+<tr>
+<td>MEDIUM</td>
+<td>1</td>
+</tr>
 <tr>
 <td>INFO</td>
 <td>21</td>
@@ -422,6 +434,30 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="recommendation-box"><strong>Recommendation:</strong> Add ~/.ssh, ~/.gnupg, ~/.aws, ~/.kube, ~/.docker, browser profiles, and keychain directories to tools.fs.exclude.</div>
   
 </div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Credential Hygiene</span> <span class="count-badge">2 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-CRED-002: API keys in .env files</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Plaintext API keys found in .env files, accessible to any process running under the same user.</div>
+  <div class="evidence-block">bfzli/clawhost/apps/web/.env.example: API key (API_KEY ...T_ID); bfzli/clawhost/apps/clawhostgo/.env.example: Password (PASSWORD..._ID=)</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Migrate to secrets manager. Remove .env files with credentials.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-CRED-004: Standing long-lived API keys detected</span>
+    <span class="severity-badge severity-medium">MEDIUM</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Configuration contains static API keys or tokens without JIT provisioning, rotation, or vault integration. Standing credentials increase blast radius upon compromise (cf. Salesloft Drift: 700+ orgs).</div>
+  <div class="evidence-block">bfzli/clawhost/apps/web/.env.example: static credentials in .env; bfzli/clawhost/apps/clawhostgo/.env.example: static credentials in .env</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Replace standing API keys with JIT credentials (5-15 min TTL) via HashiCorp Vault, AWS STS, or OS keychain integration.</div>
+  
+</div>
 </details><details class="section-group">
   <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">2 findings</span></summary>
   <div class="finding-card sev-green">
@@ -442,7 +478,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">proxy_read_timeout 86400;</div>
+  <div class="evidence-block">idleTimeout: 255,</div>
   
   
 </div>

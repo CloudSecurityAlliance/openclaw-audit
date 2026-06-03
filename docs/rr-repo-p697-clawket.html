@@ -225,7 +225,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">No authentication mode set for the Gateway WebSocket server. Any local process or website (ClawJacked) can control the agent.</div>
-  <div class="evidence-block">gateway.auth.mode = None [p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more]</div>
+  <div class="evidence-block">gateway.auth.mode = None [p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set gateway.auth.mode to &#x27;token&#x27; with a minimum 32-character random value.</div>
   
 </div>
@@ -236,7 +236,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">OpenClaw broadcasts its presence via mDNS, leaking filesystem paths and metadata to devices on the local network.</div>
-  <div class="evidence-block">mDNS not disabled [p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more]</div>
+  <div class="evidence-block">mDNS not disabled [p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set discovery.mdns.mode to &#x27;off&#x27; or OPENCLAW_DISABLE_BONJOUR=1.</div>
   
 </div>
@@ -247,7 +247,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">tools.exec.security is not set to &#x27;deny&#x27;. The agent may execute arbitrary shell commands, enabling prompt-injection-to-RCE.</div>
-  <div class="evidence-block">tools.exec.security = None [p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more]</div>
+  <div class="evidence-block">tools.exec.security = None [p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set tools.exec.security to &#x27;deny&#x27; and tools.exec.ask to &#x27;always&#x27;.</div>
   
 </div>
@@ -258,7 +258,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">tools.exec.ask is not &#x27;always&#x27;. The agent can invoke tools without user confirmation.</div>
-  <div class="evidence-block">tools.exec.ask = None [p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more]</div>
+  <div class="evidence-block">tools.exec.ask = None [p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set tools.exec.ask to &#x27;always&#x27;.</div>
   
 </div>
@@ -269,7 +269,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Control-plane tools (gateway, cron, sessions_spawn, sessions_send) or groups (automation, runtime, fs) are not explicitly denied.</div>
-  <div class="evidence-block">Missing deny entries: [&#x27;cron&#x27;, &#x27;gateway&#x27;, &#x27;group:automation&#x27;, &#x27;group:runtime&#x27;, &#x27;sessions_send&#x27;, &#x27;sessions_spawn&#x27;] [p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more]</div>
+  <div class="evidence-block">Missing deny entries: [&#x27;cron&#x27;, &#x27;gateway&#x27;, &#x27;group:automation&#x27;, &#x27;group:runtime&#x27;, &#x27;sessions_send&#x27;, &#x27;sessions_spawn&#x27;] [p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Add gateway, cron, sessions_spawn, sessions_send, group:automation, group:runtime to tools.deny.</div>
   
 </div>
@@ -280,7 +280,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Agent sandbox is not set to &#x27;all&#x27;. Code may execute directly on the host without containment.</div>
-  <div class="evidence-block">sandbox.mode = None [p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more]</div>
+  <div class="evidence-block">sandbox.mode = None [p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set sandbox.mode to &#x27;all&#x27; for full Docker isolation.</div>
   
 </div>
@@ -291,7 +291,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">session.dmScope is not &#x27;per-channel-peer&#x27;, allowing context leakage between different message senders.</div>
-  <div class="evidence-block">session.dmScope = None [p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more]</div>
+  <div class="evidence-block">session.dmScope = None [p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set session.dmScope to &#x27;per-channel-peer&#x27;.</div>
   
 </div>
@@ -302,7 +302,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">tools.fs.workspaceOnly is not true. The agent has access to the entire user home directory.</div>
-  <div class="evidence-block">tools.fs.workspaceOnly = None [p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more]</div>
+  <div class="evidence-block">tools.fs.workspaceOnly = None [p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set tools.fs.workspaceOnly to true.</div>
   
 </div>
@@ -313,7 +313,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Automatic updates are not disabled. Enterprise deployments should use a controlled update pipeline where security evaluates each release.</div>
-  <div class="evidence-block">updates.autoUpdate = None, updates.mode = None [p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more]</div>
+  <div class="evidence-block">updates.autoUpdate = None, updates.mode = None [p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set updates.autoUpdate to false. Use controlled update pipelines.</div>
   
 </div>
@@ -324,7 +324,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Moltbook connectivity is not explicitly disabled. The 4-hour heartbeat polling moltbook.com is a documented C2 vector; 1.5M tokens were exposed in the Moltbook database breach.</div>
-  <div class="evidence-block">moltbook.enabled = None, moltbook.heartbeat.enabled = None [p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more]</div>
+  <div class="evidence-block">moltbook.enabled = None, moltbook.heartbeat.enabled = None [p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set moltbook.enabled to false and moltbook.heartbeat.enabled to false.</div>
   
 </div>
@@ -335,7 +335,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">config.patch is not in the tools deny list. OpenClaw config restrictions cover config.apply and config.update but omit config.patch, allowing unrestricted configuration modification.</div>
-  <div class="evidence-block">config.patch not in tools.deny list [p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more]</div>
+  <div class="evidence-block">config.patch not in tools.deny list [p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Add config.patch to tools.deny list.</div>
   
 </div>
@@ -346,7 +346,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">File system exclusions do not cover critical sensitive directories (~/.ssh, ~/.aws, ~/.gnupg, ~/.kube, browser profiles, keychains, cryptocurrency wallets). A compromised agent can access these.</div>
-  <div class="evidence-block">Sensitive dirs not excluded: [&#x27;.ssh&#x27;, &#x27;.gnupg&#x27;, &#x27;.aws&#x27;, &#x27;.kube&#x27;, &#x27;.docker&#x27;] [p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more]</div>
+  <div class="evidence-block">Sensitive dirs not excluded: [&#x27;.ssh&#x27;, &#x27;.gnupg&#x27;, &#x27;.aws&#x27;, &#x27;.kube&#x27;, &#x27;.docker&#x27;] [p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Add ~/.ssh, ~/.gnupg, ~/.aws, ~/.kube, ~/.docker, browser profiles, and keychain directories to tools.fs.exclude.</div>
   
 </div>
@@ -357,7 +357,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">browser.ssrfPolicy.dangerouslyAllowPrivateNetwork is true or browser mode allows unrestricted navigation.</div>
-  <div class="evidence-block">p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more</div>
+  <div class="evidence-block">p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set dangerouslyAllowPrivateNetwork to false. Disable browser if not required, or use hostnameAllowlist.</div>
   
 </div>
@@ -394,7 +394,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">No egress allowlist or network restriction policy is configured. Without egress controls, prompt injection attacks can exfiltrate data via URL parameters, DNS queries, or outbound HTTP requests.</div>
-  <div class="evidence-block">No network egress restrictions configured [p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more]</div>
+  <div class="evidence-block">No network egress restrictions configured [p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Configure network.egress.allowlist with approved endpoints only. Block all other outbound connections.</div>
   
 </div>
@@ -407,7 +407,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Gateway listens on all network interfaces, exposing the agent to the local network and potentially the internet.</div>
-  <div class="evidence-block">p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more</div>
+  <div class="evidence-block">p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more</div>
   
   
 </div>
@@ -418,7 +418,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">tools.elevated.enabled is true. Elevated tools bypass sandbox restrictions and execute on the host.</div>
-  <div class="evidence-block">p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more</div>
+  <div class="evidence-block">p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more</div>
   
   
 </div>
@@ -429,7 +429,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Direct message policy allows anyone to interact with the agent without authentication or pairing.</div>
-  <div class="evidence-block">p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more</div>
+  <div class="evidence-block">p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more</div>
   
   
 </div>
@@ -440,7 +440,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">dangerouslyAllowContainerNamespaceJoin is true, allowing sandbox escape via container namespace access.</div>
-  <div class="evidence-block">p697/clawket/apps/mobile/src/i18n/locales/zh-Hans/config.json, p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/de/config.json, ...and 3 more</div>
+  <div class="evidence-block">p697/clawket/apps/mobile/src/i18n/locales/ja/config.json, p697/clawket/apps/mobile/src/i18n/locales/ko/config.json, p697/clawket/apps/mobile/src/i18n/locales/es/config.json, ...and 3 more</div>
   
   
 </div>
@@ -462,7 +462,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">&quot;wizard_timeout&quot;: &quot;超时时间&quot;,</div>
+  <div class="evidence-block">&quot;wizard_timeout&quot;: &quot;タイムアウト&quot;,</div>
   
   
 </div>
@@ -473,7 +473,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">logTelemetry: (event: string, fields: Record&lt;string, unknown&gt;) =&gt; void;</div>
+  <div class="evidence-block">logRegistryTelemetry(&#x27;http_request&#x27;, request, url, response.status, Date.now() - startedAt);</div>
   
   
 </div>

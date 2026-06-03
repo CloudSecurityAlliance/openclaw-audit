@@ -493,7 +493,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">Shell patterns: [&#x27;exec(&#x27;, &#x27;exec(&#x27;, &#x27;exec(&#x27;, &#x27;python3 -c&#x27;, &#x27;exec(&#x27;] [evthedev/nemoclaw-powerup/workspace/SOUL.md, evthedev/nemoclaw-powerup/workspace/soul.md]</div>
+  <div class="evidence-block">Shell patterns: [&#x27;exec(&#x27;, &#x27;exec(&#x27;, &#x27;exec(&#x27;, &#x27;python3 -c&#x27;, &#x27;exec(&#x27;]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove shell commands from SOUL.md. Investigate source.</div>
   
 </div>
@@ -504,7 +504,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644); shell: [&#x27;exec(&#x27;, &#x27;exec(&#x27;]; override: [&#x27;Do NOT ask&#x27;, &#x27;do not log&#x27;] [evthedev/nemoclaw-powerup/workspace/HEARTBEAT.md, evthedev/nemoclaw-powerup/workspace/heartbeat.md]</div>
+  <div class="evidence-block">writable (0o644); shell: [&#x27;exec(&#x27;, &#x27;exec(&#x27;]; override: [&#x27;Do NOT ask&#x27;, &#x27;do not log&#x27;]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -515,24 +515,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">Found 5 URL(s): [&#x27;http://localhost:8080`&#x27;, &#x27;https://example.com/page&#x27;, &#x27;https://reddit.com/r/sub/comments/...&#x27;] [evthedev/nemoclaw-powerup/workspace/SOUL.md, evthedev/nemoclaw-powerup/workspace/soul.md]</div>
+  <div class="evidence-block">Found 5 URL(s): [&#x27;http://localhost:8080`&#x27;, &#x27;https://example.com/page&#x27;, &#x27;https://reddit.com/r/sub/comments/...&#x27;]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all URLs. Remove any that are not organizationally approved.</div>
   
 </div>
 </details><details class="section-group" open>
   <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">3 findings</span></summary>
   <div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [evthedev/nemoclaw-powerup/workspace/skills/video-analysis/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/cross-chat-memory/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/validate-evidence/SKILL.md, ...and 2 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
-  
-</div>
-<div class="finding-card sev-red">
   <div class="finding-header">
     <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
     <span class="severity-badge severity-high">HIGH</span>
@@ -541,6 +530,17 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
   <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [evthedev/nemoclaw-powerup/workspace/skills/trip-mapper/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [evthedev/nemoclaw-powerup/workspace/skills/scrapling/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/video-analysis/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/validate-evidence/SKILL.md, ...and 2 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
   
 </div>
 <div class="finding-card sev-yellow">
@@ -563,7 +563,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">evthedev/nemoclaw-powerup/workspace/SOUL.md, evthedev/nemoclaw-powerup/workspace/soul.md</div>
+  
   
   
 </div>
@@ -574,7 +574,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">evthedev/nemoclaw-powerup/workspace/SOUL.md, evthedev/nemoclaw-powerup/workspace/soul.md</div>
+  
   
   
 </div>
@@ -585,7 +585,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">evthedev/nemoclaw-powerup/workspace/SOUL.md, evthedev/nemoclaw-powerup/workspace/soul.md</div>
+  
   
   
 </div>
@@ -596,7 +596,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">evthedev/nemoclaw-powerup/nemoclaw/skills/memory/SKILL.md, evthedev/nemoclaw-powerup/nemoclaw/skills/summarize/SKILL.md, evthedev/nemoclaw-powerup/nemoclaw/skills/clawhub/SKILL.md, ...and 19 more</div>
+  <div class="evidence-block">evthedev/nemoclaw-powerup/workspace/skills-auto/gmail/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/whatsapp-monitor/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/google-calendar/SKILL.md, ...and 19 more</div>
   
   
 </div>
@@ -607,7 +607,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">evthedev/nemoclaw-powerup/nemoclaw/skills/memory/SKILL.md, evthedev/nemoclaw-powerup/nemoclaw/skills/summarize/SKILL.md, evthedev/nemoclaw-powerup/nemoclaw/skills/clawhub/SKILL.md, ...and 21 more</div>
+  <div class="evidence-block">evthedev/nemoclaw-powerup/workspace/skills-auto/gmail/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/whatsapp-monitor/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/google-calendar/SKILL.md, ...and 21 more</div>
   
   
 </div>
@@ -618,7 +618,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">evthedev/nemoclaw-powerup/nemoclaw/skills/memory/SKILL.md, evthedev/nemoclaw-powerup/nemoclaw/skills/summarize/SKILL.md, evthedev/nemoclaw-powerup/nemoclaw/skills/clawhub/SKILL.md, ...and 16 more</div>
+  <div class="evidence-block">evthedev/nemoclaw-powerup/workspace/skills-auto/gmail/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/whatsapp-monitor/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/google-calendar/SKILL.md, ...and 16 more</div>
   
   
 </div>
@@ -629,7 +629,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">evthedev/nemoclaw-powerup/nemoclaw/skills/memory/SKILL.md, evthedev/nemoclaw-powerup/nemoclaw/skills/summarize/SKILL.md, evthedev/nemoclaw-powerup/nemoclaw/skills/clawhub/SKILL.md, ...and 21 more</div>
+  <div class="evidence-block">evthedev/nemoclaw-powerup/workspace/skills-auto/gmail/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/whatsapp-monitor/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/google-calendar/SKILL.md, ...and 21 more</div>
   
   
 </div>
@@ -640,7 +640,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">evthedev/nemoclaw-powerup/nemoclaw/skills/memory/SKILL.md, evthedev/nemoclaw-powerup/nemoclaw/skills/summarize/SKILL.md, evthedev/nemoclaw-powerup/nemoclaw/skills/clawhub/SKILL.md, ...and 19 more</div>
+  <div class="evidence-block">evthedev/nemoclaw-powerup/workspace/skills-auto/gmail/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/whatsapp-monitor/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/google-calendar/SKILL.md, ...and 19 more</div>
   
   
 </div>
@@ -651,7 +651,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">evthedev/nemoclaw-powerup/nemoclaw/skills/memory/SKILL.md, evthedev/nemoclaw-powerup/nemoclaw/skills/summarize/SKILL.md, evthedev/nemoclaw-powerup/nemoclaw/skills/clawhub/SKILL.md, ...and 21 more</div>
+  <div class="evidence-block">evthedev/nemoclaw-powerup/workspace/skills-auto/gmail/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/whatsapp-monitor/SKILL.md, evthedev/nemoclaw-powerup/workspace/skills/google-calendar/SKILL.md, ...and 21 more</div>
   
   
 </div>
@@ -739,7 +739,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">Workflow: poll (telemetry=[] ONLY) → drain directives → extract reply → send to Nemoclaw → sleep → repeat.</div>
+  <div class="evidence-block">def sync(bridge_url: str, device_id: str, secret: str, telemetry: list | None = None) -&gt; dict:</div>
   
   
 </div>

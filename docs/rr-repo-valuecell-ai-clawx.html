@@ -456,7 +456,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  
+  <div class="evidence-block">ValueCell-ai/ClawX/resources/skills, ValueCell-ai/ClawX/electron/services/skills</div>
   
   
 </div>
@@ -467,7 +467,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  
+  <div class="evidence-block">ValueCell-ai/ClawX/resources/skills, ValueCell-ai/ClawX/electron/services/skills</div>
   
   
 </div>
@@ -478,7 +478,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  
+  <div class="evidence-block">ValueCell-ai/ClawX/resources/skills, ValueCell-ai/ClawX/electron/services/skills</div>
   
   
 </div>
@@ -489,7 +489,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  
+  <div class="evidence-block">ValueCell-ai/ClawX/resources/skills, ValueCell-ai/ClawX/electron/services/skills</div>
   
   
 </div>
@@ -500,7 +500,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  
+  <div class="evidence-block">ValueCell-ai/ClawX/resources/skills, ValueCell-ai/ClawX/electron/services/skills</div>
   
   
 </div>
@@ -511,7 +511,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  
+  <div class="evidence-block">ValueCell-ai/ClawX/resources/skills, ValueCell-ai/ClawX/electron/services/skills</div>
   
   
 </div>
@@ -533,7 +533,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">&quot;searchTimeoutError&quot;: &quot;検索がタイムアウトしました。ClawHub.aiで検索してZIPをダウンロードし、\&quot;{{path}}\&quot; に展開することも可能です&quot;,</div>
+  <div class="evidence-block">&quot;harness:ci&quot;: &quot;pnpm harness list &amp;&amp; pnpm harness validate --spec harness/specs/scenarios/gateway-backend-communication.md &amp;&amp; pnpm harness validate --spec harness/specs/tasks/fix-chat-history-gateway-t</div>
   
   
 </div>
@@ -544,7 +544,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">&quot;telemetryViewer&quot;: &quot;テレメトリビューア&quot;,</div>
+  <div class="evidence-block">&quot;telemetry&quot;: &quot;Анонимные данные об использовании&quot;,</div>
   
   
 </div>

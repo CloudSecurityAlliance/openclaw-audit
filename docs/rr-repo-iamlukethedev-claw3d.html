@@ -430,7 +430,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">iamlukethedev/Claw3D/assets/skills/task-manager/SKILL.md, iamlukethedev/Claw3D/assets/skills/soundclaw/SKILL.md, iamlukethedev/Claw3D/assets/skills/todo-board/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">iamlukethedev/Claw3D/assets/skills/todo-board/SKILL.md, iamlukethedev/Claw3D/assets/skills/task-manager/SKILL.md, iamlukethedev/Claw3D/assets/skills/soundclaw/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -441,7 +441,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">iamlukethedev/Claw3D/assets/skills/task-manager/SKILL.md, iamlukethedev/Claw3D/assets/skills/soundclaw/SKILL.md, iamlukethedev/Claw3D/assets/skills/todo-board/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">iamlukethedev/Claw3D/assets/skills/todo-board/SKILL.md, iamlukethedev/Claw3D/assets/skills/task-manager/SKILL.md, iamlukethedev/Claw3D/assets/skills/soundclaw/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -452,7 +452,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">iamlukethedev/Claw3D/assets/skills/task-manager/SKILL.md, iamlukethedev/Claw3D/assets/skills/soundclaw/SKILL.md, iamlukethedev/Claw3D/assets/skills/todo-board/SKILL.md, ...and 2 more</div>
+  <div class="evidence-block">iamlukethedev/Claw3D/assets/skills/todo-board/SKILL.md, iamlukethedev/Claw3D/assets/skills/task-manager/SKILL.md, iamlukethedev/Claw3D/assets/skills/soundclaw/SKILL.md, ...and 2 more</div>
   
   
 </div>
@@ -463,7 +463,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">iamlukethedev/Claw3D/assets/skills/task-manager/SKILL.md, iamlukethedev/Claw3D/assets/skills/soundclaw/SKILL.md, iamlukethedev/Claw3D/assets/skills/todo-board/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">iamlukethedev/Claw3D/assets/skills/todo-board/SKILL.md, iamlukethedev/Claw3D/assets/skills/task-manager/SKILL.md, iamlukethedev/Claw3D/assets/skills/soundclaw/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -474,7 +474,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">iamlukethedev/Claw3D/assets/skills/task-manager/SKILL.md, iamlukethedev/Claw3D/assets/skills/soundclaw/SKILL.md, iamlukethedev/Claw3D/assets/skills/todo-board/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">iamlukethedev/Claw3D/assets/skills/todo-board/SKILL.md, iamlukethedev/Claw3D/assets/skills/task-manager/SKILL.md, iamlukethedev/Claw3D/assets/skills/soundclaw/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -485,7 +485,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">iamlukethedev/Claw3D/assets/skills/task-manager/SKILL.md, iamlukethedev/Claw3D/assets/skills/soundclaw/SKILL.md, iamlukethedev/Claw3D/assets/skills/todo-board/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">iamlukethedev/Claw3D/assets/skills/todo-board/SKILL.md, iamlukethedev/Claw3D/assets/skills/task-manager/SKILL.md, iamlukethedev/Claw3D/assets/skills/soundclaw/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -529,7 +529,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">private timer: ReturnType&lt;typeof setTimeout&gt; | null = null;</div>
+  <div class="evidence-block">const REMOTE_LAYOUT_TIMEOUT_MS = 10_000;</div>
   
   
 </div>
@@ -540,7 +540,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">&quot;node_modules/@opentelemetry/api&quot;: {</div>
+  <div class="evidence-block">&quot;@opentelemetry/api&quot;: &quot;^1.1.0&quot;,</div>
   
   
 </div>

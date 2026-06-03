@@ -174,11 +174,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 <tr>
 <td>PASS</td>
-<td>14</td>
+<td>16</td>
 </tr>
 <tr>
 <td>SKIP</td>
-<td>7</td>
+<td>5</td>
 </tr>
 </tbody></table>
 <table>
@@ -472,7 +472,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   
 </div>
 </details><details class="section-group">
-  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">14 findings</span></summary>
+  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">16 findings</span></summary>
   <div class="finding-card sev-green">
   <div class="finding-header">
     <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
@@ -552,6 +552,28 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </div>
 <div class="finding-card sev-green">
   <div class="finding-header">
+    <span class="finding-title">🟢 OC-CRED-002: API keys in .env files</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Plaintext API keys found in .env files, accessible to any process running under the same user.</div>
+  
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-CRED-004: Standing long-lived API keys detected</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Configuration contains static API keys or tokens without JIT provisioning, rotation, or vault integration. Standing credentials increase blast radius upon compromise (cf. Salesloft Drift: 700+ orgs).</div>
+  
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
     <span class="finding-title">🟢 OC-DOCK-004: Dangerous bind mounts detected</span>
     <span class="severity-badge severity-info">INFO</span>
     <span class="status-badge status-pass">PASS</span>
@@ -623,7 +645,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">sandboxMode: &quot;執行模式&quot;,</div>
+  <div class="evidence-block">&quot;assistant.settings.advanced.sandboxModeHint&quot;: &quot;Sandbox can isolate command execution environment and prevent assistant from directly manipulating the host system.&quot;,</div>
   
   
 </div>

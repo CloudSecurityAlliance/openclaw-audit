@@ -482,7 +482,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644); shell: [&#x27;bash\n&#x27;] [nclamvn/openclawvn/docs/gateway/HEARTBEAT.md, nclamvn/openclawvn/docs/reference/templates/HEARTBEAT.md, nclamvn/openclawvn/docs/gateway/heartbeat.md, ...and 1 more]</div>
+  <div class="evidence-block">writable (0o644) [nclamvn/openclawvn/docs/reference/templates/HEARTBEAT.md, nclamvn/openclawvn/docs/gateway/heartbeat.md]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -495,7 +495,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [nclamvn/openclawvn/skills/model-usage/SKILL.md, nclamvn/openclawvn/extensions/lobster/SKILL.md, nclamvn/openclawvn/skills]</div>
+  <div class="evidence-block">Shell execution: [&#x27;Node child_process&#x27;, &#x27;spawn() call&#x27;] [nclamvn/openclawvn/extensions/lobster/SKILL.md, nclamvn/openclawvn/skills/model-usage/SKILL.md, nclamvn/openclawvn/skills]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
   
 </div>
@@ -528,7 +528,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [nclamvn/openclawvn/skills/canvas/SKILL.md, nclamvn/openclawvn/skills/notion/SKILL.md, nclamvn/openclawvn/skills/weather/SKILL.md, ...and 6 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [nclamvn/openclawvn/extensions/open-prose/skills/prose/SKILL.md, nclamvn/openclawvn/skills/local-places/SKILL.md, nclamvn/openclawvn/skills/openai-whisper-api/SKILL.md, ...and 6 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -541,7 +541,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">nclamvn/openclawvn/docs/reference/templates/SOUL.md, nclamvn/openclawvn/docs/reference/templates/soul.md</div>
+  
   
   
 </div>
@@ -552,7 +552,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">nclamvn/openclawvn/docs/reference/templates/SOUL.md, nclamvn/openclawvn/docs/reference/templates/soul.md</div>
+  
   
   
 </div>
@@ -563,7 +563,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">nclamvn/openclawvn/docs/reference/templates/SOUL.md, nclamvn/openclawvn/docs/reference/templates/soul.md</div>
+  
   
   
 </div>
@@ -574,7 +574,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">nclamvn/openclawvn/docs/reference/templates/SOUL.md, nclamvn/openclawvn/docs/reference/templates/soul.md</div>
+  
   
   
 </div>
@@ -585,7 +585,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">nclamvn/openclawvn/docs/reference/templates/SOUL.md, nclamvn/openclawvn/docs/reference/templates/soul.md</div>
+  
   
   
 </div>
@@ -596,7 +596,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">nclamvn/openclawvn/skills/nano-pdf/SKILL.md, nclamvn/openclawvn/skills/himalaya/SKILL.md, nclamvn/openclawvn/skills/model-usage/SKILL.md, ...and 35 more</div>
+  <div class="evidence-block">nclamvn/openclawvn/extensions/lobster/SKILL.md, nclamvn/openclawvn/extensions/open-prose/skills/prose/SKILL.md, nclamvn/openclawvn/skills/openai-whisper/SKILL.md, ...and 35 more</div>
   
   
 </div>
@@ -607,18 +607,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">nclamvn/openclawvn/skills/nano-pdf/SKILL.md, nclamvn/openclawvn/skills/himalaya/SKILL.md, nclamvn/openclawvn/skills/model-usage/SKILL.md, ...and 37 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">nclamvn/openclawvn/skills/nano-pdf/SKILL.md, nclamvn/openclawvn/skills/himalaya/SKILL.md, nclamvn/openclawvn/skills/blogwatcher/SKILL.md, ...and 34 more</div>
+  <div class="evidence-block">nclamvn/openclawvn/extensions/lobster/SKILL.md, nclamvn/openclawvn/extensions/open-prose/skills/prose/SKILL.md, nclamvn/openclawvn/skills/openai-whisper/SKILL.md, ...and 37 more</div>
   
   
 </div>
@@ -629,7 +618,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">nclamvn/openclawvn/skills/nano-pdf/SKILL.md, nclamvn/openclawvn/skills/himalaya/SKILL.md, nclamvn/openclawvn/skills/model-usage/SKILL.md, ...and 35 more</div>
+  <div class="evidence-block">nclamvn/openclawvn/extensions/lobster/SKILL.md, nclamvn/openclawvn/extensions/open-prose/skills/prose/SKILL.md, nclamvn/openclawvn/skills/openai-whisper/SKILL.md, ...and 35 more</div>
   
   
 </div>
@@ -640,7 +629,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">nclamvn/openclawvn/skills/nano-pdf/SKILL.md, nclamvn/openclawvn/skills/himalaya/SKILL.md, nclamvn/openclawvn/skills/model-usage/SKILL.md, ...and 28 more</div>
+  <div class="evidence-block">nclamvn/openclawvn/extensions/lobster/SKILL.md, nclamvn/openclawvn/skills/openai-whisper/SKILL.md, nclamvn/openclawvn/skills/himalaya/SKILL.md, ...and 28 more</div>
   
   
 </div>
@@ -651,7 +640,18 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">nclamvn/openclawvn/skills/nano-pdf/SKILL.md, nclamvn/openclawvn/skills/himalaya/SKILL.md, nclamvn/openclawvn/skills/model-usage/SKILL.md, ...and 37 more</div>
+  <div class="evidence-block">nclamvn/openclawvn/extensions/lobster/SKILL.md, nclamvn/openclawvn/extensions/open-prose/skills/prose/SKILL.md, nclamvn/openclawvn/skills/openai-whisper/SKILL.md, ...and 37 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">nclamvn/openclawvn/extensions/open-prose/skills/prose/SKILL.md, nclamvn/openclawvn/skills/openai-whisper/SKILL.md, nclamvn/openclawvn/skills/himalaya/SKILL.md, ...and 34 more</div>
   
   
 </div>
@@ -739,7 +739,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">&quot;description&quot;: &quot;OpenProse VM skill pack plugin (slash command + telemetry).&quot;,</div>
+  <div class="evidence-block">&quot;description&quot;: &quot;OpenClaw diagnostics OpenTelemetry exporter&quot;,</div>
   
   
 </div>

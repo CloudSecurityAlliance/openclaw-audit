@@ -436,7 +436,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">Found 1 base64 string(s), first: b62a054ecddb454527a6819aa8d4f51d7616bc6154fbf4c6f5f6b20d8aa5... [SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/zh-CN/reference/templates/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/zh-CN/reference/templates/soul.md]</div>
+  <div class="evidence-block">Found 1 base64 string(s), first: b62a054ecddb454527a6819aa8d4f51d7616bc6154fbf4c6f5f6b20d8aa5...</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove base64-encoded content. Review decoded payload.</div>
   
 </div>
@@ -447,7 +447,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644); shell: [&#x27;bash\n&#x27;] [SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/gateway/HEARTBEAT.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/reference/templates/HEARTBEAT.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/zh-CN/gateway/HEARTBEAT.md, ...and 5 more]</div>
+  <div class="evidence-block">writable (0o644) [SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/zh-CN/reference/templates/HEARTBEAT.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/reference/templates/HEARTBEAT.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/gateway/heartbeat.md, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -455,24 +455,24 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">5 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
+  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [SafeAI-Lab-X/ClawKeeper/clawkeeper-plugin/examples/unsafe-skill/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/xurl/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
     <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
     <span class="severity-badge severity-high">HIGH</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/model-usage/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/extensions/lobster/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills]</div>
+  <div class="evidence-block">Shell execution: [&#x27;Node child_process&#x27;, &#x27;spawn() call&#x27;] [SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/extensions/lobster/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/model-usage/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/coding-agent/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -488,13 +488,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </div>
 <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
-    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-high">HIGH</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
-  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/xurl/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-plugin/examples/unsafe-skill/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/coding-agent/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
   
 </div>
 <div class="finding-card sev-yellow">
@@ -504,7 +504,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/xurl/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/canvas/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/notion/SKILL.md, ...and 13 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [SafeAI-Lab-X/ClawKeeper/clawkeeper-skill/skills/windows-safety-guide/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-plugin/examples/unsafe-skill/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/.agents/skills/openclaw-parallels-smoke/SKILL.md, ...and 13 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -517,7 +517,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/reference/templates/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/local/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/remote/SOUL.md, ...and 3 more</div>
+  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/local/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/remote/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/reference/templates/SOUL.md</div>
   
   
 </div>
@@ -528,7 +528,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/reference/templates/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/zh-CN/reference/templates/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/local/SOUL.md, ...and 5 more</div>
+  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/local/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/remote/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/zh-CN/reference/templates/SOUL.md, ...and 1 more</div>
   
   
 </div>
@@ -539,7 +539,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/reference/templates/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/zh-CN/reference/templates/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/local/SOUL.md, ...and 5 more</div>
+  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/local/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/remote/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/zh-CN/reference/templates/SOUL.md, ...and 1 more</div>
   
   
 </div>
@@ -550,7 +550,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/reference/templates/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/zh-CN/reference/templates/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/local/SOUL.md, ...and 5 more</div>
+  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/local/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/remote/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/zh-CN/reference/templates/SOUL.md, ...and 1 more</div>
   
   
 </div>
@@ -561,7 +561,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/reference/templates/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/zh-CN/reference/templates/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/local/SOUL.md, ...and 5 more</div>
+  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/local/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/clawkeeper/workspace/remote/SOUL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/docs/zh-CN/reference/templates/SOUL.md, ...and 1 more</div>
   
   
 </div>
@@ -572,7 +572,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/nano-pdf/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/himalaya/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/bear-notes/SKILL.md, ...and 75 more</div>
+  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-skill/skills/feishu-safety-guide/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-skill/skills/windows-safety-guide/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-plugin/examples/unsafe-skill/SKILL.md, ...and 75 more</div>
   
   
 </div>
@@ -583,7 +583,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/nano-pdf/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/himalaya/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/bear-notes/SKILL.md, ...and 74 more</div>
+  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-skill/skills/feishu-safety-guide/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-skill/skills/windows-safety-guide/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/.agents/skills/openclaw-test-heap-leaks/SKILL.md, ...and 74 more</div>
   
   
 </div>
@@ -594,7 +594,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/nano-pdf/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/himalaya/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/bear-notes/SKILL.md, ...and 74 more</div>
+  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-skill/skills/feishu-safety-guide/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-skill/skills/windows-safety-guide/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-plugin/examples/unsafe-skill/SKILL.md, ...and 74 more</div>
   
   
 </div>
@@ -605,7 +605,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/nano-pdf/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/himalaya/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/bear-notes/SKILL.md, ...and 77 more</div>
+  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-skill/skills/feishu-safety-guide/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-skill/skills/windows-safety-guide/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-plugin/examples/unsafe-skill/SKILL.md, ...and 77 more</div>
   
   
 </div>
@@ -616,7 +616,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/nano-pdf/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/himalaya/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/bear-notes/SKILL.md, ...and 61 more</div>
+  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-skill/skills/feishu-safety-guide/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/.agents/skills/openclaw-test-heap-leaks/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/.agents/skills/parallels-discord-roundtrip/SKILL.md, ...and 61 more</div>
   
   
 </div>
@@ -627,7 +627,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/nano-pdf/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/himalaya/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-watcher/skills/bear-notes/SKILL.md, ...and 75 more</div>
+  <div class="evidence-block">SafeAI-Lab-X/ClawKeeper/clawkeeper-skill/skills/feishu-safety-guide/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-skill/skills/windows-safety-guide/SKILL.md, SafeAI-Lab-X/ClawKeeper/clawkeeper-plugin/examples/unsafe-skill/SKILL.md, ...and 75 more</div>
   
   
 </div>
@@ -649,7 +649,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">&quot;timeoutCases&quot;: [</div>
+  <div class="evidence-block">&quot;timeout&quot;: {</div>
   
   
 </div>
@@ -671,7 +671,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">&quot;description&quot;: &quot;OpenProse VM skill pack plugin (slash command + telemetry).&quot;,</div>
+  <div class="evidence-block">&quot;description&quot;: &quot;OpenClaw diagnostics OpenTelemetry exporter&quot;,</div>
   
   
 </div>
@@ -682,7 +682,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">&quot;gateway/sandbox-vs-tool-policy-vs-elevated&quot;</div>
+  <div class="evidence-block">&quot;unknownToolPolicy&quot;: &quot;pass&quot;</div>
   
   
 </div>

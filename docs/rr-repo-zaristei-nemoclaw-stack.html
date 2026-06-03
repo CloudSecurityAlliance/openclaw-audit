@@ -151,34 +151,30 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="hero-card">
   <h2>zaristei/nemoclaw-stack</h2>
   <div class="hero-meta">
-    <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">7</strong></span>
+    <span class="grade-badge grade-yellow">YELLOW</span>
+    <span>Exposure Score: <strong class="hero-score">3</strong></span>
     <span>➖ Confidence</span>
-    <span>Source Code Scan | Total Checks: 50</span>
+    <span>Source Code Scan | Total Checks: 42</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **3 failure(s)** and **22 warning(s)** across 50 checks.</p>
+<div class="exec-tables"><p>The audit identified **0 failure(s)** and **21 warning(s)** across 42 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
-<td>FAIL</td>
-<td>3</td>
-</tr>
-<tr>
 <td>WARN</td>
-<td>22</td>
+<td>21</td>
 </tr>
 <tr>
 <td>PASS</td>
-<td>8</td>
+<td>10</td>
 </tr>
 <tr>
 <td>SKIP</td>
-<td>17</td>
+<td>11</td>
 </tr>
 </tbody></table>
 <table>
@@ -187,12 +183,8 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
-<td>MEDIUM</td>
-<td>3</td>
-</tr>
-<tr>
 <td>INFO</td>
-<td>22</td>
+<td>21</td>
 </tr>
 </tbody></table></div>
   <details class="section-group">
@@ -430,55 +422,75 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="recommendation-box"><strong>Recommendation:</strong> Add ~/.ssh, ~/.gnupg, ~/.aws, ~/.kube, ~/.docker, browser profiles, and keychain directories to tools.fs.exclude.</div>
   
 </div>
-</details><details class="section-group" open>
-  <summary><span class="section-h2">Docker Sandbox</span> <span class="count-badge">4 findings</span></summary>
-  <div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-DOCK-001: No capability dropping configured</span>
-    <span class="severity-badge severity-medium">MEDIUM</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Docker configuration does not drop Linux capabilities. Containers run with default capability set.</div>
-  <div class="evidence-block">No cap_drop: ALL found</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Add cap_drop: ALL and selectively re-add only required capabilities.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-DOCK-002: Root filesystem not read-only</span>
-    <span class="severity-badge severity-medium">MEDIUM</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Docker container root filesystem is not mounted read-only.</div>
-  <div class="evidence-block">read_only not set to true</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Set read_only: true and add explicit tmpfs/writable mounts.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-DOCK-003: No seccomp profile configured</span>
-    <span class="severity-badge severity-medium">MEDIUM</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Docker configuration does not specify a seccomp profile for system call filtering.</div>
-  <div class="evidence-block">No seccomp profile configured</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Configure a custom seccomp profile restricting available syscalls.</div>
-  
-</div>
-<div class="finding-card sev-yellow">
-  <div class="finding-header">
-    <span class="finding-title">🟡 OC-DOCK-005: Container runs as root</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-warn">WARN</span>
-  </div>
-  <div class="finding-desc">Docker container does not specify a non-root user.</div>
-  
-  <div class="recommendation-box"><strong>Recommendation:</strong> Set user: to a non-root UID in the Docker configuration.</div>
-  
-</div>
 </details><details class="section-group">
-  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">8 findings</span></summary>
+  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">10 findings</span></summary>
   <div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">zaristei/nemoclaw-stack/skills/mediator/SKILL.md, zaristei/nemoclaw-stack/skills</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-002: External download instructions in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
+  <div class="evidence-block">zaristei/nemoclaw-stack/skills/mediator/SKILL.md, zaristei/nemoclaw-stack/skills</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">zaristei/nemoclaw-stack/skills/mediator/SKILL.md, zaristei/nemoclaw-stack/skills</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  <div class="evidence-block">zaristei/nemoclaw-stack/skills/mediator/SKILL.md, zaristei/nemoclaw-stack/skills</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
+  <div class="evidence-block">zaristei/nemoclaw-stack/skills/mediator/SKILL.md, zaristei/nemoclaw-stack/skills</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  <div class="evidence-block">zaristei/nemoclaw-stack/skills/mediator/SKILL.md, zaristei/nemoclaw-stack/skills</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
   <div class="finding-header">
     <span class="finding-title">🟢 OC-CRED-001: API keys in plaintext config files</span>
     <span class="severity-badge severity-info">INFO</span>
@@ -513,56 +525,12 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </div>
 <div class="finding-card sev-green">
   <div class="finding-header">
-    <span class="finding-title">🟢 OC-DOCK-004: Dangerous bind mounts detected</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Docker binds mount sensitive host paths: Docker socket, /etc, /proc, /sys, /dev, SSH directory, or browser profiles.</div>
-  
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-DOCK-006: Privileged container mode</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Docker container runs in privileged mode, with full host access.</div>
-  
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-DOCK-007: Seccomp or AppArmor profile set to unconfined</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Security profile explicitly set to &#x27;unconfined&#x27;, disabling kernel-level containment.</div>
-  
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-NET-001: Docker host network mode</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Docker container uses host network mode, eliminating network isolation between the sandbox and the host.</div>
-  
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
     <span class="finding-title">🟢 OC-AGENT-001: No loop / runaway protection</span>
     <span class="severity-badge severity-info">INFO</span>
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">request_timeout: 60</div>
+  <div class="evidence-block">&quot;body&quot;: &quot;Hi team,\n\nGreat progress on the joint research project. Yuki Tanaka&#x27;s contributions have been exceptional.\n\nNext steps:\n1. Share anonymized dataset by April 5\n2. Joint paper submission </div>
   
   
 </div>

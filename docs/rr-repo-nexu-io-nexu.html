@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>nexu-io/nexu</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">24</strong></span>
+    <span>Exposure Score: <strong class="hero-score">23</strong></span>
     <span>✔ Confidence</span>
     <span>Source Code Scan | Total Checks: 53</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **7 failure(s)** and **21 warning(s)** across 53 checks.</p>
+<div class="exec-tables"><p>The audit identified **7 failure(s)** and **20 warning(s)** across 53 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -170,11 +170,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 <tr>
 <td>WARN</td>
-<td>21</td>
+<td>20</td>
 </tr>
 <tr>
 <td>PASS</td>
-<td>14</td>
+<td>15</td>
 </tr>
 <tr>
 <td>SKIP</td>
@@ -200,11 +200,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 <tr>
 <td>INFO</td>
-<td>21</td>
+<td>20</td>
 </tr>
 </tbody></table></div>
   <details class="section-group">
-  <summary><span class="section-h2">Agent Safety</span> <span class="count-badge">2 findings</span></summary>
+  <summary><span class="section-h2">Agent Safety</span> <span class="count-badge">1 finding</span></summary>
   <div class="finding-card sev-yellow">
   <div class="finding-header">
     <span class="finding-title">🟡 OC-AGENT-002: No human-in-the-loop enforcement</span>
@@ -214,17 +214,6 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Enable human-in-the-loop for dangerous operations. Set agent.require_approval or auto_approve=false for file writes, network access, and command execution.</div>
-  
-</div>
-<div class="finding-card sev-yellow">
-  <div class="finding-header">
-    <span class="finding-title">🟡 OC-AGENT-003: No audit logging configured</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-warn">WARN</span>
-  </div>
-  <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  
-  <div class="recommendation-box"><strong>Recommendation:</strong> Enable audit logging for all agent actions. Configure logging.audit or telemetry.enabled in the agent config.</div>
   
 </div>
 </details><details class="section-group">
@@ -460,13 +449,24 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644) [nexu-io/nexu/apps/controller/static/platform-templates/HEARTBEAT.md, nexu-io/nexu/deploy/workspace-templates/HEARTBEAT.md, nexu-io/nexu/apps/controller/static/platform-templates/heartbeat.md, ...and 1 more]</div>
+  <div class="evidence-block">writable (0o644) [nexu-io/nexu/apps/controller/static/platform-templates/HEARTBEAT.md, nexu-io/nexu/deploy/workspace-templates/HEARTBEAT.md]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
 </details><details class="section-group" open>
   <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">5 findings</span></summary>
   <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [nexu-io/nexu/apps/desktop/static/bundled-skills/libtv-video/SKILL.md, nexu-io/nexu/skills/nexubot/nano-banana/SKILL.md, nexu-io/nexu/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
+  
+</div>
+<div class="finding-card sev-red">
   <div class="finding-header">
     <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
     <span class="severity-badge severity-high">HIGH</span>
@@ -479,23 +479,12 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </div>
 <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [nexu-io/nexu/apps/desktop/static/bundled-skills/medeo-video/SKILL.md, nexu-io/nexu/skills/nexubot/nano-banana/SKILL.md, nexu-io/nexu/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
     <span class="finding-title">🔴 OC-SKILL-004: Obfuscated code in skill</span>
     <span class="severity-badge severity-critical">CRITICAL</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">Obfuscation: [&#x27;base64 decode&#x27;] [nexu-io/nexu/apps/desktop/static/bundled-skills/qiaomu-mondo-poster-design/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/nano-banana-one-shop/SKILL.md, nexu-io/nexu/skills/nexubot/nano-banana/SKILL.md, ...and 1 more]</div>
+  <div class="evidence-block">Obfuscation: [&#x27;Node base64 decode&#x27;] [nexu-io/nexu/apps/desktop/static/bundled-skills/nano-banana-one-shop/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/qiaomu-mondo-poster-design/SKILL.md, nexu-io/nexu/skills/nexubot/nano-banana/SKILL.md, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
   
 </div>
@@ -517,12 +506,12 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;Python requests outbound&#x27;] [nexu-io/nexu/apps/desktop/static/bundled-skills/qiaomu-mondo-poster-design/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/gh-issues/SKILL.md, nexu-io/nexu/skills/localdev/datadog/SKILL.md, ...and 3 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [nexu-io/nexu/apps/desktop/static/bundled-skills/gh-issues/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/qiaomu-mondo-poster-design/SKILL.md, nexu-io/nexu/skills/nexubot/static-deploy/SKILL.md, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
 </details><details class="section-group">
-  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">14 findings</span></summary>
+  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">15 findings</span></summary>
   <div class="finding-card sev-green">
   <div class="finding-header">
     <span class="finding-title">🟢 OC-SOUL-002: Base64-encoded content in SOUL.md</span>
@@ -530,7 +519,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">nexu-io/nexu/apps/controller/static/platform-templates/SOUL.md, nexu-io/nexu/deploy/workspace-templates/SOUL.md, nexu-io/nexu/apps/controller/static/platform-templates/soul.md, ...and 1 more</div>
+  <div class="evidence-block">nexu-io/nexu/apps/controller/static/platform-templates/SOUL.md, nexu-io/nexu/deploy/workspace-templates/SOUL.md</div>
   
   
 </div>
@@ -541,7 +530,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">nexu-io/nexu/apps/controller/static/platform-templates/SOUL.md, nexu-io/nexu/deploy/workspace-templates/SOUL.md, nexu-io/nexu/apps/controller/static/platform-templates/soul.md, ...and 1 more</div>
+  <div class="evidence-block">nexu-io/nexu/apps/controller/static/platform-templates/SOUL.md, nexu-io/nexu/deploy/workspace-templates/SOUL.md</div>
   
   
 </div>
@@ -552,7 +541,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">nexu-io/nexu/apps/controller/static/platform-templates/SOUL.md, nexu-io/nexu/deploy/workspace-templates/SOUL.md, nexu-io/nexu/apps/controller/static/platform-templates/soul.md, ...and 1 more</div>
+  <div class="evidence-block">nexu-io/nexu/apps/controller/static/platform-templates/SOUL.md, nexu-io/nexu/deploy/workspace-templates/SOUL.md</div>
   
   
 </div>
@@ -563,7 +552,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">nexu-io/nexu/apps/controller/static/platform-templates/SOUL.md, nexu-io/nexu/deploy/workspace-templates/SOUL.md, nexu-io/nexu/apps/controller/static/platform-templates/soul.md, ...and 1 more</div>
+  <div class="evidence-block">nexu-io/nexu/apps/controller/static/platform-templates/SOUL.md, nexu-io/nexu/deploy/workspace-templates/SOUL.md</div>
   
   
 </div>
@@ -574,62 +563,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">nexu-io/nexu/apps/controller/static/platform-templates/SOUL.md, nexu-io/nexu/deploy/workspace-templates/SOUL.md, nexu-io/nexu/apps/controller/static/platform-templates/soul.md, ...and 1 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-002: External download instructions in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">nexu-io/nexu/apps/desktop/static/bundled-skills/coding-agent/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/medeo-video/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/libtv-video/SKILL.md, ...and 24 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">nexu-io/nexu/apps/desktop/static/bundled-skills/coding-agent/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/libtv-video/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/deep-research/SKILL.md, ...and 23 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">nexu-io/nexu/apps/desktop/static/bundled-skills/coding-agent/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/medeo-video/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/libtv-video/SKILL.md, ...and 22 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">nexu-io/nexu/apps/desktop/static/bundled-skills/coding-agent/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/medeo-video/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/libtv-video/SKILL.md, ...and 20 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">nexu-io/nexu/apps/desktop/static/bundled-skills/coding-agent/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/medeo-video/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/libtv-video/SKILL.md, ...and 26 more</div>
+  <div class="evidence-block">nexu-io/nexu/apps/controller/static/platform-templates/SOUL.md, nexu-io/nexu/deploy/workspace-templates/SOUL.md</div>
   
   
 </div>
@@ -640,7 +574,62 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">nexu-io/nexu/apps/desktop/static/bundled-skills/medeo-video/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/libtv-video/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/deep-research/SKILL.md, ...and 23 more</div>
+  <div class="evidence-block">nexu-io/nexu/apps/desktop/static/bundled-skills/libtv-video/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/gh-issues/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/deep-research/SKILL.md, ...and 22 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-002: External download instructions in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
+  <div class="evidence-block">nexu-io/nexu/apps/desktop/static/bundled-skills/libtv-video/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/coding-agent/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/gh-issues/SKILL.md, ...and 23 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  <div class="evidence-block">nexu-io/nexu/apps/desktop/static/bundled-skills/libtv-video/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/coding-agent/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/gh-issues/SKILL.md, ...and 21 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
+  <div class="evidence-block">nexu-io/nexu/apps/desktop/static/bundled-skills/libtv-video/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/coding-agent/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/deep-research/SKILL.md, ...and 19 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  <div class="evidence-block">nexu-io/nexu/apps/desktop/static/bundled-skills/libtv-video/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/coding-agent/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/gh-issues/SKILL.md, ...and 25 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">nexu-io/nexu/apps/desktop/static/bundled-skills/coding-agent/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/gh-issues/SKILL.md, nexu-io/nexu/apps/desktop/static/bundled-skills/deep-research/SKILL.md, ...and 22 more</div>
   
   
 </div>
@@ -662,7 +651,18 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">&quot;p-timeout&quot;: &quot;^7.0.0&quot;</div>
+  <div class="evidence-block">&quot;timeout&quot;,</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-AGENT-003: No audit logging configured</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
+  <div class="evidence-block">version: 1.4.19(better-sqlite3@12.6.2)(drizzle-kit@0.31.9)(drizzle-orm@0.41.0(@cloudflare/workers-types@4.20260226.1)(@electric-sql/pglite@0.4.0)(@opentelemetry/api@1.9.0)(@types/better-sqlite3@7.6.13</div>
   
   
 </div>

@@ -482,7 +482,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">Found 1 base64 string(s), first: b62a054ecddb454527a6819aa8d4f51d7616bc6154fbf4c6f5f6b20d8aa5... [mholovetskyi/openclawenterprise/docs/zh-CN/reference/templates/SOUL.md, mholovetskyi/openclawenterprise/docs/zh-CN/reference/templates/soul.md]</div>
+  <div class="evidence-block">Found 1 base64 string(s), first: b62a054ecddb454527a6819aa8d4f51d7616bc6154fbf4c6f5f6b20d8aa5...</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove base64-encoded content. Review decoded payload.</div>
   
 </div>
@@ -493,7 +493,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644); shell: [&#x27;bash\n&#x27;] [mholovetskyi/openclawenterprise/docs/gateway/HEARTBEAT.md, mholovetskyi/openclawenterprise/docs/reference/templates/HEARTBEAT.md, mholovetskyi/openclawenterprise/docs/zh-CN/gateway/HEARTBEAT.md, ...and 5 more]</div>
+  <div class="evidence-block">writable (0o644) [mholovetskyi/openclawenterprise/docs/zh-CN/reference/templates/HEARTBEAT.md, mholovetskyi/openclawenterprise/docs/reference/templates/HEARTBEAT.md, mholovetskyi/openclawenterprise/docs/gateway/heartbeat.md, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -506,30 +506,8 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [mholovetskyi/openclawenterprise/skills/model-usage/SKILL.md, mholovetskyi/openclawenterprise/extensions/lobster/SKILL.md, mholovetskyi/openclawenterprise/skills, ...and 1 more]</div>
+  <div class="evidence-block">Shell execution: [&#x27;Node child_process&#x27;, &#x27;spawn() call&#x27;] [mholovetskyi/openclawenterprise/extensions/lobster/SKILL.md, mholovetskyi/openclawenterprise/skills/model-usage/SKILL.md, mholovetskyi/openclawenterprise/skills, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [mholovetskyi/openclawenterprise/skills/coding-agent/SKILL.md, mholovetskyi/openclawenterprise/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-006: Credential access patterns in skill</span>
-    <span class="severity-badge severity-critical">CRITICAL</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">Credential access: [&#x27;Browser credentials&#x27;] [mholovetskyi/openclawenterprise/skills/ordercli/SKILL.md, mholovetskyi/openclawenterprise/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -550,8 +528,30 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">Obfuscation: [&#x27;base64 decode&#x27;] [mholovetskyi/openclawenterprise/skills/openai-image-gen/SKILL.md, mholovetskyi/openclawenterprise/skills/nano-banana-pro/SKILL.md, mholovetskyi/openclawenterprise/skills, ...and 1 more]</div>
+  <div class="evidence-block">Obfuscation: [&#x27;base64 decode&#x27;] [mholovetskyi/openclawenterprise/skills/nano-banana-pro/SKILL.md, mholovetskyi/openclawenterprise/skills/openai-image-gen/SKILL.md, mholovetskyi/openclawenterprise/skills, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  <div class="evidence-block">Credential access: [&#x27;Browser credentials&#x27;] [mholovetskyi/openclawenterprise/skills/ordercli/SKILL.md, mholovetskyi/openclawenterprise/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [mholovetskyi/openclawenterprise/skills/coding-agent/SKILL.md, mholovetskyi/openclawenterprise/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
   
 </div>
 <div class="finding-card sev-yellow">
@@ -561,7 +561,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [mholovetskyi/openclawenterprise/skills/xurl/SKILL.md, mholovetskyi/openclawenterprise/skills/canvas/SKILL.md, mholovetskyi/openclawenterprise/skills/notion/SKILL.md, ...and 8 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [mholovetskyi/openclawenterprise/extensions/open-prose/skills/prose/SKILL.md, mholovetskyi/openclawenterprise/skills/xurl/SKILL.md, mholovetskyi/openclawenterprise/skills/gh-issues/SKILL.md, ...and 8 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -569,23 +569,12 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">20 findings</span></summary>
   <div class="finding-card sev-green">
   <div class="finding-header">
-    <span class="finding-title">🟢 OC-SOUL-002: Base64-encoded content in SOUL.md</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">mholovetskyi/openclawenterprise/docs/reference/templates/SOUL.md, mholovetskyi/openclawenterprise/docs/reference/templates/soul.md</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
     <span class="finding-title">🟢 OC-SOUL-003: Zero-width Unicode characters in SOUL.md</span>
     <span class="severity-badge severity-info">INFO</span>
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">mholovetskyi/openclawenterprise/docs/reference/templates/SOUL.md, mholovetskyi/openclawenterprise/docs/zh-CN/reference/templates/SOUL.md, mholovetskyi/openclawenterprise/docs/reference/templates/soul.md, ...and 1 more</div>
+  <div class="evidence-block">mholovetskyi/openclawenterprise/docs/zh-CN/reference/templates/SOUL.md, mholovetskyi/openclawenterprise/docs/reference/templates/SOUL.md</div>
   
   
 </div>
@@ -596,7 +585,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">mholovetskyi/openclawenterprise/docs/reference/templates/SOUL.md, mholovetskyi/openclawenterprise/docs/zh-CN/reference/templates/SOUL.md, mholovetskyi/openclawenterprise/docs/reference/templates/soul.md, ...and 1 more</div>
+  <div class="evidence-block">mholovetskyi/openclawenterprise/docs/zh-CN/reference/templates/SOUL.md, mholovetskyi/openclawenterprise/docs/reference/templates/SOUL.md</div>
   
   
 </div>
@@ -607,7 +596,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">mholovetskyi/openclawenterprise/docs/reference/templates/SOUL.md, mholovetskyi/openclawenterprise/docs/zh-CN/reference/templates/SOUL.md, mholovetskyi/openclawenterprise/docs/reference/templates/soul.md, ...and 1 more</div>
+  <div class="evidence-block">mholovetskyi/openclawenterprise/docs/zh-CN/reference/templates/SOUL.md, mholovetskyi/openclawenterprise/docs/reference/templates/SOUL.md</div>
   
   
 </div>
@@ -618,7 +607,18 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">mholovetskyi/openclawenterprise/docs/reference/templates/SOUL.md, mholovetskyi/openclawenterprise/docs/zh-CN/reference/templates/SOUL.md, mholovetskyi/openclawenterprise/docs/reference/templates/soul.md, ...and 1 more</div>
+  <div class="evidence-block">mholovetskyi/openclawenterprise/docs/zh-CN/reference/templates/SOUL.md, mholovetskyi/openclawenterprise/docs/reference/templates/SOUL.md</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SOUL-002: Base64-encoded content in SOUL.md</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
+  
   
   
 </div>
@@ -629,7 +629,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">mholovetskyi/openclawenterprise/skills/nano-pdf/SKILL.md, mholovetskyi/openclawenterprise/skills/himalaya/SKILL.md, mholovetskyi/openclawenterprise/skills/bear-notes/SKILL.md, ...and 59 more</div>
+  <div class="evidence-block">mholovetskyi/openclawenterprise/extensions/lobster/SKILL.md, mholovetskyi/openclawenterprise/extensions/feishu/skills/feishu-wiki/SKILL.md, mholovetskyi/openclawenterprise/extensions/feishu/skills/feishu-perm/SKILL.md, ...and 59 more</div>
   
   
 </div>
@@ -640,18 +640,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">mholovetskyi/openclawenterprise/skills/nano-pdf/SKILL.md, mholovetskyi/openclawenterprise/skills/himalaya/SKILL.md, mholovetskyi/openclawenterprise/skills/bear-notes/SKILL.md, ...and 58 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">mholovetskyi/openclawenterprise/skills/nano-pdf/SKILL.md, mholovetskyi/openclawenterprise/skills/himalaya/SKILL.md, mholovetskyi/openclawenterprise/skills/bear-notes/SKILL.md, ...and 57 more</div>
+  <div class="evidence-block">mholovetskyi/openclawenterprise/extensions/lobster/SKILL.md, mholovetskyi/openclawenterprise/extensions/feishu/skills/feishu-wiki/SKILL.md, mholovetskyi/openclawenterprise/extensions/feishu/skills/feishu-perm/SKILL.md, ...and 58 more</div>
   
   
 </div>
@@ -662,7 +651,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">mholovetskyi/openclawenterprise/skills/nano-pdf/SKILL.md, mholovetskyi/openclawenterprise/skills/himalaya/SKILL.md, mholovetskyi/openclawenterprise/skills/bear-notes/SKILL.md, ...and 57 more</div>
+  <div class="evidence-block">mholovetskyi/openclawenterprise/extensions/lobster/SKILL.md, mholovetskyi/openclawenterprise/extensions/feishu/skills/feishu-wiki/SKILL.md, mholovetskyi/openclawenterprise/extensions/feishu/skills/feishu-perm/SKILL.md, ...and 57 more</div>
   
   
 </div>
@@ -673,7 +662,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">mholovetskyi/openclawenterprise/skills/nano-pdf/SKILL.md, mholovetskyi/openclawenterprise/skills/himalaya/SKILL.md, mholovetskyi/openclawenterprise/skills/bear-notes/SKILL.md, ...and 50 more</div>
+  <div class="evidence-block">mholovetskyi/openclawenterprise/extensions/lobster/SKILL.md, mholovetskyi/openclawenterprise/extensions/feishu/skills/feishu-wiki/SKILL.md, mholovetskyi/openclawenterprise/extensions/feishu/skills/feishu-perm/SKILL.md, ...and 50 more</div>
   
   
 </div>
@@ -684,7 +673,18 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">mholovetskyi/openclawenterprise/skills/nano-pdf/SKILL.md, mholovetskyi/openclawenterprise/skills/himalaya/SKILL.md, mholovetskyi/openclawenterprise/skills/bear-notes/SKILL.md, ...and 59 more</div>
+  <div class="evidence-block">mholovetskyi/openclawenterprise/extensions/lobster/SKILL.md, mholovetskyi/openclawenterprise/extensions/feishu/skills/feishu-wiki/SKILL.md, mholovetskyi/openclawenterprise/extensions/feishu/skills/feishu-perm/SKILL.md, ...and 59 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">mholovetskyi/openclawenterprise/extensions/feishu/skills/feishu-wiki/SKILL.md, mholovetskyi/openclawenterprise/extensions/feishu/skills/feishu-perm/SKILL.md, mholovetskyi/openclawenterprise/extensions/feishu/skills/feishu-doc/SKILL.md, ...and 57 more</div>
   
   
 </div>
@@ -750,7 +750,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">&quot;timeout&quot;: { &quot;label&quot;: &quot;timeout&quot;, &quot;detailKeys&quot;: [&quot;provider&quot;, &quot;guildId&quot;, &quot;userId&quot;] },</div>
+  <div class="evidence-block">&quot;timeout&quot;: { &quot;label&quot;: &quot;timeout&quot;, &quot;detailKeys&quot;: [&quot;guildId&quot;, &quot;userId&quot;] },</div>
   
   
 </div>
@@ -761,7 +761,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
-  <div class="evidence-block">action?: &quot;block&quot; | &quot;require-approval&quot; | &quot;warn&quot;;</div>
+  <div class="evidence-block">export type GuardrailAction = &quot;allow&quot; | &quot;warn&quot; | &quot;block&quot; | &quot;require-approval&quot;;</div>
   
   
 </div>

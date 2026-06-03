@@ -154,11 +154,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="grade-badge grade-red">RED</span>
     <span>Exposure Score: <strong class="hero-score">13</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 47</span>
+    <span>Source Code Scan | Total Checks: 51</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **4 failure(s)** and **19 warning(s)** across 47 checks.</p>
+<div class="exec-tables"><p>The audit identified **4 failure(s)** and **19 warning(s)** across 51 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -174,7 +174,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 <tr>
 <td>PASS</td>
-<td>3</td>
+<td>7</td>
 </tr>
 <tr>
 <td>SKIP</td>
@@ -457,7 +457,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   
 </div>
 </details><details class="section-group">
-  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">3 findings</span></summary>
+  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">7 findings</span></summary>
   <div class="finding-card sev-green">
   <div class="finding-header">
     <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
@@ -488,6 +488,50 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   </div>
   <div class="finding-desc">Plaintext API keys or tokens found in configuration files.</div>
   
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-AGENT-001: No loop / runaway protection</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
+  <div class="evidence-block">&quot;p-timeout&quot;: &quot;^7.0.0&quot;</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-AGENT-002: No human-in-the-loop enforcement</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
+  <div class="evidence-block">&quot;severity&quot;: &quot;critical&quot;, &quot;action&quot;: &quot;require_approval&quot;,</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-AGENT-003: No audit logging configured</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
+  <div class="evidence-block">logToolCall,</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-AGENT-004: No tool access scope restrictions</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
+  <div class="evidence-block">allowedTools?: string[];</div>
   
   
 </div>

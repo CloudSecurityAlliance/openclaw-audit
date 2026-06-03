@@ -394,7 +394,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644) [ConsultingFuture4200/clawbot/agents/comms/HEARTBEAT.md, ConsultingFuture4200/clawbot/agents/productivity/HEARTBEAT.md, ConsultingFuture4200/clawbot/agents/comms/heartbeat.md, ...and 1 more]</div>
+  <div class="evidence-block">writable (0o644) [ConsultingFuture4200/clawbot/agents/comms/HEARTBEAT.md, ConsultingFuture4200/clawbot/agents/productivity/HEARTBEAT.md]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -464,7 +464,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">ConsultingFuture4200/clawbot/agents/research/SOUL.md, ConsultingFuture4200/clawbot/agents/home/SOUL.md, ConsultingFuture4200/clawbot/agents/comms/SOUL.md, ...and 9 more</div>
+  <div class="evidence-block">ConsultingFuture4200/clawbot/agents/dev/SOUL.md, ConsultingFuture4200/clawbot/agents/comms/SOUL.md, ConsultingFuture4200/clawbot/agents/main/SOUL.md, ...and 3 more</div>
   
   
 </div>
@@ -475,7 +475,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">ConsultingFuture4200/clawbot/agents/research/SOUL.md, ConsultingFuture4200/clawbot/agents/home/SOUL.md, ConsultingFuture4200/clawbot/agents/comms/SOUL.md, ...and 9 more</div>
+  <div class="evidence-block">ConsultingFuture4200/clawbot/agents/dev/SOUL.md, ConsultingFuture4200/clawbot/agents/comms/SOUL.md, ConsultingFuture4200/clawbot/agents/main/SOUL.md, ...and 3 more</div>
   
   
 </div>
@@ -486,7 +486,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">ConsultingFuture4200/clawbot/agents/research/SOUL.md, ConsultingFuture4200/clawbot/agents/home/SOUL.md, ConsultingFuture4200/clawbot/agents/comms/SOUL.md, ...and 9 more</div>
+  <div class="evidence-block">ConsultingFuture4200/clawbot/agents/dev/SOUL.md, ConsultingFuture4200/clawbot/agents/comms/SOUL.md, ConsultingFuture4200/clawbot/agents/main/SOUL.md, ...and 3 more</div>
   
   
 </div>
@@ -497,7 +497,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">ConsultingFuture4200/clawbot/agents/research/SOUL.md, ConsultingFuture4200/clawbot/agents/home/SOUL.md, ConsultingFuture4200/clawbot/agents/comms/SOUL.md, ...and 9 more</div>
+  <div class="evidence-block">ConsultingFuture4200/clawbot/agents/dev/SOUL.md, ConsultingFuture4200/clawbot/agents/comms/SOUL.md, ConsultingFuture4200/clawbot/agents/main/SOUL.md, ...and 3 more</div>
   
   
 </div>
@@ -508,7 +508,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">ConsultingFuture4200/clawbot/agents/research/SOUL.md, ConsultingFuture4200/clawbot/agents/home/SOUL.md, ConsultingFuture4200/clawbot/agents/comms/SOUL.md, ...and 9 more</div>
+  <div class="evidence-block">ConsultingFuture4200/clawbot/agents/dev/SOUL.md, ConsultingFuture4200/clawbot/agents/comms/SOUL.md, ConsultingFuture4200/clawbot/agents/main/SOUL.md, ...and 3 more</div>
   
   
 </div>
@@ -618,7 +618,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
-  <div class="evidence-block">*   ASK_USER        (&lt;0.70) : ask user, shown with &#x27;?&#x27; marker and best guess</div>
+  <div class="evidence-block">const isLowConfidence = primaryConfidence &lt; CONFIDENCE_THRESHOLDS.ASK_USER;</div>
   
   
 </div>

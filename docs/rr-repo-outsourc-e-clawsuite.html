@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>outsourc-e/clawsuite</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">8</strong></span>
+    <span>Exposure Score: <strong class="hero-score">7</strong></span>
     <span>✔ Confidence</span>
     <span>Source Code Scan | Total Checks: 51</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **4 failure(s)** and **20 warning(s)** across 51 checks.</p>
+<div class="exec-tables"><p>The audit identified **4 failure(s)** and **19 warning(s)** across 51 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -170,11 +170,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 <tr>
 <td>WARN</td>
-<td>20</td>
+<td>19</td>
 </tr>
 <tr>
 <td>PASS</td>
-<td>15</td>
+<td>16</td>
 </tr>
 <tr>
 <td>SKIP</td>
@@ -196,23 +196,10 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 <tr>
 <td>INFO</td>
-<td>20</td>
+<td>19</td>
 </tr>
 </tbody></table></div>
   <details class="section-group">
-  <summary><span class="section-h2">Agent Safety</span> <span class="count-badge">1 finding</span></summary>
-  <div class="finding-card sev-yellow">
-  <div class="finding-header">
-    <span class="finding-title">🟡 OC-AGENT-002: No human-in-the-loop enforcement</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-warn">WARN</span>
-  </div>
-  <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
-  
-  <div class="recommendation-box"><strong>Recommendation:</strong> Enable human-in-the-loop for dangerous operations. Set agent.require_approval or auto_approve=false for file writes, network access, and command execution.</div>
-  
-</div>
-</details><details class="section-group">
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">18 findings</span></summary>
   <div class="finding-card sev-yellow">
   <div class="finding-header">
@@ -470,7 +457,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   
 </div>
 </details><details class="section-group">
-  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">15 findings</span></summary>
+  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">16 findings</span></summary>
   <div class="finding-card sev-green">
   <div class="finding-header">
     <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
@@ -478,7 +465,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">outsourc-e/clawsuite/skills/workspace-dispatch/SKILL.md, outsourc-e/clawsuite/skills/workspace-dispatch-multi/SKILL.md, outsourc-e/clawsuite/skills</div>
+  <div class="evidence-block">outsourc-e/clawsuite/skills/workspace-dispatch-multi/SKILL.md, outsourc-e/clawsuite/skills/workspace-dispatch/SKILL.md, outsourc-e/clawsuite/skills</div>
   
   
 </div>
@@ -489,7 +476,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">outsourc-e/clawsuite/skills/workspace-dispatch/SKILL.md, outsourc-e/clawsuite/skills/workspace-dispatch-multi/SKILL.md, outsourc-e/clawsuite/skills</div>
+  <div class="evidence-block">outsourc-e/clawsuite/skills/workspace-dispatch-multi/SKILL.md, outsourc-e/clawsuite/skills/workspace-dispatch/SKILL.md, outsourc-e/clawsuite/skills</div>
   
   
 </div>
@@ -500,7 +487,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">outsourc-e/clawsuite/skills/workspace-dispatch/SKILL.md, outsourc-e/clawsuite/skills/workspace-dispatch-multi/SKILL.md, outsourc-e/clawsuite/skills</div>
+  <div class="evidence-block">outsourc-e/clawsuite/skills/workspace-dispatch-multi/SKILL.md, outsourc-e/clawsuite/skills/workspace-dispatch/SKILL.md, outsourc-e/clawsuite/skills</div>
   
   
 </div>
@@ -511,7 +498,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">outsourc-e/clawsuite/skills/workspace-dispatch/SKILL.md, outsourc-e/clawsuite/skills/workspace-dispatch-multi/SKILL.md, outsourc-e/clawsuite/skills</div>
+  <div class="evidence-block">outsourc-e/clawsuite/skills/workspace-dispatch-multi/SKILL.md, outsourc-e/clawsuite/skills/workspace-dispatch/SKILL.md, outsourc-e/clawsuite/skills</div>
   
   
 </div>
@@ -522,7 +509,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">outsourc-e/clawsuite/skills/workspace-dispatch/SKILL.md, outsourc-e/clawsuite/skills/workspace-dispatch-multi/SKILL.md, outsourc-e/clawsuite/skills</div>
+  <div class="evidence-block">outsourc-e/clawsuite/skills/workspace-dispatch-multi/SKILL.md, outsourc-e/clawsuite/skills/workspace-dispatch/SKILL.md, outsourc-e/clawsuite/skills</div>
   
   
 </div>
@@ -533,7 +520,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">outsourc-e/clawsuite/skills/workspace-dispatch/SKILL.md, outsourc-e/clawsuite/skills/workspace-dispatch-multi/SKILL.md, outsourc-e/clawsuite/skills</div>
+  <div class="evidence-block">outsourc-e/clawsuite/skills/workspace-dispatch-multi/SKILL.md, outsourc-e/clawsuite/skills/workspace-dispatch/SKILL.md, outsourc-e/clawsuite/skills</div>
   
   
 </div>
@@ -616,12 +603,23 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </div>
 <div class="finding-card sev-green">
   <div class="finding-header">
+    <span class="finding-title">🟢 OC-AGENT-002: No human-in-the-loop enforcement</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
+  <div class="evidence-block">return { defaultModel: &#x27;&#x27;, autoApprove: false, activityFeedLength: 5 }</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
     <span class="finding-title">🟢 OC-AGENT-003: No audit logging configured</span>
     <span class="severity-badge severity-info">INFO</span>
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">name: &#x27;api-telemetry&#x27;,</div>
+  <div class="evidence-block">// Ignore telemetry failures.</div>
   
   
 </div>

@@ -482,7 +482,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644); shell: [&#x27;bash\n&#x27;] [ai-in-pm/NemoClawd/apps/clawdbot-main/docs/gateway/HEARTBEAT.md, ai-in-pm/NemoClawd/apps/clawdbot-main/docs/reference/templates/HEARTBEAT.md, ai-in-pm/NemoClawd/apps/clawdbot-main/docs/gateway/heartbeat.md, ...and 1 more]</div>
+  <div class="evidence-block">writable (0o644) [ai-in-pm/NemoClawd/apps/clawdbot-main/docs/reference/templates/HEARTBEAT.md, ai-in-pm/NemoClawd/apps/clawdbot-main/docs/gateway/heartbeat.md]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -490,13 +490,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">4 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-high">HIGH</span>
+    <span class="finding-title">🔴 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [ai-in-pm/NemoClawd/apps/clawdbot-main/skills/model-usage/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  <div class="evidence-block">Obfuscation: [&#x27;base64 decode&#x27;] [ai-in-pm/NemoClawd/apps/clawdbot-main/skills/nano-banana-pro/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/openai-image-gen/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -512,13 +512,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </div>
 <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-004: Obfuscated code in skill</span>
-    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-high">HIGH</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
-  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">Obfuscation: [&#x27;base64 decode&#x27;] [ai-in-pm/NemoClawd/apps/clawdbot-main/skills/openai-image-gen/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/nano-banana-pro/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [ai-in-pm/NemoClawd/apps/clawdbot-main/skills/model-usage/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
   
 </div>
 <div class="finding-card sev-yellow">
@@ -528,7 +528,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [ai-in-pm/NemoClawd/apps/clawdbot-main/skills/notion/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/weather/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/trello/SKILL.md, ...and 3 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [ai-in-pm/NemoClawd/apps/clawdbot-main/skills/local-places/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/openai-whisper-api/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/notion/SKILL.md, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -541,7 +541,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/docs/reference/templates/SOUL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/docs/reference/templates/soul.md</div>
+  
   
   
 </div>
@@ -552,7 +552,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/docs/reference/templates/SOUL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/docs/reference/templates/soul.md</div>
+  
   
   
 </div>
@@ -563,7 +563,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/docs/reference/templates/SOUL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/docs/reference/templates/soul.md</div>
+  
   
   
 </div>
@@ -574,7 +574,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/docs/reference/templates/SOUL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/docs/reference/templates/soul.md</div>
+  
   
   
 </div>
@@ -585,7 +585,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/docs/reference/templates/SOUL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/docs/reference/templates/soul.md</div>
+  
   
   
 </div>
@@ -596,7 +596,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/skills/nano-pdf/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/himalaya/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/bear-notes/SKILL.md, ...and 48 more</div>
+  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/skills/openai-whisper/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/himalaya/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/bear-notes/SKILL.md, ...and 48 more</div>
   
   
 </div>
@@ -607,7 +607,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/skills/nano-pdf/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/himalaya/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/bear-notes/SKILL.md, ...and 48 more</div>
+  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/skills/openai-whisper/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/himalaya/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/bear-notes/SKILL.md, ...and 48 more</div>
   
   
 </div>
@@ -618,7 +618,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/skills/nano-pdf/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/himalaya/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/bear-notes/SKILL.md, ...and 46 more</div>
+  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/skills/openai-whisper/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/himalaya/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/bear-notes/SKILL.md, ...and 46 more</div>
   
   
 </div>
@@ -629,7 +629,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/skills/nano-pdf/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/himalaya/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/bear-notes/SKILL.md, ...and 45 more</div>
+  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/skills/openai-whisper/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/himalaya/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/bear-notes/SKILL.md, ...and 45 more</div>
   
   
 </div>
@@ -640,7 +640,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/skills/nano-pdf/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/himalaya/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/bear-notes/SKILL.md, ...and 42 more</div>
+  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/skills/openai-whisper/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/himalaya/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/bear-notes/SKILL.md, ...and 42 more</div>
   
   
 </div>
@@ -651,7 +651,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/skills/nano-pdf/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/himalaya/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/bear-notes/SKILL.md, ...and 46 more</div>
+  <div class="evidence-block">ai-in-pm/NemoClawd/apps/clawdbot-main/skills/openai-whisper/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/himalaya/SKILL.md, ai-in-pm/NemoClawd/apps/clawdbot-main/skills/bear-notes/SKILL.md, ...and 46 more</div>
   
   
 </div>
@@ -717,7 +717,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">&quot;timeout&quot;: { &quot;label&quot;: &quot;timeout&quot;, &quot;detailKeys&quot;: [&quot;provider&quot;, &quot;guildId&quot;, &quot;userId&quot;] },</div>
+  <div class="evidence-block">&quot;timeout&quot;: { &quot;label&quot;: &quot;timeout&quot;, &quot;detailKeys&quot;: [&quot;guildId&quot;, &quot;userId&quot;] },</div>
   
   
 </div>
@@ -728,7 +728,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
-  <div class="evidence-block">Data models for HTTP Human-in-the-Loop (HITL) and OAuth support.</div>
+  <div class="evidence-block">&quot;&quot;&quot;Nodes that should block speculation (side effects, human-in-the-loop, etc.).&quot;&quot;&quot;</div>
   
   
 </div>

@@ -151,26 +151,30 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="hero-card">
   <h2>InternLM/WildClawBench</h2>
   <div class="hero-meta">
-    <span class="grade-badge grade-yellow">YELLOW</span>
-    <span>Exposure Score: <strong class="hero-score">3</strong></span>
-    <span>➖ Confidence</span>
-    <span>Source Code Scan | Total Checks: 50</span>
+    <span class="grade-badge grade-red">RED</span>
+    <span>Exposure Score: <strong class="hero-score">16</strong></span>
+    <span>✔ Confidence</span>
+    <span>Source Code Scan | Total Checks: 56</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **0 failure(s)** and **21 warning(s)** across 50 checks.</p>
+<div class="exec-tables"><p>The audit identified **5 failure(s)** and **21 warning(s)** across 56 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
+<td>FAIL</td>
+<td>5</td>
+</tr>
+<tr>
 <td>WARN</td>
 <td>21</td>
 </tr>
 <tr>
 <td>PASS</td>
-<td>10</td>
+<td>11</td>
 </tr>
 <tr>
 <td>SKIP</td>
@@ -183,12 +187,20 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
+<td>CRITICAL</td>
+<td>3</td>
+</tr>
+<tr>
+<td>HIGH</td>
+<td>2</td>
+</tr>
+<tr>
 <td>INFO</td>
 <td>21</td>
 </tr>
 </tbody></table></div>
   <details class="section-group">
-  <summary><span class="section-h2">Agent Safety</span> <span class="count-badge">3 findings</span></summary>
+  <summary><span class="section-h2">Agent Safety</span> <span class="count-badge">2 findings</span></summary>
   <div class="finding-card sev-yellow">
   <div class="finding-header">
     <span class="finding-title">🟡 OC-AGENT-002: No human-in-the-loop enforcement</span>
@@ -209,17 +221,6 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Enable audit logging for all agent actions. Configure logging.audit or telemetry.enabled in the agent config.</div>
-  
-</div>
-<div class="finding-card sev-yellow">
-  <div class="finding-header">
-    <span class="finding-title">🟡 OC-AGENT-004: No tool access scope restrictions</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-warn">WARN</span>
-  </div>
-  <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  
-  <div class="recommendation-box"><strong>Recommendation:</strong> Define an explicit tool allowlist (agent.allowed_tools) scoped to the minimum set of tools needed for the task.</div>
   
 </div>
 </details><details class="section-group">
@@ -422,8 +423,76 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="recommendation-box"><strong>Recommendation:</strong> Add ~/.ssh, ~/.gnupg, ~/.aws, ~/.kube, ~/.docker, browser profiles, and keychain directories to tools.fs.exclude.</div>
   
 </div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">6 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
+  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [InternLM/WildClawBench/skills/5/loopwind/SKILL.md, InternLM/WildClawBench/skills/6/skill-trust-auditor/SKILL.md, InternLM/WildClawBench/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [InternLM/WildClawBench/skills/5/bilibili-youtube-watcher/SKILL.md, InternLM/WildClawBench/skills/4/ddgs-search/SKILL.md, InternLM/WildClawBench/skills/2/arxiv-agentic-verifier/SKILL.md, ...and 3 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  <div class="evidence-block">Obfuscation: [&#x27;chr() encoding&#x27;] [InternLM/WildClawBench/skills/6/skill-trust-auditor/SKILL.md, InternLM/WildClawBench/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  <div class="evidence-block">Credential access: [&#x27;SSH directory access&#x27;, &#x27;SSH private key&#x27;, &#x27;macOS Keychain&#x27;, &#x27;AWS credentials&#x27;, &#x27;Package registry tokens&#x27;] [InternLM/WildClawBench/skills/6/skill-trust-auditor/SKILL.md, InternLM/WildClawBench/skills/6/canary/SKILL.md, InternLM/WildClawBench/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [InternLM/WildClawBench/skills/6/canary/SKILL.md, InternLM/WildClawBench/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
+  
+</div>
+<div class="finding-card sev-yellow">
+  <div class="finding-header">
+    <span class="finding-title">🟡 OC-SKILL-005: Network exfiltration patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-warn">WARN</span>
+  </div>
+  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [InternLM/WildClawBench/skills/5/loopwind/SKILL.md, InternLM/WildClawBench/skills/5/bilibili-youtube-watcher/SKILL.md, InternLM/WildClawBench/skills/5/eachlabs-voice-audio/SKILL.md, ...and 5 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
+  
+</div>
 </details><details class="section-group">
-  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">10 findings</span></summary>
+  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">11 findings</span></summary>
   <div class="finding-card sev-green">
   <div class="finding-header">
     <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
@@ -431,7 +500,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">InternLM/WildClawBench/skills/agent-browser/SKILL.md, InternLM/WildClawBench/skills/03_task6/SKILL.md, InternLM/WildClawBench/skills/03_task1/SKILL.md, ...and 7 more</div>
+  <div class="evidence-block">InternLM/WildClawBench/skills/03_task4/SKILL.md, InternLM/WildClawBench/skills/03_task6/SKILL.md, InternLM/WildClawBench/skills/03_task5/SKILL.md, ...and 23 more</div>
   
   
 </div>
@@ -442,7 +511,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">InternLM/WildClawBench/skills/agent-browser/SKILL.md, InternLM/WildClawBench/skills/03_task6/SKILL.md, InternLM/WildClawBench/skills/03_task1/SKILL.md, ...and 7 more</div>
+  <div class="evidence-block">InternLM/WildClawBench/skills/03_task4/SKILL.md, InternLM/WildClawBench/skills/03_task6/SKILL.md, InternLM/WildClawBench/skills/03_task5/SKILL.md, ...and 22 more</div>
   
   
 </div>
@@ -453,7 +522,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">InternLM/WildClawBench/skills/agent-browser/SKILL.md, InternLM/WildClawBench/skills/03_task6/SKILL.md, InternLM/WildClawBench/skills/03_task1/SKILL.md, ...and 7 more</div>
+  <div class="evidence-block">InternLM/WildClawBench/skills/03_task4/SKILL.md, InternLM/WildClawBench/skills/03_task6/SKILL.md, InternLM/WildClawBench/skills/03_task5/SKILL.md, ...and 19 more</div>
   
   
 </div>
@@ -464,7 +533,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">InternLM/WildClawBench/skills/agent-browser/SKILL.md, InternLM/WildClawBench/skills/03_task6/SKILL.md, InternLM/WildClawBench/skills/03_task1/SKILL.md, ...and 7 more</div>
+  <div class="evidence-block">InternLM/WildClawBench/skills/03_task4/SKILL.md, InternLM/WildClawBench/skills/03_task6/SKILL.md, InternLM/WildClawBench/skills/03_task5/SKILL.md, ...and 23 more</div>
   
   
 </div>
@@ -475,7 +544,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">InternLM/WildClawBench/skills/agent-browser/SKILL.md, InternLM/WildClawBench/skills/03_task6/SKILL.md, InternLM/WildClawBench/skills/03_task1/SKILL.md, ...and 7 more</div>
+  <div class="evidence-block">InternLM/WildClawBench/skills/03_task4/SKILL.md, InternLM/WildClawBench/skills/03_task6/SKILL.md, InternLM/WildClawBench/skills/03_task5/SKILL.md, ...and 17 more</div>
   
   
 </div>
@@ -486,7 +555,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">InternLM/WildClawBench/skills/agent-browser/SKILL.md, InternLM/WildClawBench/skills/03_task6/SKILL.md, InternLM/WildClawBench/skills/03_task1/SKILL.md, ...and 7 more</div>
+  <div class="evidence-block">InternLM/WildClawBench/skills/03_task4/SKILL.md, InternLM/WildClawBench/skills/03_task6/SKILL.md, InternLM/WildClawBench/skills/03_task5/SKILL.md, ...and 22 more</div>
   
   
 </div>
@@ -530,7 +599,18 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">timeout=120,</div>
+  <div class="evidence-block">&quot;deadline&quot;,</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-AGENT-004: No tool access scope restrictions</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
+  <div class="evidence-block">f&#x27;sandbox_mode = &quot;danger-full-access&quot;\n&#x27;</div>
   
   
 </div>
