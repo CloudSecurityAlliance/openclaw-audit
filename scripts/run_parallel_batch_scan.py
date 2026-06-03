@@ -85,6 +85,9 @@ def main():
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--csv", default=str(CSV_PATH))
+    parser.add_argument("--no-build", action="store_true",
+                        help="Skip rebuilding the leaderboard summary and site "
+                             "after scanning (the orchestrator handles those).")
     args = parser.parse_args()
 
     csv_path = Path(args.csv)
@@ -129,6 +132,10 @@ def main():
     print(f"  Skipped:  {counts['skip']}")
     print(f"  Errors:   {counts['error']}")
     print(f"{'='*50}\n")
+
+    if args.no_build:
+        print("Skipping summary/site rebuild (--no-build).")
+        return
 
     print("Rebuilding leaderboard summary...")
     subprocess.run([sys.executable, str(REPO_ROOT / "scripts" / "build_leaderboard_summary.py")],

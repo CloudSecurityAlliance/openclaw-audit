@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  openclaw:
+    image: openclaw/openclaw:latest
+    privileged: true
+    network_mode: host
+    user: root
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /:/host
+    environment:
+      - OPENCLAW_API_KEY=sk-supersecret-hardcoded-value
+    ports:
+      - "0.0.0.0:8080:8080"

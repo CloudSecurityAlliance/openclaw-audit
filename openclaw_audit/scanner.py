@@ -7,7 +7,7 @@ from .context import detect_context
 from .mappings import CHECKS
 from .models import (
     Applicability, ContextType, Finding, FixLevel, ScanContext, ScanMode,
-    ScanReport, Severity, Status,
+    ScanReport, Severity, Status, enrich_finding,
 )
 from .fix.remediate import apply_fixes
 
@@ -63,6 +63,10 @@ def scan(target: Path, fix: bool = False, fix_level: FixLevel = FixLevel.COMPLET
     ctx = detect_context(target, scan_mode=scan_mode)
     ctx.scan_mode = scan_mode
 
+    # Build capability profiles up front so correlation checks can use them.
+    from .capabilities import build_profiles
+    ctx.capability_profiles = build_profiles(ctx)
+
     # Determine applicability filter
     app_filter = _effective_applicability(scan_mode, ctx.context_type)
 
@@ -98,6 +102,21 @@ def scan(target: Path, fix: bool = False, fix_level: FixLevel = FixLevel.COMPLET
             deduped.append(f)
     findings = deduped
 
+    # Correlated attack-path findings (OC-PATH-*) run as a post-pass over the
+    # full findings list plus the capability profiles. Respect the same
+    # applicability filter as the single-signal checks.
+    from .checks import attack_paths
+    path_findings = attack_paths.correlate(ctx, findings)
+    for f in path_findings:
+        if not _should_skip(f.check_id, app_filter):
+            findings.append(f)
+
+    # Enrich every finding with triage metadata (confidence, evidence quality,
+    # exploitability, blast radius) — derived from the check definition and
+    # namespace defaults unless a check set them explicitly.
+    for f in findings:
+        enrich_finding(f, CHECKS.get(f.check_id))
+
     # Apply fixes if requested
     fix_actions: list[str] = []
     if fix:
@@ -108,6 +127,7 @@ def scan(target: Path, fix: bool = False, fix_level: FixLevel = FixLevel.COMPLET
         context_type=ctx.context_type.value,
         scan_mode=scan_mode.value,
         findings=findings,
+        capability_profiles=[p.to_dict() for p in ctx.capability_profiles],
     )
     report.compute_summary()
 

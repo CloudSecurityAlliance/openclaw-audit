@@ -120,17 +120,13 @@ def _scan_content(content: str, patterns: list[tuple[str, str]],
 
 def _scan_skill(skill_dir: Path, findings: list[Finding]) -> None:
     """Scan a single skill directory."""
-    # Collect all text content from the skill
-    all_content = ""
+    # Collect all text content from the skill (bounded — see capabilities.collect_text)
+    from ..capabilities import collect_text
+
     skill_md = skill_dir / "SKILL.md"
     fp = str(skill_md) if skill_md.exists() else str(skill_dir)
 
-    for ext in ("*.md", "*.py", "*.js", "*.ts", "*.sh", "*.json", "*.yaml", "*.yml"):
-        for f in skill_dir.rglob(ext):
-            try:
-                all_content += f.read_text(encoding="utf-8", errors="replace") + "\n"
-            except OSError:
-                pass
+    all_content = collect_text(skill_dir)
 
     if not all_content:
         return

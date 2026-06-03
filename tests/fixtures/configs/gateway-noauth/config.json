@@ -1,0 +1,33 @@
+{
+  "gateway": {
+    "bind": "0.0.0.0",
+    "auth": {
+      "mode": "none"
+    }
+  },
+  "tools": {
+    "exec": {
+      "security": "full",
+      "ask": "never"
+    },
+    "elevated": {
+      "enabled": true
+    },
+    "fs": {
+      "workspaceOnly": false
+    }
+  },
+  "channels": {
+    "slack": {
+      "dmPolicy": "open"
+    }
+  },
+  "session": {
+    "dmScope": "global"
+  },
+  "browser": {
+    "ssrfPolicy": {
+      "dangerouslyAllowPrivateNetwork": true
+    }
+  }
+}
