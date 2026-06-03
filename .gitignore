@@ -15,3 +15,11 @@ data/
 Dockerfile
 main.py
 requirements.txt
+
+# Leaderboard pipeline working data (raw per-repo reports & rendered site).
+# Published artifacts live in docs/ and site-data/; these are regenerable.
+reports/batch_scans/
+reports/cron/
+reports/*.log
+output/
+.refresh.lock

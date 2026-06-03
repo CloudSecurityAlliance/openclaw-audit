@@ -8,6 +8,24 @@ from typing import Sequence
 from ..models import Finding, ScanReport, ScoreResult, Status, compute_score
 
 
+def _triage_line(f: Finding) -> str:
+    """One-line triage metadata summary, or '' if none is set."""
+    parts = []
+    if f.confidence:
+        parts.append(f"Confidence: {f.confidence.value}")
+    if f.evidence_quality:
+        parts.append(f"Evidence: {f.evidence_quality.value}")
+    if f.exploitability:
+        parts.append(f"Exploitability: {f.exploitability.value}")
+    if f.blast_radius:
+        parts.append(f"Blast radius: {f.blast_radius.value}")
+    if f.attack_path:
+        parts.append(f"Attack path: {f.attack_path}")
+    if not parts:
+        return ""
+    return "**Triage:** " + " · ".join(parts)
+
+
 def render(report: ScanReport, output_path: Path | None = None) -> str:
     """Render report as Markdown."""
     report.compute_summary()
@@ -103,6 +121,9 @@ def render(report: ScanReport, output_path: Path | None = None) -> str:
             lines.append(f"### {icon} {f.check_id}: {f.title}\n")
             lines.append(f"**Severity:** {f.severity.value}  ")
             lines.append(f"**Status:** {f.status.value}\n")
+            triage = _triage_line(f)
+            if triage:
+                lines.append(triage + "\n")
             lines.append(f"{f.description}\n")
 
             if f.evidence:

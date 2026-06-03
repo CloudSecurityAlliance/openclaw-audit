@@ -1145,6 +1145,161 @@ _reg(CheckDefinition(
 ))
 
 
+# ── Correlated Attack Paths (OC-PATH) ─────────────────────────────────────
+# These are higher-confidence findings produced by correlating multiple
+# signals (config, capabilities, supply chain) rather than a single fact.
+
+_reg(CheckDefinition(
+    check_id="OC-PATH-001",
+    title="Open DM policy combined with elevated tools",
+    description="A channel accepts DMs from anyone (open dmPolicy) while "
+                "elevated/shell tools are enabled and DM sessions are not "
+                "isolated per peer. An unsolicited DM can drive privileged "
+                "tool use against a shared session.",
+    category="Attack Path",
+    severity=Severity.CRITICAL,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI01", "ASI02", "ASI09"],
+        atlas=["AML.T0051"],
+        aicm=["IAM", "Application and Interface Security"],
+        maestro=["L3", "L7"],
+        whitepaper_section="2.2",
+    ),
+    recommendation="Set dmPolicy to default-deny with an allowlist, disable "
+                   "elevated tools in DM contexts, and set "
+                   "session.dmScope=per-channel-peer.",
+))
+
+_reg(CheckDefinition(
+    check_id="OC-PATH-002",
+    title="Prompt injection reaches privileged capabilities",
+    description="An asset whose documentation or tool descriptions contain "
+                "instruction-override language also has access to shell, "
+                "filesystem, network, or credential capabilities. Injected "
+                "content can be turned directly into tool actions.",
+    category="Attack Path",
+    severity=Severity.HIGH,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI01", "ASI02"],
+        atlas=["AML.T0051", "AML.T0040"],
+        aicm=["Application and Interface Security"],
+        maestro=["L2", "L3"],
+        whitepaper_section="4.1",
+    ),
+    recommendation="Treat tool/skill descriptions as untrusted, remove "
+                   "instruction-override language, require confirmation before "
+                   "high-risk actions, and scope tool allowlists.",
+))
+
+_reg(CheckDefinition(
+    check_id="OC-PATH-003",
+    title="Secret-to-egress path",
+    description="The same asset can read secrets or sensitive files and can "
+                "make outbound network calls — a direct path to credential "
+                "exfiltration.",
+    category="Attack Path",
+    severity=Severity.CRITICAL,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI02", "ASI04"],
+        atlas=["AML.T0024", "AML.T0040"],
+        aicm=["Data Security and Privacy Lifecycle Management"],
+        maestro=["L2", "L4"],
+        whitepaper_section="4.2",
+    ),
+    recommendation="Remove direct secret access, use scoped secret references, "
+                   "add an egress allowlist, and require explicit approval to "
+                   "export data.",
+))
+
+_reg(CheckDefinition(
+    check_id="OC-PATH-004",
+    title="Public agent with private-network browser access",
+    description="The gateway is externally reachable with weak or missing "
+                "auth while the browser tool can reach localhost / RFC1918 / "
+                "link-local metadata ranges — a server-side request forgery "
+                "pivot into the internal network.",
+    category="Attack Path",
+    severity=Severity.CRITICAL,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI02", "ASI05"],
+        atlas=["AML.T0040"],
+        aicm=["Infrastructure Security"],
+        maestro=["L4"],
+        whitepaper_section="6.2",
+    ),
+    recommendation="Bind the gateway to loopback, require strong auth, and "
+                   "block browser access to localhost, RFC1918, link-local, "
+                   "and metadata IPs.",
+))
+
+_reg(CheckDefinition(
+    check_id="OC-PATH-005",
+    title="Untrusted MCP server with broad tools",
+    description="An MCP server is sourced from a public registry with an "
+                "unpinned version and no integrity verification, while exposing "
+                "broad tool capabilities. A compromised or typosquatted package "
+                "gains wide agent access.",
+    category="Attack Path",
+    severity=Severity.HIGH,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI04"],
+        atlas=["AML.T0010"],
+        aicm=["Supply Chain Management, Transparency, and Accountability"],
+        maestro=["L3", "L7"],
+        whitepaper_section="5.1",
+    ),
+    recommendation="Pin MCP server versions, verify hashes/signatures, "
+                   "allowlist tools, and run untrusted MCP servers sandboxed "
+                   "with restricted egress.",
+))
+
+_reg(CheckDefinition(
+    check_id="OC-PATH-006",
+    title="Remote code download to execution",
+    description="An asset downloads remote content and pipes or sources it "
+                "into a shell/interpreter, allowing arbitrary remote code to "
+                "execute on the host.",
+    category="Attack Path",
+    severity=Severity.CRITICAL,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI04", "ASI05"],
+        atlas=["AML.T0011"],
+        aicm=["Supply Chain Management, Transparency, and Accountability"],
+        maestro=["L4"],
+        whitepaper_section="5.2",
+    ),
+    recommendation="Pin and verify downloads, never pipe remote content into a "
+                   "shell, and require review for remote install scripts.",
+))
+
+_reg(CheckDefinition(
+    check_id="OC-PATH-007",
+    title="Session transcript leakage",
+    description="Session transcript content can be read and is moved to a file, "
+                "log, or external sink. Transcripts often contain credentials, "
+                "internal URLs, and business-sensitive content.",
+    category="Attack Path",
+    severity=Severity.HIGH,
+    applicability=Applicability.BOTH,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI06"],
+        atlas=["AML.T0024"],
+        aicm=["Data Security and Privacy Lifecycle Management"],
+        maestro=["L2", "L5"],
+        whitepaper_section="4.3",
+    ),
+    recommendation="Redact and encrypt transcripts, restrict file permissions, "
+                   "disable transcript export by default, and add DLP/secret "
+                   "scanning.",
+))
+
+
 def get_check(check_id: str) -> CheckDefinition:
     return CHECKS[check_id]
 

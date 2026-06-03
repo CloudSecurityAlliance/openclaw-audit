@@ -1,0 +1,14 @@
+{
+  "gateway": {
+    "bind": "loopback",
+    "auth": {"mode": "token", "token": "abcdef0123456789abcdef0123456789abcd"}
+  },
+  "tools": {
+    "exec": {"security": "full", "ask": "never"},
+    "elevated": {"enabled": true}
+  },
+  "channels": {
+    "slack": {"dmPolicy": "open"}
+  },
+  "session": {"dmScope": "global"}
+}

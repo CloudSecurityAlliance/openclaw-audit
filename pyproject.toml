@@ -31,6 +31,11 @@ classifiers = [
     "Topic :: Software Development :: Quality Assurance",
 ]
 
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+# Optional: enables YAML (.yaml/.yml) policy files. JSON policy works without it.
+yaml = ["pyyaml>=6.0"]
+
 [project.scripts]
 openclaw-audit = "openclaw_audit.cli:main"
 
@@ -41,3 +46,7 @@ Issues = "https://github.com/cloudsecurityalliance/openclaw-audit/issues"
 
 [tool.setuptools.packages.find]
 include = ["openclaw_audit*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

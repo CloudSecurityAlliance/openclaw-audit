@@ -7,7 +7,8 @@ import shutil
 import sys
 from pathlib import Path
 
-from .models import FixLevel, ScanMode, compute_score
+from .models import FixLevel, Profile, ScanMode, Status, compute_score
+from .policy import PolicyError, evaluate, find_policy, load_policy
 from .remote import (
     parse_remote_target, prompt_password, push_fixes, scan_hosts_file,
     scan_remote,
@@ -100,6 +101,66 @@ def _print_fix_actions(report, dry_run: bool, quiet: bool) -> None:
         print()
 
 
+def _evaluate_policy(report, args, root: Path | None):
+    """Resolve a policy (explicit --policy or auto-discovered in *root*),
+    evaluate it, and attach the result to report.summary['policy'].
+
+    Returns a PolicyResult, the string "error", or None (no policy).
+    """
+    policy = None
+    try:
+        if args.policy:
+            policy = load_policy(args.policy)
+        elif root is not None:
+            found = find_policy(root)
+            if found:
+                policy = load_policy(found)
+    except PolicyError as e:
+        print(f"Policy error: {e}", file=sys.stderr)
+        report.summary["policy"] = {"error": str(e), "gate_passed": False}
+        return "error"
+
+    if policy is None:
+        return None
+
+    result = evaluate(report, policy)
+    report.summary["policy"] = {"source": policy.source, **result.to_dict()}
+    return result
+
+
+def _print_policy(report, quiet: bool) -> None:
+    if quiet:
+        return
+    pol = report.summary.get("policy")
+    if not pol:
+        return
+    if pol.get("error"):
+        return
+    status = "PASSED" if pol.get("gate_passed") else "FAILED"
+    print(f"\nPolicy gate: {status}  (source: {pol.get('source', '?')})")
+    if pol.get("accepted_count"):
+        print(f"  Accepted risks: {pol['accepted_count']}")
+    for v in pol.get("violations", []):
+        print(f"  ✗ {v}")
+
+
+def _exit_code(report, args, policy_result) -> int:
+    """Compute process exit code from policy result, profile gate, or fails."""
+    if policy_result == "error":
+        return 2
+    if policy_result is not None:
+        return 0 if policy_result.gate_passed else 1
+
+    profile = getattr(args, "profile_obj", None)
+    if profile is not None and profile.gate_severities:
+        n = sum(1 for f in report.findings
+                if f.status == Status.FAIL and f.severity in profile.gate_severities)
+        return 1 if n else 0
+
+    fail_count = report.summary.get("by_status", {}).get("FAIL", 0)
+    return 1 if fail_count > 0 else 0
+
+
 def _scan_single(target_str: str, args, password: str | None = None) -> int:
     """Scan a single target (local or remote). Returns exit code."""
     remote = parse_remote_target(target_str)
@@ -166,8 +227,10 @@ def _scan_single(target_str: str, args, password: str | None = None) -> int:
                 host_slug = remote.host.replace(".", "-")
                 output = output / host_slug
 
+            policy_result = _evaluate_policy(report, args, local_dir)
             _render_report(report, args.format, output, args.quiet)
             _print_fix_actions(report, args.dry_run, args.quiet)
+            _print_policy(report, args.quiet)
 
             # Push fixes back to remote if applied (not dry-run)
             if args.fix and not args.dry_run:
@@ -179,8 +242,7 @@ def _scan_single(target_str: str, args, password: str | None = None) -> int:
                     if not args.quiet:
                         print(f"  Fixes pushed to {remote.display}")
 
-            fail_count = report.summary.get("by_status", {}).get("FAIL", 0)
-            return 1 if fail_count > 0 else 0
+            return _exit_code(report, args, policy_result)
 
         except Exception as e:
             print(f"Error scanning {remote.display}: {e}", file=sys.stderr)
@@ -205,11 +267,12 @@ def _scan_single(target_str: str, args, password: str | None = None) -> int:
             scan_mode=args.scan_mode,
         )
 
+        policy_result = _evaluate_policy(report, args, target)
         _render_report(report, args.format, args.output, args.quiet)
         _print_fix_actions(report, args.dry_run, args.quiet)
+        _print_policy(report, args.quiet)
 
-        fail_count = report.summary.get("by_status", {}).get("FAIL", 0)
-        return 1 if fail_count > 0 else 0
+        return _exit_code(report, args, policy_result)
 
 
 def _clone_repo(repo: str, quiet: bool = False) -> Path | None:
@@ -272,11 +335,12 @@ def _clone_and_scan(repo: str, args) -> int:
                 f.evidence = f.evidence.replace(local_prefix, repo)
 
         report.findings = _consolidate_findings(report.findings)
+        policy_result = _evaluate_policy(report, args, clone_dir)
         _render_report(report, args.format, args.output, args.quiet)
         _print_fix_actions(report, args.dry_run, args.quiet)
+        _print_policy(report, args.quiet)
 
-        fail_count = report.summary.get("by_status", {}).get("FAIL", 0)
-        return 1 if fail_count > 0 else 0
+        return _exit_code(report, args, policy_result)
     finally:
         shutil.rmtree(clone_dir.parent, ignore_errors=True)
 
@@ -554,12 +618,39 @@ def main(argv: list[str] | None = None) -> int:
              "existing JSON report files in DIR. Scans recursively for *.json.",
     )
 
+    parser.add_argument(
+        "--profile",
+        choices=[p.value for p in Profile],
+        default=None,
+        help="Scan profile: upstream-repo / implementation-repo (source code), "
+             "local-instance / enterprise-fleet (installed), or ci-pr-gate "
+             "(repo scan that fails the build on critical/high findings).",
+    )
+
+    parser.add_argument(
+        "--policy",
+        type=Path,
+        default=None,
+        help="Path to a policy file (openclaw-audit.policy.json/.yaml). "
+             "If omitted, a policy file in the scan root is auto-loaded. "
+             "The process exit code honors the policy gate.",
+    )
+
     args = parser.parse_args(argv)
 
+    # Resolve profile (takes precedence and fixes the scan mode).
+    args.profile_obj = Profile(args.profile) if args.profile else None
+    if args.profile_obj is not None:
+        args.scan_mode = args.profile_obj.scan_mode
+        if args.profile_obj.scan_mode == ScanMode.REPO_ONLY:
+            args.repo_only = True
+        else:
+            args.instance_only = True
     # Resolve scan mode
-    if args.clone or args.github_org:
+    elif args.clone or args.github_org:
         args.repo_only = True
-    if args.repo_only:
+        args.scan_mode = ScanMode.REPO_ONLY
+    elif args.repo_only:
         args.scan_mode = ScanMode.REPO_ONLY
     elif args.instance_only:
         args.scan_mode = ScanMode.INSTANCE_ONLY

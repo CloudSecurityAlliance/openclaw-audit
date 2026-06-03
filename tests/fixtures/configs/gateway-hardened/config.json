@@ -1,0 +1,40 @@
+{
+  "gateway": {
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "abcdef0123456789abcdef0123456789abcd"
+    }
+  },
+  "discovery": {
+    "mdns": {"mode": "off"}
+  },
+  "tools": {
+    "exec": {
+      "security": "deny",
+      "ask": "always"
+    },
+    "elevated": {"enabled": false},
+    "fs": {
+      "workspaceOnly": true,
+      "exclude": [".ssh", ".gnupg", ".aws", ".kube", ".docker"]
+    },
+    "deny": [
+      "gateway", "cron", "sessions_spawn", "sessions_send",
+      "group:automation", "group:runtime", "config.patch"
+    ]
+  },
+  "sandbox": {"mode": "all"},
+  "channels": {
+    "slack": {"dmPolicy": "restricted"}
+  },
+  "session": {"dmScope": "per-channel-peer"},
+  "browser": {
+    "ssrfPolicy": {"dangerouslyAllowPrivateNetwork": false}
+  },
+  "updates": {"autoUpdate": false},
+  "moltbook": {"enabled": false},
+  "network": {
+    "egress": {"mode": "allowlist", "allowlist": ["api.github.com"]}
+  }
+}

@@ -37,6 +37,18 @@ def _finding_to_result(f: Finding) -> dict:
     if f.recommendation:
         result["properties"]["recommendation"] = f.recommendation
 
+    # Triage metadata for downstream filtering in code-scanning dashboards.
+    if f.confidence:
+        result["properties"]["confidence"] = f.confidence.value
+    if f.evidence_quality:
+        result["properties"]["evidence_quality"] = f.evidence_quality.value
+    if f.exploitability:
+        result["properties"]["exploitability"] = f.exploitability.value
+    if f.blast_radius:
+        result["properties"]["blast_radius"] = f.blast_radius.value
+    if f.attack_path:
+        result["properties"]["attack_path"] = f.attack_path
+
     if f.frameworks:
         result["properties"]["frameworks"] = f.frameworks.to_dict()
 

@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  openclaw:
+    image: openclaw/openclaw@sha256:0000000000000000000000000000000000000000000000000000000000000000
+    user: "1000:1000"
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+      - seccomp:./seccomp-profile.json
+    cap_drop:
+      - ALL
+    networks:
+      - internal
+    ports:
+      - "127.0.0.1:8080:8080"
+networks:
+  internal:

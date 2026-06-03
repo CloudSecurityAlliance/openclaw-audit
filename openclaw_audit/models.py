@@ -46,6 +46,36 @@ class Applicability(enum.Enum):
     BOTH = "both"
 
 
+class Confidence(enum.Enum):
+    LOW = "low"
+    MEDIUM = "medium"
+    HIGH = "high"
+
+
+class EvidenceQuality(enum.Enum):
+    PATTERN_MATCH = "pattern_match"
+    CONFIG_VALUE = "config_value"
+    CORRELATED_PATH = "correlated_path"
+    RUNTIME_VERIFIED = "runtime_verified"
+    POLICY_VIOLATION = "policy_violation"
+    MANUAL_REVIEW_REQUIRED = "manual_review_required"
+
+
+class Exploitability(enum.Enum):
+    THEORETICAL = "theoretical"
+    PLAUSIBLE = "plausible"
+    DEMONSTRATED = "demonstrated"
+
+
+class BlastRadius(enum.Enum):
+    LOCAL_USER = "local_user"
+    WORKSPACE = "workspace"
+    HOST = "host"
+    CLOUD_ACCOUNT = "cloud_account"
+    ENTERPRISE = "enterprise"
+    UNKNOWN = "unknown"
+
+
 class FixLevel(enum.Enum):
     BASIC = "basic"
     MEDIUM = "medium"
@@ -56,6 +86,32 @@ class ScanMode(enum.Enum):
     AUTO = "auto"
     REPO_ONLY = "repo_only"
     INSTANCE_ONLY = "instance_only"
+
+
+class Profile(enum.Enum):
+    """Explicit scan profiles layered over ScanMode.
+
+    A profile fixes the scan mode and (for CI) the severity gate, so users and
+    CI systems get predictable behavior instead of relying on auto-detection.
+    """
+    UPSTREAM_REPO = "upstream-repo"
+    IMPLEMENTATION_REPO = "implementation-repo"
+    LOCAL_INSTANCE = "local-instance"
+    ENTERPRISE_FLEET = "enterprise-fleet"
+    CI_PR_GATE = "ci-pr-gate"
+
+    @property
+    def scan_mode(self) -> "ScanMode":
+        if self in (Profile.LOCAL_INSTANCE, Profile.ENTERPRISE_FLEET):
+            return ScanMode.INSTANCE_ONLY
+        return ScanMode.REPO_ONLY
+
+    @property
+    def gate_severities(self) -> frozenset:
+        """Severities that fail the build under this profile (empty = no gate)."""
+        if self == Profile.CI_PR_GATE:
+            return frozenset({Severity.CRITICAL, Severity.HIGH})
+        return frozenset()
 
 
 class ContextType(enum.Enum):
@@ -99,6 +155,12 @@ class CheckDefinition:
     frameworks: FrameworkMapping
     recommendation: str
     fix_level: Optional[FixLevel] = None  # None = not auto-fixable
+    # Triage metadata. When left None, sensible defaults are derived per
+    # check namespace at enrichment time (see derive_finding_metadata).
+    confidence: Optional["Confidence"] = None
+    evidence_quality: Optional["EvidenceQuality"] = None
+    exploitability: Optional["Exploitability"] = None
+    blast_radius: Optional["BlastRadius"] = None
 
 
 @dataclass
@@ -117,6 +179,17 @@ class Finding:
     fix_level: Optional[FixLevel] = None
     fix_applied: bool = False
     fix_description: str = ""
+    # Triage metadata (see derive_finding_metadata / scanner enrichment).
+    confidence: Optional[Confidence] = None
+    evidence_quality: Optional[EvidenceQuality] = None
+    exploitability: Optional[Exploitability] = None
+    blast_radius: Optional[BlastRadius] = None
+    # Set of attack-path finding IDs this finding contributes evidence to.
+    attack_path: str = ""
+    # Where this check applies (repo_only / instance_only / both).
+    profile_applicability: str = ""
+    # Policy evaluation status: "" (no policy), "violation", or "accepted".
+    policy_status: str = ""
 
     def to_dict(self) -> dict:
         d = {
@@ -135,6 +208,20 @@ class Finding:
             d["file_path"] = self.file_path
         if self.recommendation:
             d["recommendation"] = self.recommendation
+        if self.confidence:
+            d["confidence"] = self.confidence.value
+        if self.evidence_quality:
+            d["evidence_quality"] = self.evidence_quality.value
+        if self.exploitability:
+            d["exploitability"] = self.exploitability.value
+        if self.blast_radius:
+            d["blast_radius"] = self.blast_radius.value
+        if self.attack_path:
+            d["attack_path"] = self.attack_path
+        if self.profile_applicability:
+            d["profile_applicability"] = self.profile_applicability
+        if self.policy_status:
+            d["policy_status"] = self.policy_status
         if self.frameworks:
             d["frameworks"] = self.frameworks.to_dict()
         if self.fix_applied:
@@ -162,6 +249,8 @@ class ScanContext:
     openclaw_version: Optional[str] = None
     is_nemoclaw: bool = False
     nemoclaw_policy_files: list[Path] = field(default_factory=list)
+    # CapabilityProfile objects, populated by the scanner before checks run.
+    capability_profiles: list = field(default_factory=list)
 
 
 @dataclass
@@ -171,6 +260,8 @@ class ScanReport:
     scan_mode: str = "auto"
     findings: list[Finding] = field(default_factory=list)
     summary: dict = field(default_factory=dict)
+    # Capability profiles (list of dicts from CapabilityProfile.to_dict()).
+    capability_profiles: list[dict] = field(default_factory=list)
 
     def compute_summary(self) -> None:
         total = len(self.findings)
@@ -204,6 +295,8 @@ class ScanReport:
             "summary": self.summary,
             "findings": [f.to_dict() for f in self.findings],
         }
+        if self.capability_profiles:
+            d["capability_profiles"] = self.capability_profiles
         if self.scan_mode != "auto":
             d["scan_mode"] = self.scan_mode
         # Include scoring in serialised output
@@ -317,3 +410,116 @@ def compute_score(findings: list[Finding]) -> ScoreResult:
         has_critical=has_critical,
         key_signals=key_signals,
     )
+
+
+# ---------------------------------------------------------------------------
+# Triage-metadata derivation
+# ---------------------------------------------------------------------------
+
+# Check namespaces whose findings rest on regex / textual pattern matches.
+# These are inherently lower-confidence than parsed config values.
+_PATTERN_PREFIXES = ("OC-SKILL", "OC-SOUL", "OC-CRED")
+_PATTERN_IDS = frozenset({"OC-MCP-004"})  # tool-description injection
+
+# Default blast radius by namespace, with per-id overrides for the cases
+# where exposure clearly reaches further than the namespace default.
+_BLAST_BY_PREFIX = {
+    "OC-CFG": BlastRadius.HOST,
+    "OC-NET": BlastRadius.HOST,
+    "OC-DOCK": BlastRadius.HOST,
+    "OC-VER": BlastRadius.HOST,
+    "OC-PERM": BlastRadius.HOST,
+    "OC-SKILL": BlastRadius.WORKSPACE,
+    "OC-SOUL": BlastRadius.WORKSPACE,
+    "OC-MCP": BlastRadius.WORKSPACE,
+    "OC-AGENT": BlastRadius.WORKSPACE,
+    "OC-CRED": BlastRadius.CLOUD_ACCOUNT,
+    "OC-PATH": BlastRadius.HOST,
+}
+_BLAST_BY_ID = {
+    "OC-CFG-011": BlastRadius.CLOUD_ACCOUNT,  # browser SSRF → metadata creds
+    "OC-SKILL-006": BlastRadius.CLOUD_ACCOUNT,  # credential theft
+    "OC-PATH-003": BlastRadius.CLOUD_ACCOUNT,  # secret-to-egress
+    "OC-PATH-004": BlastRadius.CLOUD_ACCOUNT,  # public agent + private net
+}
+
+
+def _prefix(check_id: str) -> str:
+    parts = check_id.split("-")
+    return "-".join(parts[:2]) if len(parts) >= 2 else check_id
+
+
+def derive_finding_metadata(
+    check_id: str, severity: Severity, status: Status,
+) -> tuple[Confidence, EvidenceQuality, Exploitability, BlastRadius]:
+    """Derive default triage metadata for a finding from its check id.
+
+    Used to fill any metadata fields a check (or check definition) did not set
+    explicitly. Correlated attack-path findings (OC-PATH-*) are treated as
+    higher-confidence, higher-evidence than single-signal findings.
+    """
+    prefix = _prefix(check_id)
+
+    # Evidence quality
+    if prefix == "OC-PATH":
+        evidence_quality = EvidenceQuality.CORRELATED_PATH
+    elif prefix == "OC-RUNTIME":
+        evidence_quality = EvidenceQuality.RUNTIME_VERIFIED
+    elif check_id in _PATTERN_IDS or prefix in _PATTERN_PREFIXES:
+        evidence_quality = EvidenceQuality.PATTERN_MATCH
+    else:
+        evidence_quality = EvidenceQuality.CONFIG_VALUE
+
+    # Confidence: config/correlated/runtime evidence is strong; pattern is
+    # medium; a passing or skipped check is not an assertion of risk.
+    if status in (Status.PASS, Status.SKIP):
+        confidence = Confidence.HIGH
+    elif evidence_quality == EvidenceQuality.PATTERN_MATCH:
+        confidence = Confidence.MEDIUM
+    elif evidence_quality in (
+        EvidenceQuality.CORRELATED_PATH,
+        EvidenceQuality.RUNTIME_VERIFIED,
+        EvidenceQuality.CONFIG_VALUE,
+    ):
+        confidence = Confidence.HIGH
+    else:
+        confidence = Confidence.MEDIUM
+
+    # Exploitability: correlated/runtime paths are the closest to demonstrated;
+    # a confirmed FAIL is plausible; a WARN is theoretical.
+    if status == Status.FAIL and evidence_quality in (
+        EvidenceQuality.CORRELATED_PATH, EvidenceQuality.RUNTIME_VERIFIED,
+    ):
+        exploitability = Exploitability.DEMONSTRATED
+    elif status == Status.FAIL:
+        exploitability = Exploitability.PLAUSIBLE
+    else:
+        exploitability = Exploitability.THEORETICAL
+
+    # Blast radius
+    blast_radius = _BLAST_BY_ID.get(check_id) or _BLAST_BY_PREFIX.get(
+        prefix, BlastRadius.UNKNOWN
+    )
+
+    return confidence, evidence_quality, exploitability, blast_radius
+
+
+def enrich_finding(finding: Finding, check: Optional[CheckDefinition] = None) -> None:
+    """Populate a finding's triage metadata in place.
+
+    Precedence: explicit value already on the finding > value on the check
+    definition > derived default. Mutates and returns nothing.
+    """
+    d_conf, d_eq, d_exp, d_blast = derive_finding_metadata(
+        finding.check_id, finding.severity, finding.status,
+    )
+    if finding.confidence is None:
+        finding.confidence = (check.confidence if check else None) or d_conf
+    if finding.evidence_quality is None:
+        finding.evidence_quality = (check.evidence_quality if check else None) or d_eq
+    if finding.exploitability is None:
+        finding.exploitability = (check.exploitability if check else None) or d_exp
+    if finding.blast_radius is None:
+        finding.blast_radius = (check.blast_radius if check else None) or d_blast
+    if not finding.profile_applicability and check is not None:
+        finding.profile_applicability = check.applicability.value

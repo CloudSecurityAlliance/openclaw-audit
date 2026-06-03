@@ -1,0 +1,22 @@
+{
+  "profile": "enterprise-production",
+  "ci_gate": {
+    "fail_on": ["critical", "high"]
+  },
+  "risk_acceptance": {
+    "max_critical": 0,
+    "max_high": 0
+  },
+  "required_controls": [
+    "OC-CFG-001",
+    "OC-CFG-002",
+    "OC-MCP-002",
+    "OC-NET-002"
+  ],
+  "accepted_risks": [
+    {
+      "check": "OC-CFG-003",
+      "justification": "mDNS is required on the isolated management VLAN; network is segmented."
+    }
+  ]
+}
