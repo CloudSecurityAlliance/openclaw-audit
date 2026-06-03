@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>szw5552/ChainShield-Lab</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">6</strong></span>
+    <span>Exposure Score: <strong class="hero-score">8</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 52</span>
+    <span>Source Code Scan | Total Checks: 54</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **2 failure(s)** and **20 warning(s)** across 52 checks.</p>
+<div class="exec-tables"><p>The audit identified **4 failure(s)** and **20 warning(s)** across 54 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>2</td>
+<td>4</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,11 +188,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>1</td>
+<td>2</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>1</td>
+<td>2</td>
 </tr>
 <tr>
 <td>INFO</td>
@@ -221,6 +221,30 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Enable audit logging for all agent actions. Configure logging.audit or telemetry.enabled in the agent config.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">2 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:speckit-checklist: injection (OC-SKILL-001) with capabilities [&#x27;write_file&#x27;] [szw5552/ChainShield-Lab/.agents/skills/speckit-checklist/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-implement/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-taskstoissues/SKILL.md, ...and 3 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:skills: reads sensitive sources (.env) and can egress (caps: [])</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
   
 </div>
 </details><details class="section-group">
@@ -432,7 +456,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [szw5552/ChainShield-Lab/.agents/skills/speckit-taskstoissues/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-specify/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-checklist/SKILL.md, ...and 7 more]</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [szw5552/ChainShield-Lab/.agents/skills/speckit-checklist/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-constitution/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-implement/SKILL.md, ...and 7 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
   
 </div>
@@ -451,23 +475,12 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">9 findings</span></summary>
   <div class="finding-card sev-green">
   <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">szw5552/ChainShield-Lab/.agents/skills/chainshield-worker/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-git-remote/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-git-commit/SKILL.md, ...and 3 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
     <span class="finding-title">🟢 OC-SKILL-002: External download instructions in skill</span>
     <span class="severity-badge severity-info">INFO</span>
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">szw5552/ChainShield-Lab/.agents/skills/chainshield-worker/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-taskstoissues/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-specify/SKILL.md, ...and 13 more</div>
+  <div class="evidence-block">szw5552/ChainShield-Lab/.agents/skills/speckit-checklist/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-git-remote/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-git-validate/SKILL.md, ...and 13 more</div>
   
   
 </div>
@@ -478,7 +491,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">szw5552/ChainShield-Lab/.agents/skills/chainshield-worker/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-taskstoissues/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-specify/SKILL.md, ...and 13 more</div>
+  <div class="evidence-block">szw5552/ChainShield-Lab/.agents/skills/speckit-checklist/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-git-remote/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-git-validate/SKILL.md, ...and 13 more</div>
   
   
 </div>
@@ -489,7 +502,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">szw5552/ChainShield-Lab/.agents/skills/chainshield-worker/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-taskstoissues/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-specify/SKILL.md, ...and 13 more</div>
+  <div class="evidence-block">szw5552/ChainShield-Lab/.agents/skills/speckit-checklist/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-git-remote/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-git-validate/SKILL.md, ...and 13 more</div>
   
   
 </div>
@@ -500,7 +513,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">szw5552/ChainShield-Lab/.agents/skills/chainshield-worker/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-taskstoissues/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-specify/SKILL.md, ...and 13 more</div>
+  <div class="evidence-block">szw5552/ChainShield-Lab/.agents/skills/speckit-checklist/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-git-remote/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-git-validate/SKILL.md, ...and 13 more</div>
   
   
 </div>
@@ -511,7 +524,18 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">szw5552/ChainShield-Lab/.agents/skills/chainshield-worker/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-taskstoissues/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-specify/SKILL.md, ...and 11 more</div>
+  <div class="evidence-block">szw5552/ChainShield-Lab/.agents/skills/speckit-checklist/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-git-remote/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-git-validate/SKILL.md, ...and 11 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">szw5552/ChainShield-Lab/.agents/skills/speckit-git-remote/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-git-validate/SKILL.md, szw5552/ChainShield-Lab/.agents/skills/speckit-git-initialize/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -533,7 +557,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">&quot;timeout_seconds&quot;,</div>
+  <div class="evidence-block">&quot;timeout_seconds&quot;: 60,</div>
   
   
 </div>
@@ -544,7 +568,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">&quot;sandbox_mode&quot;,</div>
+  <div class="evidence-block">&quot;sandbox_mode&quot;: &quot;live&quot;,</div>
   
   
 </div>

@@ -442,7 +442,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">timeout: 3000,</div>
+  <div class="evidence-block">execFile(&#x27;openclaw&#x27;, [&#x27;cron&#x27;, &#x27;list&#x27;, &#x27;--json&#x27;], { timeout: 15000 }, (err, stdout) =&gt; {</div>
   
   
 </div>

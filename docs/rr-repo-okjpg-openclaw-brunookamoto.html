@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>okjpg/openclaw-BrunoOkamoto</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">15</strong></span>
+    <span>Exposure Score: <strong class="hero-score">18</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 61</span>
+    <span>Source Code Scan | Total Checks: 64</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **4 failure(s)** and **23 warning(s)** across 61 checks.</p>
+<div class="exec-tables"><p>The audit identified **7 failure(s)** and **23 warning(s)** across 64 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>4</td>
+<td>7</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,11 +188,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>2</td>
+<td>4</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>2</td>
+<td>3</td>
 </tr>
 <tr>
 <td>INFO</td>
@@ -243,6 +243,41 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Define an explicit tool allowlist (agent.allowed_tools) scoped to the minimum set of tools needed for the task.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">3 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:seguranca: injection (OC-SKILL-001) with capabilities [&#x27;env_read&#x27;, &#x27;network_get&#x27;, &#x27;shell_exec&#x27;, &#x27;ssh_key_read&#x27;, &#x27;write_file&#x27;] [okjpg/openclaw-BrunoOkamoto/skills/seguranca/SKILL.md, okjpg/openclaw-BrunoOkamoto/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:seguranca: reads sensitive sources (.env, .ssh) and can egress (caps: [&#x27;network_get&#x27;, &#x27;remote_code_download&#x27;, &#x27;webhook_call&#x27;]) [okjpg/openclaw-BrunoOkamoto/skills/seguranca/SKILL.md, okjpg/openclaw-BrunoOkamoto/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:seguranca: downloads and executes remote content (pipe-to-shell or defanged URL) [okjpg/openclaw-BrunoOkamoto/skills/seguranca/SKILL.md, okjpg/openclaw-BrunoOkamoto/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
   
 </div>
 </details><details class="section-group">
@@ -511,7 +546,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  
+  <div class="evidence-block">okjpg/openclaw-BrunoOkamoto/SOUL.md, okjpg/openclaw-BrunoOkamoto/soul.md</div>
   
   
 </div>
@@ -522,7 +557,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  
+  <div class="evidence-block">okjpg/openclaw-BrunoOkamoto/SOUL.md, okjpg/openclaw-BrunoOkamoto/soul.md</div>
   
   
 </div>
@@ -533,7 +568,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  
+  <div class="evidence-block">okjpg/openclaw-BrunoOkamoto/SOUL.md, okjpg/openclaw-BrunoOkamoto/soul.md</div>
   
   
 </div>
@@ -544,7 +579,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  
+  <div class="evidence-block">okjpg/openclaw-BrunoOkamoto/SOUL.md, okjpg/openclaw-BrunoOkamoto/soul.md</div>
   
   
 </div>
@@ -555,18 +590,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">okjpg/openclaw-BrunoOkamoto/skills/seguranca/SKILL.md, okjpg/openclaw-BrunoOkamoto/skills/deep-research/SKILL.md, okjpg/openclaw-BrunoOkamoto/skills</div>
+  <div class="evidence-block">okjpg/openclaw-BrunoOkamoto/SOUL.md, okjpg/openclaw-BrunoOkamoto/soul.md</div>
   
   
 </div>
@@ -600,6 +624,17 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
   
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  <div class="evidence-block">okjpg/openclaw-BrunoOkamoto/skills/deep-research/SKILL.md, okjpg/openclaw-BrunoOkamoto/skills/seguranca/SKILL.md, okjpg/openclaw-BrunoOkamoto/skills</div>
   
   
 </div>

@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>dpickem/nemoclaw_escapades</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-yellow">YELLOW</span>
-    <span>Exposure Score: <strong class="hero-score">4</strong></span>
+    <span>Exposure Score: <strong class="hero-score">5</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 43</span>
+    <span>Source Code Scan | Total Checks: 44</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **1 failure(s)** and **19 warning(s)** across 43 checks.</p>
+<div class="exec-tables"><p>The audit identified **2 failure(s)** and **19 warning(s)** across 44 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>1</td>
+<td>2</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,7 +188,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>HIGH</td>
-<td>1</td>
+<td>2</td>
 </tr>
 <tr>
 <td>INFO</td>
@@ -206,6 +206,19 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Enable human-in-the-loop for dangerous operations. Set agent.require_approval or auto_approve=false for file writes, network access, and command execution.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">1 finding</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:scratchpad: injection (OC-SKILL-001) with capabilities [&#x27;write_file&#x27;] [dpickem/nemoclaw_escapades/skills/scratchpad/SKILL.md, dpickem/nemoclaw_escapades/skills/refactor/SKILL.md, dpickem/nemoclaw_escapades/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
   
 </div>
 </details><details class="section-group">
@@ -430,7 +443,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">dpickem/nemoclaw_escapades/skills/debugging/SKILL.md, dpickem/nemoclaw_escapades/skills/code-review/SKILL.md</div>
+  <div class="evidence-block">dpickem/nemoclaw_escapades/skills/code-review/SKILL.md, dpickem/nemoclaw_escapades/skills/debugging/SKILL.md</div>
   
   
 </div>
@@ -441,7 +454,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">dpickem/nemoclaw_escapades/skills/debugging/SKILL.md, dpickem/nemoclaw_escapades/skills/code-review/SKILL.md, dpickem/nemoclaw_escapades/skills/scratchpad/SKILL.md, ...and 2 more</div>
+  <div class="evidence-block">dpickem/nemoclaw_escapades/skills/code-review/SKILL.md, dpickem/nemoclaw_escapades/skills/debugging/SKILL.md, dpickem/nemoclaw_escapades/skills/scratchpad/SKILL.md, ...and 2 more</div>
   
   
 </div>
@@ -452,7 +465,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">dpickem/nemoclaw_escapades/skills/debugging/SKILL.md, dpickem/nemoclaw_escapades/skills/code-review/SKILL.md, dpickem/nemoclaw_escapades/skills/scratchpad/SKILL.md, ...and 2 more</div>
+  <div class="evidence-block">dpickem/nemoclaw_escapades/skills/code-review/SKILL.md, dpickem/nemoclaw_escapades/skills/debugging/SKILL.md, dpickem/nemoclaw_escapades/skills/scratchpad/SKILL.md, ...and 2 more</div>
   
   
 </div>
@@ -463,7 +476,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">dpickem/nemoclaw_escapades/skills/debugging/SKILL.md, dpickem/nemoclaw_escapades/skills/code-review/SKILL.md, dpickem/nemoclaw_escapades/skills/scratchpad/SKILL.md, ...and 2 more</div>
+  <div class="evidence-block">dpickem/nemoclaw_escapades/skills/code-review/SKILL.md, dpickem/nemoclaw_escapades/skills/debugging/SKILL.md, dpickem/nemoclaw_escapades/skills/scratchpad/SKILL.md, ...and 2 more</div>
   
   
 </div>
@@ -474,7 +487,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">dpickem/nemoclaw_escapades/skills/debugging/SKILL.md, dpickem/nemoclaw_escapades/skills/code-review/SKILL.md, dpickem/nemoclaw_escapades/skills/scratchpad/SKILL.md, ...and 2 more</div>
+  <div class="evidence-block">dpickem/nemoclaw_escapades/skills/code-review/SKILL.md, dpickem/nemoclaw_escapades/skills/debugging/SKILL.md, dpickem/nemoclaw_escapades/skills/scratchpad/SKILL.md, ...and 2 more</div>
   
   
 </div>
@@ -485,7 +498,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">dpickem/nemoclaw_escapades/skills/debugging/SKILL.md, dpickem/nemoclaw_escapades/skills/code-review/SKILL.md, dpickem/nemoclaw_escapades/skills/scratchpad/SKILL.md, ...and 2 more</div>
+  <div class="evidence-block">dpickem/nemoclaw_escapades/skills/code-review/SKILL.md, dpickem/nemoclaw_escapades/skills/debugging/SKILL.md, dpickem/nemoclaw_escapades/skills/scratchpad/SKILL.md, ...and 2 more</div>
   
   
 </div>
@@ -529,7 +542,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block"># tunnel which avoids the proxy&#x27;s HTTP idle timeout killing the connection.</div>
+  <div class="evidence-block">max_retries: 3</div>
   
   
 </div>
@@ -540,7 +553,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">row_id = await buf.log_tool_call(</div>
+  <div class="evidence-block">await buf.log_tool_call(</div>
   
   
 </div>

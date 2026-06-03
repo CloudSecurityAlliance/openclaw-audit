@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>LLMQuant/skills</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">7</strong></span>
+    <span>Exposure Score: <strong class="hero-score">8</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 51</span>
+    <span>Source Code Scan | Total Checks: 52</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **1 failure(s)** and **22 warning(s)** across 51 checks.</p>
+<div class="exec-tables"><p>The audit identified **2 failure(s)** and **22 warning(s)** across 52 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>1</td>
+<td>2</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,7 +188,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>HIGH</td>
-<td>1</td>
+<td>2</td>
 </tr>
 <tr>
 <td>INFO</td>
@@ -239,6 +239,19 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Define an explicit tool allowlist (agent.allowed_tools) scoped to the minimum set of tools needed for the task.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">1 finding</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:skills: injection (OC-SKILL-001) with capabilities [&#x27;write_file&#x27;]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
   
 </div>
 </details><details class="section-group">
@@ -463,7 +476,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">LLMQuant/skills/skills/llmquant-investor-lenses/SKILL.md, LLMQuant/skills/skills/llmquant-options/SKILL.md, LLMQuant/skills/skills/llmquant-data/SKILL.md, ...and 14 more</div>
+  <div class="evidence-block">LLMQuant/skills/skills/llmquant-risk/SKILL.md, LLMQuant/skills/skills/llmquant-crypto/SKILL.md, LLMQuant/skills/skills/llmquant-credit/SKILL.md, ...and 14 more</div>
   
   
 </div>
@@ -474,7 +487,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">LLMQuant/skills/skills/llmquant-investor-lenses/SKILL.md, LLMQuant/skills/skills/llmquant-options/SKILL.md, LLMQuant/skills/skills/llmquant-data/SKILL.md, ...and 16 more</div>
+  <div class="evidence-block">LLMQuant/skills/skills/llmquant-risk/SKILL.md, LLMQuant/skills/skills/llmquant-crypto/SKILL.md, LLMQuant/skills/skills/llmquant-credit/SKILL.md, ...and 16 more</div>
   
   
 </div>
@@ -485,7 +498,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">LLMQuant/skills/skills/llmquant-investor-lenses/SKILL.md, LLMQuant/skills/skills/llmquant-options/SKILL.md, LLMQuant/skills/skills/llmquant-data/SKILL.md, ...and 16 more</div>
+  <div class="evidence-block">LLMQuant/skills/skills/llmquant-risk/SKILL.md, LLMQuant/skills/skills/llmquant-crypto/SKILL.md, LLMQuant/skills/skills/llmquant-credit/SKILL.md, ...and 16 more</div>
   
   
 </div>
@@ -496,7 +509,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">LLMQuant/skills/skills/llmquant-investor-lenses/SKILL.md, LLMQuant/skills/skills/llmquant-options/SKILL.md, LLMQuant/skills/skills/llmquant-data/SKILL.md, ...and 16 more</div>
+  <div class="evidence-block">LLMQuant/skills/skills/llmquant-risk/SKILL.md, LLMQuant/skills/skills/llmquant-crypto/SKILL.md, LLMQuant/skills/skills/llmquant-credit/SKILL.md, ...and 16 more</div>
   
   
 </div>
@@ -507,7 +520,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">LLMQuant/skills/skills/llmquant-investor-lenses/SKILL.md, LLMQuant/skills/skills/llmquant-options/SKILL.md, LLMQuant/skills/skills/llmquant-data/SKILL.md, ...and 16 more</div>
+  <div class="evidence-block">LLMQuant/skills/skills/llmquant-risk/SKILL.md, LLMQuant/skills/skills/llmquant-crypto/SKILL.md, LLMQuant/skills/skills/llmquant-credit/SKILL.md, ...and 16 more</div>
   
   
 </div>
@@ -518,7 +531,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">LLMQuant/skills/skills/llmquant-investor-lenses/SKILL.md, LLMQuant/skills/skills/llmquant-options/SKILL.md, LLMQuant/skills/skills/llmquant-data/SKILL.md, ...and 16 more</div>
+  <div class="evidence-block">LLMQuant/skills/skills/llmquant-risk/SKILL.md, LLMQuant/skills/skills/llmquant-crypto/SKILL.md, LLMQuant/skills/skills/llmquant-credit/SKILL.md, ...and 16 more</div>
   
   
 </div>

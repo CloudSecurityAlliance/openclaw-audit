@@ -421,7 +421,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Plaintext API keys found in .env files, accessible to any process running under the same user.</div>
-  <div class="evidence-block">pgedeon/openclaw-project-webos/.env.example: Password (PASSWORD...e-me); pgedeon/openclaw-project-webos/.env.example: Password (PASSWORD...e-me)</div>
+  <div class="evidence-block">pgedeon/openclaw-project-webos/.env.example: Auth token (AUTH_TOK...oken); pgedeon/openclaw-project-webos/.env.example: Password (PASSWORD...e-me); pgedeon/openclaw-project-webos/.env.example: Auth token (AUTH_TOK...oken); pgedeon/openclaw-project-webos/.env.example: Password (PASSWORD...e-me)</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Migrate to secrets manager. Remove .env files with credentials.</div>
   
 </div>
@@ -456,7 +456,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">with urllib.request.urlopen(req, timeout=15) as resp:</div>
+  <div class="evidence-block">&#x27;WP_SITE_URL&#x27;, &#x27;WP_USERNAME&#x27;, &#x27;WP_APP_PASSWORD&#x27;, &#x27;WP_REST_BASE&#x27;, &#x27;WP_TIMEOUT_SEC&#x27;]:</div>
   
   
 </div>

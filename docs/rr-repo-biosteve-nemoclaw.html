@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>Biosteve/NemoClaw</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">11</strong></span>
+    <span>Exposure Score: <strong class="hero-score">15</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 48</span>
+    <span>Source Code Scan | Total Checks: 52</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **4 failure(s)** and **19 warning(s)** across 48 checks.</p>
+<div class="exec-tables"><p>The audit identified **8 failure(s)** and **19 warning(s)** across 52 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>4</td>
+<td>8</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,18 +188,64 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>2</td>
+<td>4</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>2</td>
+<td>4</td>
 </tr>
 <tr>
 <td>INFO</td>
 <td>19</td>
 </tr>
 </tbody></table></div>
-  <details class="section-group">
+  <details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">4 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:nemoclaw-user-get-started: reads sensitive sources (session transcript, slack token, api key) and can egress (caps: [&#x27;network_get&#x27;, &#x27;remote_code_download&#x27;]) [Biosteve/NemoClaw/.agents/skills/nemoclaw-user-get-started/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-manage-sandboxes/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-reference/SKILL.md, ...and 8 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:nemoclaw-user-get-started: downloads and executes remote content (pipe-to-shell or defanged URL) [Biosteve/NemoClaw/.agents/skills/nemoclaw-user-get-started/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-manage-sandboxes/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-reference/SKILL.md, ...and 3 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:nemoclaw-user-get-started: session transcript access combined with an external sink [Biosteve/NemoClaw/.agents/skills/nemoclaw-user-get-started/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-overview/SKILL.md, Biosteve/NemoClaw/.agents/skills, ...and 1 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:nemoclaw-user-manage-sandboxes: injection (OC-SKILL-001) with capabilities [&#x27;env_read&#x27;, &#x27;shell_exec&#x27;, &#x27;write_file&#x27;] [Biosteve/NemoClaw/.agents/skills/nemoclaw-user-manage-sandboxes/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-reference/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-configure-security/SKILL.md, ...and 6 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+</details><details class="section-group">
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">18 findings</span></summary>
   <div class="finding-card sev-yellow">
   <div class="finding-header">
@@ -403,35 +449,24 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">5 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [Biosteve/NemoClaw/.agents/skills/nemoclaw-user-configure-inference/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-cross-issue-sweep/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-manage-sandboxes/SKILL.md, ...and 6 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;Node child_process&#x27;] [Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-day/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-normalize-title-tags/SKILL.md, Biosteve/NemoClaw/.agents/skills, ...and 1 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
     <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
     <span class="severity-badge severity-critical">CRITICAL</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [Biosteve/NemoClaw/.agents/skills/nemoclaw-user-manage-sandboxes/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-overview/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-reference/SKILL.md, ...and 3 more]</div>
+  <div class="evidence-block">Download patterns: [&#x27;External binary download-and-run instruction&#x27;, &#x27;Pipe-to-shell download pattern&#x27;] [Biosteve/NemoClaw/.agents/skills/nemoclaw-user-get-started/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-manage-sandboxes/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-reference/SKILL.md, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [Biosteve/NemoClaw/.agents/skills/nemoclaw-user-manage-sandboxes/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-reference/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-configure-security/SKILL.md, ...and 6 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -445,6 +480,17 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
   
 </div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;Node child_process&#x27;] [Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-day/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-normalize-title-tags/SKILL.md, Biosteve/NemoClaw/.agents/skills, ...and 1 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
+  
+</div>
 <div class="finding-card sev-yellow">
   <div class="finding-header">
     <span class="finding-title">🟡 OC-SKILL-005: Network exfiltration patterns in skill</span>
@@ -452,7 +498,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [Biosteve/NemoClaw/.agents/skills/nemoclaw-user-manage-sandboxes/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-manage-policy/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-overview/SKILL.md, ...and 4 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [Biosteve/NemoClaw/.agents/skills/nemoclaw-user-get-started/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-manage-sandboxes/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-reference/SKILL.md, ...and 4 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -460,12 +506,23 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">11 findings</span></summary>
   <div class="finding-card sev-green">
   <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">Biosteve/NemoClaw/.agents/skills/nemoclaw-user-agent-skills/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-get-started/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-contributor-create-pr/SKILL.md, ...and 13 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
     <span class="finding-title">🟢 OC-SKILL-002: External download instructions in skill</span>
     <span class="severity-badge severity-info">INFO</span>
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">Biosteve/NemoClaw/.agents/skills/nemoclaw-user-configure-inference/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-day/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-cross-issue-sweep/SKILL.md, ...and 16 more</div>
+  <div class="evidence-block">Biosteve/NemoClaw/.agents/skills/nemoclaw-user-agent-skills/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-contributor-create-pr/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-find-review-pr/SKILL.md, ...and 16 more</div>
   
   
 </div>
@@ -476,7 +533,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Biosteve/NemoClaw/.agents/skills/nemoclaw-user-configure-inference/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-cross-issue-sweep/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-agent-skills/SKILL.md, ...and 18 more</div>
+  <div class="evidence-block">Biosteve/NemoClaw/.agents/skills/nemoclaw-user-agent-skills/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-get-started/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-contributor-create-pr/SKILL.md, ...and 18 more</div>
   
   
 </div>
@@ -487,7 +544,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">Biosteve/NemoClaw/.agents/skills/nemoclaw-user-configure-inference/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-day/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-cross-issue-sweep/SKILL.md, ...and 22 more</div>
+  <div class="evidence-block">Biosteve/NemoClaw/.agents/skills/nemoclaw-user-agent-skills/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-get-started/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-contributor-create-pr/SKILL.md, ...and 22 more</div>
   
   
 </div>
@@ -498,7 +555,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Biosteve/NemoClaw/.agents/skills/nemoclaw-user-configure-inference/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-day/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-cross-issue-sweep/SKILL.md, ...and 15 more</div>
+  <div class="evidence-block">Biosteve/NemoClaw/.agents/skills/nemoclaw-user-agent-skills/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-contributor-create-pr/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-find-review-pr/SKILL.md, ...and 15 more</div>
   
   
 </div>
@@ -509,18 +566,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">Biosteve/NemoClaw/.agents/skills/nemoclaw-user-configure-inference/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-day/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-cross-issue-sweep/SKILL.md, ...and 18 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Biosteve/NemoClaw/.agents/skills/nemoclaw-maintainer-day/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-agent-skills/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-overview/SKILL.md, ...and 13 more</div>
+  <div class="evidence-block">Biosteve/NemoClaw/.agents/skills/nemoclaw-user-agent-skills/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-user-get-started/SKILL.md, Biosteve/NemoClaw/.agents/skills/nemoclaw-contributor-create-pr/SKILL.md, ...and 18 more</div>
   
   
 </div>
@@ -553,7 +599,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
-  <div class="evidence-block">// WSL2&#x27;s overlay-mount story is not part of the user-confirmed</div>
+  <div class="evidence-block">// the user-confirmed reproducer. Engaging the auto-fix there could</div>
   
   
 </div>

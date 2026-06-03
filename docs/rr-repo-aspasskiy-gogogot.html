@@ -431,7 +431,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)</div>
+  <div class="evidence-block">Timeout         time.Duration `json:&quot;-&quot;` // per-LLM-call timeout (0 = no per-call deadline)</div>
   
   
 </div>
@@ -442,7 +442,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
-  <div class="evidence-block">replyInbox chan string // unbuffered; used for ask_user responses</div>
+  <div class="evidence-block">// replyInbox carries user responses for ask_user; pass nil to disable asking.</div>
   
   
 </div>

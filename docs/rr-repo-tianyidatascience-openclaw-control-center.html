@@ -555,7 +555,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">maxRetries: number;</div>
+  <div class="evidence-block">timeoutMs = 2_000,</div>
   
   
 </div>
@@ -566,7 +566,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">const NON_TECH_JARGON = [&quot;telemetry&quot;, &quot;instrumentation&quot;, &quot;payload&quot;, &quot;schema&quot;, &quot;protocol&quot;, &quot;SDK&quot;];</div>
+  <div class="evidence-block">const OPERATION_AUDIT_LOG = join(RUNTIME_DIR, &quot;operation-audit.log&quot;);</div>
   
   
 </div>

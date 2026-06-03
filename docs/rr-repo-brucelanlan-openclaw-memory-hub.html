@@ -442,7 +442,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">self.extract_timeout = int(os.getenv(&quot;MEMORY_EXTRACT_TIMEOUT&quot;, &quot;30&quot;))</div>
+  <div class="evidence-block">timeout=config.extract_timeout,</div>
   
   
 </div>

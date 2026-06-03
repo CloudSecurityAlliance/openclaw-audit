@@ -409,7 +409,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [assafelovic/skyll/.agents/skills/skyll/SKILL.md, assafelovic/skyll/skills/skyll/SKILL.md, assafelovic/skyll/skills, ...and 1 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [assafelovic/skyll/skills/skyll/SKILL.md, assafelovic/skyll/.agents/skills/skyll/SKILL.md, assafelovic/skyll/skills, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -422,7 +422,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">assafelovic/skyll/.agents/skills/skyll/SKILL.md, assafelovic/skyll/skills/skyll/SKILL.md, assafelovic/skyll/skills, ...and 1 more</div>
+  <div class="evidence-block">assafelovic/skyll/skills/skyll/SKILL.md, assafelovic/skyll/.agents/skills/skyll/SKILL.md, assafelovic/skyll/skills, ...and 1 more</div>
   
   
 </div>
@@ -433,7 +433,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">assafelovic/skyll/.agents/skills/skyll/SKILL.md, assafelovic/skyll/skills/skyll/SKILL.md, assafelovic/skyll/skills, ...and 1 more</div>
+  <div class="evidence-block">assafelovic/skyll/skills/skyll/SKILL.md, assafelovic/skyll/.agents/skills/skyll/SKILL.md, assafelovic/skyll/skills, ...and 1 more</div>
   
   
 </div>
@@ -444,7 +444,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">assafelovic/skyll/.agents/skills/skyll/SKILL.md, assafelovic/skyll/skills/skyll/SKILL.md, assafelovic/skyll/skills, ...and 1 more</div>
+  <div class="evidence-block">assafelovic/skyll/skills/skyll/SKILL.md, assafelovic/skyll/.agents/skills/skyll/SKILL.md, assafelovic/skyll/skills, ...and 1 more</div>
   
   
 </div>
@@ -455,7 +455,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">assafelovic/skyll/.agents/skills/skyll/SKILL.md, assafelovic/skyll/skills/skyll/SKILL.md, assafelovic/skyll/skills, ...and 1 more</div>
+  <div class="evidence-block">assafelovic/skyll/skills/skyll/SKILL.md, assafelovic/skyll/.agents/skills/skyll/SKILL.md, assafelovic/skyll/skills, ...and 1 more</div>
   
   
 </div>
@@ -466,7 +466,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">assafelovic/skyll/.agents/skills/skyll/SKILL.md, assafelovic/skyll/skills/skyll/SKILL.md, assafelovic/skyll/skills, ...and 1 more</div>
+  <div class="evidence-block">assafelovic/skyll/skills/skyll/SKILL.md, assafelovic/skyll/.agents/skills/skyll/SKILL.md, assafelovic/skyll/skills, ...and 1 more</div>
   
   
 </div>
@@ -510,7 +510,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">timeout: Request timeout in seconds (default: 30.0)</div>
+  <div class="evidence-block">&quot;&quot;&quot;Empty query should return clear error, not timeout.&quot;&quot;&quot;</div>
   
   
 </div>
@@ -532,7 +532,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">allowed_tools: list[str] | None = Field(default=None, description=&quot;Tools the skill can use&quot;)</div>
+  <div class="evidence-block">allowed-tools: &quot;Bash, Read, Write&quot;</div>
   
   
 </div>

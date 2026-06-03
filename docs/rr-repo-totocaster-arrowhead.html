@@ -442,7 +442,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">const STARTUP_TIMEOUT: Duration = Duration::from_secs(10);</div>
+  <div class="evidence-block">let first = tokio::time::timeout(Duration::from_secs(5), stream.next())</div>
   
   
 </div>

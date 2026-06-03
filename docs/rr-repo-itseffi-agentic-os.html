@@ -452,7 +452,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">itseffi/agentic-os/System/integrations/google-calendar/skills/schedule-check/SKILL.md, itseffi/agentic-os/System/integrations/granola/skills/meeting-sync/SKILL.md, itseffi/agentic-os/System/integrations/linear/skills/issue-sync/SKILL.md, ...and 57 more</div>
+  <div class="evidence-block">itseffi/agentic-os/System/integrations/slack/skills/message-check/SKILL.md, itseffi/agentic-os/System/integrations/atlassian/skills/jira-sync/SKILL.md, itseffi/agentic-os/System/integrations/google-calendar/skills/schedule-check/SKILL.md, ...and 57 more</div>
   
   
 </div>
@@ -463,7 +463,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">itseffi/agentic-os/System/integrations/google-calendar/skills/schedule-check/SKILL.md, itseffi/agentic-os/System/integrations/granola/skills/meeting-sync/SKILL.md, itseffi/agentic-os/System/integrations/linear/skills/issue-sync/SKILL.md, ...and 57 more</div>
+  <div class="evidence-block">itseffi/agentic-os/System/integrations/slack/skills/message-check/SKILL.md, itseffi/agentic-os/System/integrations/atlassian/skills/jira-sync/SKILL.md, itseffi/agentic-os/System/integrations/google-calendar/skills/schedule-check/SKILL.md, ...and 57 more</div>
   
   
 </div>
@@ -474,7 +474,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">itseffi/agentic-os/System/integrations/google-calendar/skills/schedule-check/SKILL.md, itseffi/agentic-os/System/integrations/granola/skills/meeting-sync/SKILL.md, itseffi/agentic-os/System/integrations/linear/skills/issue-sync/SKILL.md, ...and 57 more</div>
+  <div class="evidence-block">itseffi/agentic-os/System/integrations/slack/skills/message-check/SKILL.md, itseffi/agentic-os/System/integrations/atlassian/skills/jira-sync/SKILL.md, itseffi/agentic-os/System/integrations/google-calendar/skills/schedule-check/SKILL.md, ...and 57 more</div>
   
   
 </div>
@@ -485,7 +485,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">itseffi/agentic-os/System/integrations/google-calendar/skills/schedule-check/SKILL.md, itseffi/agentic-os/System/integrations/granola/skills/meeting-sync/SKILL.md, itseffi/agentic-os/System/integrations/linear/skills/issue-sync/SKILL.md, ...and 57 more</div>
+  <div class="evidence-block">itseffi/agentic-os/System/integrations/slack/skills/message-check/SKILL.md, itseffi/agentic-os/System/integrations/atlassian/skills/jira-sync/SKILL.md, itseffi/agentic-os/System/integrations/google-calendar/skills/schedule-check/SKILL.md, ...and 57 more</div>
   
   
 </div>
@@ -496,7 +496,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">itseffi/agentic-os/System/integrations/google-calendar/skills/schedule-check/SKILL.md, itseffi/agentic-os/System/integrations/granola/skills/meeting-sync/SKILL.md, itseffi/agentic-os/System/integrations/linear/skills/issue-sync/SKILL.md, ...and 57 more</div>
+  <div class="evidence-block">itseffi/agentic-os/System/integrations/slack/skills/message-check/SKILL.md, itseffi/agentic-os/System/integrations/atlassian/skills/jira-sync/SKILL.md, itseffi/agentic-os/System/integrations/google-calendar/skills/schedule-check/SKILL.md, ...and 57 more</div>
   
   
 </div>
@@ -507,18 +507,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">itseffi/agentic-os/System/integrations/google-calendar/skills/schedule-check/SKILL.md, itseffi/agentic-os/System/integrations/granola/skills/meeting-sync/SKILL.md, itseffi/agentic-os/System/integrations/linear/skills/issue-sync/SKILL.md, ...and 57 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-MCP-001: MCP server without authentication</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">An MCP server connection does not specify authentication.</div>
-  <div class="evidence-block">itseffi/agentic-os/System/integrations/google-calendar/mcp-config.json, itseffi/agentic-os/System/integrations/linear/mcp-config.json, itseffi/agentic-os/System/integrations/atlassian/mcp-config.json, ...and 1 more</div>
+  <div class="evidence-block">itseffi/agentic-os/System/integrations/slack/skills/message-check/SKILL.md, itseffi/agentic-os/System/integrations/atlassian/skills/jira-sync/SKILL.md, itseffi/agentic-os/System/integrations/google-calendar/skills/schedule-check/SKILL.md, ...and 57 more</div>
   
   
 </div>
@@ -529,7 +518,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">MCP server uses &#x27;latest&#x27; tag or no version pin, enabling rug-pull attacks where tool behavior silently changes after user approval. With 82% of MCP implementations vulnerable to path traversal and 66% to code injection, unpinned versions are a high-risk supply chain vector.</div>
-  <div class="evidence-block">itseffi/agentic-os/System/integrations/google-calendar/mcp-config.json, itseffi/agentic-os/System/integrations/granola/mcp-config.json, itseffi/agentic-os/System/integrations/linear/mcp-config.json, ...and 2 more</div>
+  <div class="evidence-block">itseffi/agentic-os/System/integrations/granola/mcp-config.json, itseffi/agentic-os/System/integrations/linear/mcp-config.json, itseffi/agentic-os/System/integrations/google-calendar/mcp-config.json, ...and 2 more</div>
   
   
 </div>
@@ -540,7 +529,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Localhost-bound MCP servers using HTTP (not stdio) are vulnerable to DNS rebinding attacks that allow remote websites to invoke tools (CVE-2026-34742). Attacker-controlled DNS can resolve to 127.0.0.1 and bypass same-origin protections.</div>
-  <div class="evidence-block">itseffi/agentic-os/System/integrations/google-calendar/mcp-config.json, itseffi/agentic-os/System/integrations/granola/mcp-config.json, itseffi/agentic-os/System/integrations/linear/mcp-config.json, ...and 2 more</div>
+  <div class="evidence-block">itseffi/agentic-os/System/integrations/granola/mcp-config.json, itseffi/agentic-os/System/integrations/linear/mcp-config.json, itseffi/agentic-os/System/integrations/google-calendar/mcp-config.json, ...and 2 more</div>
   
   
 </div>
@@ -551,7 +540,18 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">MCP server is sourced directly from a public registry (ClawHub, npm) rather than an internal vetted registry. Antiy CERT confirmed 1,184 malicious skills on ClawHub (~20% of packages); Koi Security found 820+ more. Direct public pulls enable supply chain attacks including rug-pull updates and the ClawHavoc campaign.</div>
-  <div class="evidence-block">itseffi/agentic-os/System/integrations/google-calendar/mcp-config.json, itseffi/agentic-os/System/integrations/granola/mcp-config.json, itseffi/agentic-os/System/integrations/linear/mcp-config.json, ...and 2 more</div>
+  <div class="evidence-block">itseffi/agentic-os/System/integrations/granola/mcp-config.json, itseffi/agentic-os/System/integrations/linear/mcp-config.json, itseffi/agentic-os/System/integrations/google-calendar/mcp-config.json, ...and 2 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-MCP-001: MCP server without authentication</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">An MCP server connection does not specify authentication.</div>
+  <div class="evidence-block">itseffi/agentic-os/System/integrations/linear/mcp-config.json, itseffi/agentic-os/System/integrations/google-calendar/mcp-config.json, itseffi/agentic-os/System/integrations/atlassian/mcp-config.json, ...and 1 more</div>
   
   
 </div>

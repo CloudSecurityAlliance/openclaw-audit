@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>gungwang/claude-into-openclaw</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">15</strong></span>
+    <span>Exposure Score: <strong class="hero-score">19</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 54</span>
+    <span>Source Code Scan | Total Checks: 58</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **5 failure(s)** and **20 warning(s)** across 54 checks.</p>
+<div class="exec-tables"><p>The audit identified **9 failure(s)** and **20 warning(s)** across 58 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>5</td>
+<td>9</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,18 +188,64 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>2</td>
+<td>4</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>3</td>
+<td>5</td>
 </tr>
 <tr>
 <td>INFO</td>
 <td>20</td>
 </tr>
 </tbody></table></div>
-  <details class="section-group">
+  <details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">4 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:coding-agent: injection (OC-SKILL-001) with capabilities [&#x27;shell_exec&#x27;, &#x27;write_file&#x27;] [gungwang/claude-into-openclaw/openclaw/skills/coding-agent/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/openclaw-release-maintainer/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/openclaw-testing/SKILL.md, ...and 2 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:gifgrep: reads sensitive sources (api key) and can egress (caps: []) [gungwang/claude-into-openclaw/openclaw/skills/gifgrep/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/ordercli/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/spotify-player/SKILL.md, ...and 19 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:xurl: downloads and executes remote content (pipe-to-shell or defanged URL) [gungwang/claude-into-openclaw/openclaw/skills/xurl/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/blacksmith-testbox/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/tag-duplicate-prs-issues/SKILL.md, ...and 2 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:summarize: session transcript access combined with an external sink [gungwang/claude-into-openclaw/openclaw/skills/summarize/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/openai-whisper-api/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/gh-issues/SKILL.md, ...and 4 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
+  
+</div>
+</details><details class="section-group">
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">18 findings</span></summary>
   <div class="finding-card sev-yellow">
   <div class="finding-header">
@@ -408,7 +454,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644) [gungwang/claude-into-openclaw/openclaw/docs/reference/templates/HEARTBEAT.md, gungwang/claude-into-openclaw/openclaw/docs/gateway/heartbeat.md]</div>
+  <div class="evidence-block">writable (0o644); shell: [&#x27;bash\n&#x27;] [gungwang/claude-into-openclaw/openclaw/docs/gateway/HEARTBEAT.md, gungwang/claude-into-openclaw/openclaw/docs/reference/templates/HEARTBEAT.md, gungwang/claude-into-openclaw/openclaw/docs/gateway/heartbeat.md, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -419,7 +465,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">Found 3 URL(s): [&#x27;https://developers.openai.com/api/docs/guides/prompt-engineering&#x27;, &#x27;https://developers.openai.com/api/docs/guides/prompt-engineering#message-roles-and-instruction-following&#x27;, &#x27;http://SOUL.md`.&#x27;]</div>
+  <div class="evidence-block">Found 3 URL(s): [&#x27;https://developers.openai.com/api/docs/guides/prompt-engineering&#x27;, &#x27;https://developers.openai.com/api/docs/guides/prompt-engineering#message-roles-and-instruction-following&#x27;, &#x27;http://SOUL.md`.&#x27;] [gungwang/claude-into-openclaw/openclaw/docs/concepts/SOUL.md, gungwang/claude-into-openclaw/openclaw/docs/concepts/soul.md]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all URLs. Remove any that are not organizationally approved.</div>
   
 </div>
@@ -427,24 +473,24 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">5 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [gungwang/claude-into-openclaw/openclaw/skills/model-usage/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
     <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
     <span class="severity-badge severity-high">HIGH</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [gungwang/claude-into-openclaw/openclaw/.agents/skills/openclaw-release-maintainer/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/openclaw-testing/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/coding-agent/SKILL.md, ...and 2 more]</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [gungwang/claude-into-openclaw/openclaw/skills/coding-agent/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/openclaw-release-maintainer/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/openclaw-testing/SKILL.md, ...and 2 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
-    <span class="severity-badge severity-critical">CRITICAL</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [gungwang/claude-into-openclaw/openclaw/.agents/skills/blacksmith-testbox/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/tag-duplicate-prs-issues/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/xurl/SKILL.md, ...and 2 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -460,13 +506,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </div>
 <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-high">HIGH</span>
+    <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [gungwang/claude-into-openclaw/openclaw/skills/model-usage/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
+  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
+  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [gungwang/claude-into-openclaw/openclaw/skills/xurl/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/blacksmith-testbox/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/tag-duplicate-prs-issues/SKILL.md, ...and 2 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
   
 </div>
 <div class="finding-card sev-yellow">
@@ -476,7 +522,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [gungwang/claude-into-openclaw/openclaw/.agents/skills/blacksmith-testbox/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/openclaw-parallels-smoke/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/tag-duplicate-prs-issues/SKILL.md, ...and 12 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [gungwang/claude-into-openclaw/openclaw/skills/xurl/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/canvas/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/notion/SKILL.md, ...and 12 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -489,7 +535,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/docs/reference/templates/SOUL.md, gungwang/claude-into-openclaw/openclaw/docs/concepts/soul.md</div>
+  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/docs/concepts/SOUL.md, gungwang/claude-into-openclaw/openclaw/docs/reference/templates/SOUL.md, gungwang/claude-into-openclaw/openclaw/docs/concepts/soul.md, ...and 1 more</div>
   
   
 </div>
@@ -500,7 +546,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/docs/reference/templates/SOUL.md, gungwang/claude-into-openclaw/openclaw/docs/concepts/soul.md</div>
+  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/docs/concepts/SOUL.md, gungwang/claude-into-openclaw/openclaw/docs/reference/templates/SOUL.md, gungwang/claude-into-openclaw/openclaw/docs/concepts/soul.md, ...and 1 more</div>
   
   
 </div>
@@ -511,7 +557,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/docs/reference/templates/SOUL.md, gungwang/claude-into-openclaw/openclaw/docs/concepts/soul.md</div>
+  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/docs/concepts/SOUL.md, gungwang/claude-into-openclaw/openclaw/docs/reference/templates/SOUL.md, gungwang/claude-into-openclaw/openclaw/docs/concepts/soul.md, ...and 1 more</div>
   
   
 </div>
@@ -522,7 +568,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/docs/reference/templates/SOUL.md, gungwang/claude-into-openclaw/openclaw/docs/concepts/soul.md</div>
+  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/docs/concepts/SOUL.md, gungwang/claude-into-openclaw/openclaw/docs/reference/templates/SOUL.md, gungwang/claude-into-openclaw/openclaw/docs/concepts/soul.md, ...and 1 more</div>
   
   
 </div>
@@ -533,7 +579,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  
+  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/docs/reference/templates/SOUL.md, gungwang/claude-into-openclaw/openclaw/docs/reference/templates/soul.md</div>
   
   
 </div>
@@ -544,7 +590,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/.agents/skills/openclaw-test-heap-leaks/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/optimizetests/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/parallels-discord-roundtrip/SKILL.md, ...and 87 more</div>
+  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/skills/nano-pdf/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/himalaya/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/bear-notes/SKILL.md, ...and 87 more</div>
   
   
 </div>
@@ -555,7 +601,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/.agents/skills/openclaw-test-heap-leaks/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/optimizetests/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/parallels-discord-roundtrip/SKILL.md, ...and 87 more</div>
+  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/skills/nano-pdf/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/himalaya/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/bear-notes/SKILL.md, ...and 87 more</div>
   
   
 </div>
@@ -566,7 +612,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/.agents/skills/openclaw-test-heap-leaks/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/optimizetests/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/parallels-discord-roundtrip/SKILL.md, ...and 90 more</div>
+  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/skills/nano-pdf/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/himalaya/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/bear-notes/SKILL.md, ...and 90 more</div>
   
   
 </div>
@@ -577,7 +623,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/.agents/skills/openclaw-test-heap-leaks/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/optimizetests/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/parallels-discord-roundtrip/SKILL.md, ...and 92 more</div>
+  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/skills/nano-pdf/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/himalaya/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/bear-notes/SKILL.md, ...and 92 more</div>
   
   
 </div>
@@ -588,7 +634,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/.agents/skills/openclaw-test-heap-leaks/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/optimizetests/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/parallels-discord-roundtrip/SKILL.md, ...and 77 more</div>
+  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/skills/nano-pdf/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/himalaya/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/bear-notes/SKILL.md, ...and 77 more</div>
   
   
 </div>
@@ -599,7 +645,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/.agents/skills/openclaw-test-heap-leaks/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/optimizetests/SKILL.md, gungwang/claude-into-openclaw/openclaw/.agents/skills/parallels-discord-roundtrip/SKILL.md, ...and 90 more</div>
+  <div class="evidence-block">gungwang/claude-into-openclaw/openclaw/skills/nano-pdf/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/himalaya/SKILL.md, gungwang/claude-into-openclaw/openclaw/skills/bear-notes/SKILL.md, ...and 90 more</div>
   
   
 </div>
@@ -676,7 +722,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">&quot;gateway/sandbox-vs-tool-policy-vs-elevated&quot;</div>
+  <div class="evidence-block">&quot;hooks/toolPermission/PermissionContext.ts&quot;,</div>
   
   
 </div>

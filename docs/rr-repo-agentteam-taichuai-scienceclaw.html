@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>AgentTeam-TaichuAI/ScienceClaw</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">18</strong></span>
+    <span>Exposure Score: <strong class="hero-score">20</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 51</span>
+    <span>Source Code Scan | Total Checks: 53</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **7 failure(s)** and **21 warning(s)** across 51 checks.</p>
+<div class="exec-tables"><p>The audit identified **9 failure(s)** and **21 warning(s)** across 53 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>7</td>
+<td>9</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,11 +188,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>1</td>
+<td>2</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>3</td>
+<td>4</td>
 </tr>
 <tr>
 <td>MEDIUM</td>
@@ -214,6 +214,30 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Enable audit logging for all agent actions. Configure logging.audit or telemetry.enabled in the agent config.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">2 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:xlsx: reads sensitive sources (credential capability) and can egress (caps: []) [AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/xlsx/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/skill-creator/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/pptx/SKILL.md, ...and 1 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:skill-creator: session transcript access combined with an external sink</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
   
 </div>
 </details><details class="section-group">
@@ -506,7 +530,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [AgentTeam-TaichuAI/ScienceClaw/Skills/read-github/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/feishu-setup/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/docx/SKILL.md, ...and 3 more]</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/feishu-setup/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/xlsx/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/skill-creator/SKILL.md, ...and 4 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
   
 </div>
@@ -517,7 +541,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;wget command&#x27;] [AgentTeam-TaichuAI/ScienceClaw/Skills/deep-research/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/Skills/weather/SKILL.md]</div>
+  <div class="evidence-block">Network calls: [&#x27;wget command&#x27;] [AgentTeam-TaichuAI/ScienceClaw/Skills/deep-research/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/Skills/weather/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/skills]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -530,7 +554,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">AgentTeam-TaichuAI/ScienceClaw/Skills/brainstorming/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/Skills/deep-research/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/Skills/writing-plans/SKILL.md, ...and 12 more</div>
+  <div class="evidence-block">AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/tooluniverse/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/feishu-setup/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/xlsx/SKILL.md, ...and 13 more</div>
   
   
 </div>
@@ -541,7 +565,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">AgentTeam-TaichuAI/ScienceClaw/Skills/brainstorming/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/Skills/deep-research/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/Skills/writing-plans/SKILL.md, ...and 12 more</div>
+  <div class="evidence-block">AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/tooluniverse/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/feishu-setup/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/xlsx/SKILL.md, ...and 13 more</div>
   
   
 </div>
@@ -552,7 +576,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">AgentTeam-TaichuAI/ScienceClaw/Skills/brainstorming/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/Skills/deep-research/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/Skills/writing-plans/SKILL.md, ...and 6 more</div>
+  <div class="evidence-block">AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/tooluniverse/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/pdf/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/find-skills/SKILL.md, ...and 6 more</div>
   
   
 </div>
@@ -563,7 +587,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">AgentTeam-TaichuAI/ScienceClaw/Skills/brainstorming/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/Skills/deep-research/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/Skills/writing-plans/SKILL.md, ...and 12 more</div>
+  <div class="evidence-block">AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/tooluniverse/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/feishu-setup/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/xlsx/SKILL.md, ...and 13 more</div>
   
   
 </div>
@@ -574,7 +598,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">AgentTeam-TaichuAI/ScienceClaw/Skills/brainstorming/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/Skills/writing-plans/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/Skills/copywriting/SKILL.md, ...and 10 more</div>
+  <div class="evidence-block">AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/tooluniverse/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/feishu-setup/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/xlsx/SKILL.md, ...and 10 more</div>
   
   
 </div>
@@ -585,7 +609,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">AgentTeam-TaichuAI/ScienceClaw/Skills/brainstorming/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/Skills/deep-research/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/Skills/writing-plans/SKILL.md, ...and 12 more</div>
+  <div class="evidence-block">AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/tooluniverse/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/feishu-setup/SKILL.md, AgentTeam-TaichuAI/ScienceClaw/ScienceClaw/backend/builtin_skills/xlsx/SKILL.md, ...and 13 more</div>
   
   
 </div>

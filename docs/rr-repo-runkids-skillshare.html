@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>runkids/skillshare</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">10</strong></span>
+    <span>Exposure Score: <strong class="hero-score">12</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 53</span>
+    <span>Source Code Scan | Total Checks: 55</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **3 failure(s)** and **21 warning(s)** across 53 checks.</p>
+<div class="exec-tables"><p>The audit identified **5 failure(s)** and **21 warning(s)** across 55 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>3</td>
+<td>5</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -187,8 +187,12 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
+<td>CRITICAL</td>
+<td>1</td>
+</tr>
+<tr>
 <td>HIGH</td>
-<td>2</td>
+<td>3</td>
 </tr>
 <tr>
 <td>MEDIUM</td>
@@ -210,6 +214,30 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Enable human-in-the-loop for dangerous operations. Set agent.require_approval or auto_approve=false for file writes, network access, and command execution.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">2 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:skillshare: reads sensitive sources (github token) and can egress (caps: [&#x27;network_get&#x27;]) [runkids/skillshare/skills/skillshare/SKILL.md, runkids/skillshare/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:skillshare-devcontainer: injection (OC-SKILL-001) with capabilities [&#x27;shell_exec&#x27;, &#x27;write_file&#x27;] [runkids/skillshare/.skillshare/skills/skillshare-devcontainer/SKILL.md, runkids/skillshare/skills, runkids/skillshare/.skillshare/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
   
 </div>
 </details><details class="section-group">
@@ -480,7 +508,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">runkids/skillshare/.skillshare/skills/skillshare-release/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-changelog/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-implement-feature/SKILL.md, ...and 6 more</div>
+  <div class="evidence-block">runkids/skillshare/skills/skillshare/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-implement-feature/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-cli-e2e-test/SKILL.md, ...and 6 more</div>
   
   
 </div>
@@ -491,7 +519,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">runkids/skillshare/.skillshare/skills/skillshare-release/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-changelog/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-devcontainer/SKILL.md, ...and 8 more</div>
+  <div class="evidence-block">runkids/skillshare/skills/skillshare/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-devcontainer/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-implement-feature/SKILL.md, ...and 8 more</div>
   
   
 </div>
@@ -502,7 +530,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">runkids/skillshare/.skillshare/skills/skillshare-release/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-changelog/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-devcontainer/SKILL.md, ...and 6 more</div>
+  <div class="evidence-block">runkids/skillshare/skills/skillshare/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-devcontainer/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-implement-feature/SKILL.md, ...and 6 more</div>
   
   
 </div>
@@ -513,18 +541,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">runkids/skillshare/.skillshare/skills/skillshare-release/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-changelog/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-devcontainer/SKILL.md, ...and 8 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">runkids/skillshare/.skillshare/skills/skillshare-release/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-changelog/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-devcontainer/SKILL.md, ...and 6 more</div>
+  <div class="evidence-block">runkids/skillshare/skills/skillshare/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-devcontainer/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-implement-feature/SKILL.md, ...and 8 more</div>
   
   
 </div>
@@ -535,7 +552,18 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">runkids/skillshare/.skillshare/skills/skillshare-release/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-changelog/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-devcontainer/SKILL.md, ...and 8 more</div>
+  <div class="evidence-block">runkids/skillshare/skills/skillshare/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-devcontainer/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-implement-feature/SKILL.md, ...and 8 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
+  <div class="evidence-block">runkids/skillshare/.skillshare/skills/skillshare-devcontainer/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-implement-feature/SKILL.md, runkids/skillshare/.skillshare/skills/skillshare-cli-e2e-test/SKILL.md, ...and 6 more</div>
   
   
 </div>
@@ -667,7 +695,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">&quot;frontmatterEditor.field.allowedTools.hint&quot;: &quot;Tools Claude can use without per-call approval while this skill is active.&quot;,</div>
+  <div class="evidence-block">&quot;frontmatterEditor.field.allowedTools.hint&quot;: &quot;このスキルがアクティブな間、Claude が個別承認なしに使用できるツール。&quot;,</div>
   
   
 </div>

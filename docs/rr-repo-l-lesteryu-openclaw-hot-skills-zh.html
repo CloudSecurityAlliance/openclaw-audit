@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>L-LesterYu/OpenClaw-hot-skills-zh</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">32</strong></span>
+    <span>Exposure Score: <strong class="hero-score">36</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 56</span>
+    <span>Source Code Scan | Total Checks: 60</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **19 failure(s)** and **3 warning(s)** across 56 checks.</p>
+<div class="exec-tables"><p>The audit identified **23 failure(s)** and **3 warning(s)** across 60 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>19</td>
+<td>23</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,11 +188,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>4</td>
+<td>6</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>11</td>
+<td>13</td>
 </tr>
 <tr>
 <td>MEDIUM</td>
@@ -204,6 +204,52 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 </tbody></table></div>
   <details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">4 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:capability-evolver-zh: injection (OC-SKILL-001) with capabilities [&#x27;env_read&#x27;, &#x27;network_post&#x27;, &#x27;shell_exec&#x27;, &#x27;ssh_key_read&#x27;, &#x27;write_file&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/capability-evolver-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/proactive-agent-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/SKILL.md, ...and 4 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:capability-evolver-zh: reads sensitive sources (.env, .ssh, session transcript, github token, api key) and can egress (caps: [&#x27;network_post&#x27;, &#x27;webhook_call&#x27;]) [L-LesterYu/OpenClaw-hot-skills-zh/skills/capability-evolver-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/Agent-Browser-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/news-summary-zh/SKILL.md, ...and 36 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:capability-evolver-zh: session transcript access combined with an external sink [L-LesterYu/OpenClaw-hot-skills-zh/skills/capability-evolver-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/self-improvement-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/web-search-plus-zh/SKILL.md, ...and 7 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:browser-use-zh: downloads and executes remote content (pipe-to-shell or defanged URL) [L-LesterYu/OpenClaw-hot-skills-zh/skills/browser-use-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/moltguard-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/browser-use-zh/open-source/SKILL.md, ...and 2 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
+  
+</div>
+</details><details class="section-group" open>
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">13 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
@@ -212,7 +258,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">No authentication mode set for the Gateway WebSocket server. Any local process or website (ClawJacked) can control the agent.</div>
-  <div class="evidence-block">gateway.auth.mode = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
+  <div class="evidence-block">gateway.auth.mode = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set gateway.auth.mode to &#x27;token&#x27; with a minimum 32-character random value.</div>
   
 </div>
@@ -223,7 +269,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">OpenClaw broadcasts its presence via mDNS, leaking filesystem paths and metadata to devices on the local network.</div>
-  <div class="evidence-block">mDNS not disabled [L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
+  <div class="evidence-block">mDNS not disabled [L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set discovery.mdns.mode to &#x27;off&#x27; or OPENCLAW_DISABLE_BONJOUR=1.</div>
   
 </div>
@@ -234,7 +280,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">tools.exec.security is not set to &#x27;deny&#x27;. The agent may execute arbitrary shell commands, enabling prompt-injection-to-RCE.</div>
-  <div class="evidence-block">tools.exec.security = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
+  <div class="evidence-block">tools.exec.security = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set tools.exec.security to &#x27;deny&#x27; and tools.exec.ask to &#x27;always&#x27;.</div>
   
 </div>
@@ -245,7 +291,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">tools.exec.ask is not &#x27;always&#x27;. The agent can invoke tools without user confirmation.</div>
-  <div class="evidence-block">tools.exec.ask = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
+  <div class="evidence-block">tools.exec.ask = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set tools.exec.ask to &#x27;always&#x27;.</div>
   
 </div>
@@ -256,7 +302,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Control-plane tools (gateway, cron, sessions_spawn, sessions_send) or groups (automation, runtime, fs) are not explicitly denied.</div>
-  <div class="evidence-block">Missing deny entries: [&#x27;cron&#x27;, &#x27;gateway&#x27;, &#x27;group:automation&#x27;, &#x27;group:runtime&#x27;, &#x27;sessions_send&#x27;, &#x27;sessions_spawn&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
+  <div class="evidence-block">Missing deny entries: [&#x27;cron&#x27;, &#x27;gateway&#x27;, &#x27;group:automation&#x27;, &#x27;group:runtime&#x27;, &#x27;sessions_send&#x27;, &#x27;sessions_spawn&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Add gateway, cron, sessions_spawn, sessions_send, group:automation, group:runtime to tools.deny.</div>
   
 </div>
@@ -267,7 +313,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Agent sandbox is not set to &#x27;all&#x27;. Code may execute directly on the host without containment.</div>
-  <div class="evidence-block">sandbox.mode = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
+  <div class="evidence-block">sandbox.mode = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set sandbox.mode to &#x27;all&#x27; for full Docker isolation.</div>
   
 </div>
@@ -278,7 +324,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">session.dmScope is not &#x27;per-channel-peer&#x27;, allowing context leakage between different message senders.</div>
-  <div class="evidence-block">session.dmScope = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
+  <div class="evidence-block">session.dmScope = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set session.dmScope to &#x27;per-channel-peer&#x27;.</div>
   
 </div>
@@ -289,7 +335,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">tools.fs.workspaceOnly is not true. The agent has access to the entire user home directory.</div>
-  <div class="evidence-block">tools.fs.workspaceOnly = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
+  <div class="evidence-block">tools.fs.workspaceOnly = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set tools.fs.workspaceOnly to true.</div>
   
 </div>
@@ -300,7 +346,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Automatic updates are not disabled. Enterprise deployments should use a controlled update pipeline where security evaluates each release.</div>
-  <div class="evidence-block">updates.autoUpdate = None, updates.mode = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
+  <div class="evidence-block">updates.autoUpdate = None, updates.mode = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set updates.autoUpdate to false. Use controlled update pipelines.</div>
   
 </div>
@@ -311,7 +357,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Moltbook connectivity is not explicitly disabled. The 4-hour heartbeat polling moltbook.com is a documented C2 vector; 1.5M tokens were exposed in the Moltbook database breach.</div>
-  <div class="evidence-block">moltbook.enabled = None, moltbook.heartbeat.enabled = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
+  <div class="evidence-block">moltbook.enabled = None, moltbook.heartbeat.enabled = None [L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set moltbook.enabled to false and moltbook.heartbeat.enabled to false.</div>
   
 </div>
@@ -322,7 +368,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">config.patch is not in the tools deny list. OpenClaw config restrictions cover config.apply and config.update but omit config.patch, allowing unrestricted configuration modification.</div>
-  <div class="evidence-block">config.patch not in tools.deny list [L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
+  <div class="evidence-block">config.patch not in tools.deny list [L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Add config.patch to tools.deny list.</div>
   
 </div>
@@ -333,7 +379,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">File system exclusions do not cover critical sensitive directories (~/.ssh, ~/.aws, ~/.gnupg, ~/.kube, browser profiles, keychains, cryptocurrency wallets). A compromised agent can access these.</div>
-  <div class="evidence-block">Sensitive dirs not excluded: [&#x27;.ssh&#x27;, &#x27;.gnupg&#x27;, &#x27;.aws&#x27;, &#x27;.kube&#x27;, &#x27;.docker&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
+  <div class="evidence-block">Sensitive dirs not excluded: [&#x27;.ssh&#x27;, &#x27;.gnupg&#x27;, &#x27;.aws&#x27;, &#x27;.kube&#x27;, &#x27;.docker&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Add ~/.ssh, ~/.gnupg, ~/.aws, ~/.kube, ~/.docker, browser profiles, and keychain directories to tools.fs.exclude.</div>
   
 </div>
@@ -344,7 +390,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">browser.ssrfPolicy.dangerouslyAllowPrivateNetwork is true or browser mode allows unrestricted navigation.</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set dangerouslyAllowPrivateNetwork to false. Disable browser if not required, or use hostnameAllowlist.</div>
   
 </div>
@@ -357,7 +403,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">No egress allowlist or network restriction policy is configured. Without egress controls, prompt injection attacks can exfiltrate data via URL parameters, DNS queries, or outbound HTTP requests.</div>
-  <div class="evidence-block">No network egress restrictions configured [L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
+  <div class="evidence-block">No network egress restrictions configured [L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Configure network.egress.allowlist with approved endpoints only. Block all other outbound connections.</div>
   
 </div>
@@ -370,7 +416,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644) [L-LesterYu/OpenClaw-hot-skills-zh/skills/self-improving-proactive-agent-zh/HEARTBEAT.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/agent-autonomy-kit-zh/templates/HEARTBEAT.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/marketing-assistant/HEARTBEAT.md, ...and 3 more]</div>
+  <div class="evidence-block">writable (0o644) [L-LesterYu/OpenClaw-hot-skills-zh/skills/self-improving-proactive-agent-zh/HEARTBEAT.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/agent-autonomy-kit-zh/templates/HEARTBEAT.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/executive-assistant/HEARTBEAT.md, ...and 9 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -381,7 +427,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">Found 1 URL(s): [&#x27;https://jeffjhunter.com*&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/marketing-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/executive-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/coding-assistant/SOUL.md]</div>
+  <div class="evidence-block">Found 1 URL(s): [&#x27;https://jeffjhunter.com*&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/executive-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/marketing-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/coding-assistant/SOUL.md, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all URLs. Remove any that are not organizationally approved.</div>
   
 </div>
@@ -389,24 +435,24 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">6 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;Node child_process&#x27;, &quot;require(&#x27;child_process&#x27;)&quot;, &#x27;execSync() call&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/markdown-converter-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/capability-evolver-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/skill-vetter-zh/SKILL.md, ...and 11 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
     <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
     <span class="severity-badge severity-high">HIGH</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/capability-evolver-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/moltguard-zh/SKILL.md, ...and 3 more]</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/capability-evolver-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/proactive-agent-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/SKILL.md, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;exec() call&#x27;, &#x27;Node child_process&#x27;, &quot;require(&#x27;child_process&#x27;)&quot;, &#x27;spawn() call&#x27;, &#x27;execSync() call&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/capability-evolver-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/model-usage-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/evolver-zh/SKILL.md, ...and 11 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -416,8 +462,19 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">Credential access: [&#x27;SSH directory access&#x27;, &#x27;SSH private key&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/capability-evolver-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ontology-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ontology-v4-zh/SKILL.md, ...and 3 more]</div>
+  <div class="evidence-block">Credential access: [&#x27;SSH directory access&#x27;, &#x27;SSH private key&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/capability-evolver-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/evolver-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ontology-zh/SKILL.md, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
+  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/browser-use-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/moltguard-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/browser-use-zh/open-source/SKILL.md, ...and 2 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -431,17 +488,6 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
   
 </div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
-    <span class="severity-badge severity-critical">CRITICAL</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/moltguard-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/browser-use-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/browser-use-zh/open-source/SKILL.md, ...and 2 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
-  
-</div>
 <div class="finding-card sev-yellow">
   <div class="finding-header">
     <span class="finding-title">🟡 OC-SKILL-005: Network exfiltration patterns in skill</span>
@@ -449,7 +495,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;Python requests outbound&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/freeride-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/capability-evolver-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/edgeone-clawscan-zh/SKILL.md, ...and 17 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;Socket/request send&#x27;] [L-LesterYu/OpenClaw-hot-skills-zh/skills/capability-evolver-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/news-summary-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/baidu-search-zh/SKILL.md, ...and 17 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -462,7 +508,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Gateway listens on all network interfaces, exposing the agent to the local network and potentially the internet.</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json</div>
   
   
 </div>
@@ -473,7 +519,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">tools.elevated.enabled is true. Elevated tools bypass sandbox restrictions and execute on the host.</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json</div>
   
   
 </div>
@@ -484,7 +530,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Direct message policy allows anyone to interact with the agent without authentication or pairing.</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json</div>
   
   
 </div>
@@ -495,7 +541,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">dangerouslyAllowContainerNamespaceJoin is true, allowing sandbox escape via container namespace access.</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/filesystem-management-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/multi-search-engine-zh/config.json, L-LesterYu/OpenClaw-hot-skills-zh/skills/byterover-zh/.brv/config.json</div>
   
   
 </div>
@@ -506,7 +552,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/marketing-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/executive-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/coding-assistant/SOUL.md, ...and 1 more</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/executive-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/marketing-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/coding-assistant/SOUL.md, ...and 5 more</div>
   
   
 </div>
@@ -517,7 +563,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/marketing-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/executive-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/coding-assistant/SOUL.md, ...and 1 more</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/executive-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/marketing-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/coding-assistant/SOUL.md, ...and 5 more</div>
   
   
 </div>
@@ -528,7 +574,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/marketing-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/executive-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/coding-assistant/SOUL.md, ...and 1 more</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/executive-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/marketing-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/coding-assistant/SOUL.md, ...and 5 more</div>
   
   
 </div>
@@ -539,7 +585,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/marketing-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/executive-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/coding-assistant/SOUL.md, ...and 1 more</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/executive-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/marketing-assistant/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/ai-persona-os-zh/examples/coding-assistant/SOUL.md, ...and 5 more</div>
   
   
 </div>
@@ -550,7 +596,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/proactive-agent-zh/assets/SOUL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/proactive-agent-zh/assets/soul.md</div>
   
   
 </div>
@@ -561,7 +607,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/humanize-ai-text-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/markdown-converter-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/stock-analysis-zh/SKILL.md, ...and 116 more</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/obsidian-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/automation-workflows-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/Agent-Browser-zh/SKILL.md, ...and 116 more</div>
   
   
 </div>
@@ -572,7 +618,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/humanize-ai-text-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/markdown-converter-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/stock-analysis-zh/SKILL.md, ...and 117 more</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/obsidian-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/capability-evolver-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/automation-workflows-zh/SKILL.md, ...and 117 more</div>
   
   
 </div>
@@ -583,7 +629,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/humanize-ai-text-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/stock-analysis-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/freeride-zh/SKILL.md, ...and 108 more</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/obsidian-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/automation-workflows-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/Agent-Browser-zh/SKILL.md, ...and 108 more</div>
   
   
 </div>
@@ -594,7 +640,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/humanize-ai-text-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/markdown-converter-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/stock-analysis-zh/SKILL.md, ...and 120 more</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/obsidian-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/capability-evolver-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/automation-workflows-zh/SKILL.md, ...and 120 more</div>
   
   
 </div>
@@ -605,7 +651,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/humanize-ai-text-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/markdown-converter-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/stock-analysis-zh/SKILL.md, ...and 102 more</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/obsidian-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/automation-workflows-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/Agent-Browser-zh/SKILL.md, ...and 102 more</div>
   
   
 </div>
@@ -616,7 +662,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/humanize-ai-text-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/markdown-converter-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/stock-analysis-zh/SKILL.md, ...and 116 more</div>
+  <div class="evidence-block">L-LesterYu/OpenClaw-hot-skills-zh/skills/obsidian-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/automation-workflows-zh/SKILL.md, L-LesterYu/OpenClaw-hot-skills-zh/skills/Agent-Browser-zh/SKILL.md, ...and 116 more</div>
   
   
 </div>
@@ -660,7 +706,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">&quot;timeout&quot;: 10</div>
+  <div class="evidence-block">&quot;timeoutMs&quot;: 30000</div>
   
   
 </div>
@@ -682,7 +728,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">else if (lowerBody.includes(&#x27;interaction-logger&#x27;)) component = &#x27;interaction-logger&#x27;;</div>
+  <div class="evidence-block">else if (entry.toLowerCase().includes(&#x27;logger&#x27;)) skillName = &#x27;interaction-logger&#x27;;</div>
   
   
 </div>

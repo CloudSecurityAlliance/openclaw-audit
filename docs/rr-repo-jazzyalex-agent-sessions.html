@@ -151,14 +151,14 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="hero-card">
   <h2>jazzyalex/agent-sessions</h2>
   <div class="hero-meta">
-    <span class="grade-badge grade-yellow">YELLOW</span>
-    <span>Exposure Score: <strong class="hero-score">4</strong></span>
+    <span class="grade-badge grade-red">RED</span>
+    <span>Exposure Score: <strong class="hero-score">7</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 51</span>
+    <span>Source Code Scan | Total Checks: 54</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **1 failure(s)** and **19 warning(s)** across 51 checks.</p>
+<div class="exec-tables"><p>The audit identified **4 failure(s)** and **19 warning(s)** across 54 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>1</td>
+<td>4</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -187,8 +187,12 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
-<td>HIGH</td>
+<td>CRITICAL</td>
 <td>1</td>
+</tr>
+<tr>
+<td>HIGH</td>
+<td>3</td>
 </tr>
 <tr>
 <td>INFO</td>
@@ -206,6 +210,41 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Enable human-in-the-loop for dangerous operations. Set agent.require_approval or auto_approve=false for file writes, network access, and command execution.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">3 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:agent-session-format-check: injection (OC-SKILL-001) with capabilities [&#x27;write_file&#x27;] [jazzyalex/agent-sessions/skills/agent-session-format-check/SKILL.md, jazzyalex/agent-sessions/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:sc-skill: reads sensitive sources (session transcript) and can egress (caps: []) [jazzyalex/agent-sessions/skills/sc-skill/SKILL.md, jazzyalex/agent-sessions/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:sc-skill: session transcript access combined with an external sink [jazzyalex/agent-sessions/skills/sc-skill/SKILL.md, jazzyalex/agent-sessions/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
   
 </div>
 </details><details class="section-group">
@@ -425,23 +464,12 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">10 findings</span></summary>
   <div class="finding-card sev-green">
   <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">jazzyalex/agent-sessions/.claude/skills/deploy/SKILL.md, jazzyalex/agent-sessions/skills/add-agent-support/SKILL.md, jazzyalex/agent-sessions/skills/agent-support-matrix/SKILL.md, ...and 2 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
     <span class="finding-title">🟢 OC-SKILL-002: External download instructions in skill</span>
     <span class="severity-badge severity-info">INFO</span>
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">jazzyalex/agent-sessions/.claude/skills/deploy/SKILL.md, jazzyalex/agent-sessions/skills/agent-session-format-check/SKILL.md, jazzyalex/agent-sessions/skills/add-agent-support/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">jazzyalex/agent-sessions/skills/agent-session-format-check/SKILL.md, jazzyalex/agent-sessions/skills/sc-skill/SKILL.md, jazzyalex/agent-sessions/skills/add-agent-support/SKILL.md, ...and 4 more</div>
   
   
 </div>
@@ -452,7 +480,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">jazzyalex/agent-sessions/.claude/skills/deploy/SKILL.md, jazzyalex/agent-sessions/skills/agent-session-format-check/SKILL.md, jazzyalex/agent-sessions/skills/add-agent-support/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">jazzyalex/agent-sessions/skills/agent-session-format-check/SKILL.md, jazzyalex/agent-sessions/skills/sc-skill/SKILL.md, jazzyalex/agent-sessions/skills/add-agent-support/SKILL.md, ...and 4 more</div>
   
   
 </div>
@@ -463,7 +491,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">jazzyalex/agent-sessions/.claude/skills/deploy/SKILL.md, jazzyalex/agent-sessions/skills/agent-session-format-check/SKILL.md, jazzyalex/agent-sessions/skills/add-agent-support/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">jazzyalex/agent-sessions/skills/agent-session-format-check/SKILL.md, jazzyalex/agent-sessions/skills/sc-skill/SKILL.md, jazzyalex/agent-sessions/skills/add-agent-support/SKILL.md, ...and 4 more</div>
   
   
 </div>
@@ -474,7 +502,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">jazzyalex/agent-sessions/.claude/skills/deploy/SKILL.md, jazzyalex/agent-sessions/skills/agent-session-format-check/SKILL.md, jazzyalex/agent-sessions/skills/add-agent-support/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">jazzyalex/agent-sessions/skills/agent-session-format-check/SKILL.md, jazzyalex/agent-sessions/skills/sc-skill/SKILL.md, jazzyalex/agent-sessions/skills/add-agent-support/SKILL.md, ...and 4 more</div>
   
   
 </div>
@@ -485,7 +513,18 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">jazzyalex/agent-sessions/.claude/skills/deploy/SKILL.md, jazzyalex/agent-sessions/skills/agent-session-format-check/SKILL.md, jazzyalex/agent-sessions/skills/add-agent-support/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">jazzyalex/agent-sessions/skills/agent-session-format-check/SKILL.md, jazzyalex/agent-sessions/skills/sc-skill/SKILL.md, jazzyalex/agent-sessions/skills/add-agent-support/SKILL.md, ...and 4 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">jazzyalex/agent-sessions/skills/sc-skill/SKILL.md, jazzyalex/agent-sessions/skills/add-agent-support/SKILL.md, jazzyalex/agent-sessions/skills/agent-support-matrix/SKILL.md, ...and 2 more</div>
   
   
 </div>

@@ -517,7 +517,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644)</div>
+  <div class="evidence-block">writable (0o644) [TONGJI-EDA-LAB/RTL-CLAW/workspace/HEARTBEAT.md, TONGJI-EDA-LAB/RTL-CLAW/workspace/heartbeat.md]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -530,7 +530,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  
+  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/workspace/SOUL.md, TONGJI-EDA-LAB/RTL-CLAW/workspace/soul.md</div>
   
   
 </div>
@@ -541,7 +541,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  
+  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/workspace/SOUL.md, TONGJI-EDA-LAB/RTL-CLAW/workspace/soul.md</div>
   
   
 </div>
@@ -552,7 +552,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  
+  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/workspace/SOUL.md, TONGJI-EDA-LAB/RTL-CLAW/workspace/soul.md</div>
   
   
 </div>
@@ -563,7 +563,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  
+  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/workspace/SOUL.md, TONGJI-EDA-LAB/RTL-CLAW/workspace/soul.md</div>
   
   
 </div>
@@ -574,7 +574,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  
+  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/workspace/SOUL.md, TONGJI-EDA-LAB/RTL-CLAW/workspace/soul.md</div>
   
   
 </div>
@@ -585,7 +585,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-optimization/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-partition/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/rtl-spec-analyzer/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/skills/testbench-generator/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/rtl-spec-analyzer/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-partition/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -596,7 +596,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-optimization/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-partition/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/rtl-spec-analyzer/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/skills/testbench-generator/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/rtl-spec-analyzer/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-partition/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -607,7 +607,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-optimization/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-partition/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/rtl-spec-analyzer/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/skills/testbench-generator/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/rtl-spec-analyzer/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-partition/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -618,7 +618,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-optimization/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-partition/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/rtl-spec-analyzer/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/skills/testbench-generator/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/rtl-spec-analyzer/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-partition/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -629,7 +629,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-optimization/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-partition/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/rtl-spec-analyzer/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/skills/testbench-generator/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/rtl-spec-analyzer/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-partition/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -640,7 +640,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-optimization/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-partition/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/rtl-spec-analyzer/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">TONGJI-EDA-LAB/RTL-CLAW/skills/testbench-generator/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/rtl-spec-analyzer/SKILL.md, TONGJI-EDA-LAB/RTL-CLAW/skills/verilog-partition/SKILL.md, ...and 3 more</div>
   
   
 </div>

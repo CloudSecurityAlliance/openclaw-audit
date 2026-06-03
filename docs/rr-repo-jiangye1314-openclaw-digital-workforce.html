@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>jiangye1314/openclaw-digital-workforce</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">24</strong></span>
+    <span>Exposure Score: <strong class="hero-score">28</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 56</span>
+    <span>Source Code Scan | Total Checks: 60</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **9 failure(s)** and **19 warning(s)** across 56 checks.</p>
+<div class="exec-tables"><p>The audit identified **13 failure(s)** and **19 warning(s)** across 60 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>9</td>
+<td>13</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,11 +188,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>3</td>
+<td>5</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>5</td>
+<td>7</td>
 </tr>
 <tr>
 <td>MEDIUM</td>
@@ -203,7 +203,53 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <td>19</td>
 </tr>
 </tbody></table></div>
-  <details class="section-group">
+  <details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">4 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:coding-agent: injection (OC-SKILL-001) with capabilities [&#x27;shell_exec&#x27;, &#x27;write_file&#x27;] [jiangye1314/openclaw-digital-workforce/openclaw/skills/coding-agent/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:gifgrep: reads sensitive sources (api key) and can egress (caps: []) [jiangye1314/openclaw-digital-workforce/openclaw/skills/gifgrep/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/ordercli/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/spotify-player/SKILL.md, ...and 15 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:xurl: downloads and executes remote content (pipe-to-shell or defanged URL) [jiangye1314/openclaw-digital-workforce/openclaw/skills/xurl/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:summarize: session transcript access combined with an external sink [jiangye1314/openclaw-digital-workforce/openclaw/skills/summarize/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/openai-whisper-api/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/gh-issues/SKILL.md, ...and 1 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
+  
+</div>
+</details><details class="section-group">
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">18 findings</span></summary>
   <div class="finding-card sev-yellow">
   <div class="finding-header">
@@ -436,7 +482,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">Found 1 base64 string(s), first: b62a054ecddb454527a6819aa8d4f51d7616bc6154fbf4c6f5f6b20d8aa5...</div>
+  <div class="evidence-block">Found 1 base64 string(s), first: b62a054ecddb454527a6819aa8d4f51d7616bc6154fbf4c6f5f6b20d8aa5... [jiangye1314/openclaw-digital-workforce/openclaw/docs/zh-CN/reference/templates/SOUL.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/zh-CN/reference/templates/soul.md]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove base64-encoded content. Review decoded payload.</div>
   
 </div>
@@ -447,7 +493,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644) [jiangye1314/openclaw-digital-workforce/openclaw/docs/zh-CN/reference/templates/HEARTBEAT.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/HEARTBEAT.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/gateway/heartbeat.md, ...and 1 more]</div>
+  <div class="evidence-block">writable (0o644); shell: [&#x27;bash\n&#x27;] [jiangye1314/openclaw-digital-workforce/openclaw/docs/gateway/HEARTBEAT.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/HEARTBEAT.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/zh-CN/gateway/HEARTBEAT.md, ...and 5 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -460,8 +506,30 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;Node child_process&#x27;, &#x27;spawn() call&#x27;] [jiangye1314/openclaw-digital-workforce/openclaw/extensions/lobster/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/model-usage/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills]</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [jiangye1314/openclaw-digital-workforce/openclaw/skills/model-usage/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/extensions/lobster/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [jiangye1314/openclaw-digital-workforce/openclaw/skills/coding-agent/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  <div class="evidence-block">Credential access: [&#x27;Browser credentials&#x27;] [jiangye1314/openclaw-digital-workforce/openclaw/skills/ordercli/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -482,30 +550,8 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">Obfuscation: [&#x27;base64 decode&#x27;] [jiangye1314/openclaw-digital-workforce/openclaw/skills/nano-banana-pro/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/openai-image-gen/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills]</div>
+  <div class="evidence-block">Obfuscation: [&#x27;base64 decode&#x27;] [jiangye1314/openclaw-digital-workforce/openclaw/skills/openai-image-gen/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/nano-banana-pro/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-006: Credential access patterns in skill</span>
-    <span class="severity-badge severity-critical">CRITICAL</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">Credential access: [&#x27;Browser credentials&#x27;] [jiangye1314/openclaw-digital-workforce/openclaw/skills/ordercli/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [jiangye1314/openclaw-digital-workforce/openclaw/skills/coding-agent/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
   
 </div>
 <div class="finding-card sev-yellow">
@@ -515,7 +561,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [jiangye1314/openclaw-digital-workforce/openclaw/extensions/open-prose/skills/prose/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/xurl/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/gh-issues/SKILL.md, ...and 8 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [jiangye1314/openclaw-digital-workforce/openclaw/skills/xurl/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/canvas/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/notion/SKILL.md, ...and 8 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -523,12 +569,23 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">16 findings</span></summary>
   <div class="finding-card sev-green">
   <div class="finding-header">
+    <span class="finding-title">🟢 OC-SOUL-002: Base64-encoded content in SOUL.md</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
+  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/SOUL.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/soul.md</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
     <span class="finding-title">🟢 OC-SOUL-003: Zero-width Unicode characters in SOUL.md</span>
     <span class="severity-badge severity-info">INFO</span>
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/docs/zh-CN/reference/templates/SOUL.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/SOUL.md</div>
+  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/SOUL.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/zh-CN/reference/templates/SOUL.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/soul.md, ...and 1 more</div>
   
   
 </div>
@@ -539,7 +596,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/docs/zh-CN/reference/templates/SOUL.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/SOUL.md</div>
+  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/SOUL.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/zh-CN/reference/templates/SOUL.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/soul.md, ...and 1 more</div>
   
   
 </div>
@@ -550,7 +607,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/docs/zh-CN/reference/templates/SOUL.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/SOUL.md</div>
+  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/SOUL.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/zh-CN/reference/templates/SOUL.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/soul.md, ...and 1 more</div>
   
   
 </div>
@@ -561,18 +618,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/docs/zh-CN/reference/templates/SOUL.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/SOUL.md</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SOUL-002: Base64-encoded content in SOUL.md</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  
+  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/SOUL.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/zh-CN/reference/templates/SOUL.md, jiangye1314/openclaw-digital-workforce/openclaw/docs/reference/templates/soul.md, ...and 1 more</div>
   
   
 </div>
@@ -583,7 +629,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/extensions/lobster/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/extensions/diffs/skills/diffs/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md, ...and 61 more</div>
+  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/skills/nano-pdf/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/himalaya/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/bear-notes/SKILL.md, ...and 61 more</div>
   
   
 </div>
@@ -594,40 +640,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/extensions/lobster/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/extensions/diffs/skills/diffs/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md, ...and 61 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/extensions/lobster/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/extensions/diffs/skills/diffs/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md, ...and 60 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/extensions/lobster/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/extensions/diffs/skills/diffs/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md, ...and 52 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/extensions/lobster/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/extensions/diffs/skills/diffs/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md, ...and 61 more</div>
+  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/skills/nano-pdf/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/himalaya/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/bear-notes/SKILL.md, ...and 61 more</div>
   
   
 </div>
@@ -638,7 +651,40 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/extensions/diffs/skills/diffs/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/extensions/feishu/skills/feishu-perm/SKILL.md, ...and 60 more</div>
+  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/skills/nano-pdf/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/himalaya/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/bear-notes/SKILL.md, ...and 60 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/skills/nano-pdf/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/himalaya/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/bear-notes/SKILL.md, ...and 60 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
+  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/skills/nano-pdf/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/himalaya/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/bear-notes/SKILL.md, ...and 52 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  <div class="evidence-block">jiangye1314/openclaw-digital-workforce/openclaw/skills/nano-pdf/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/himalaya/SKILL.md, jiangye1314/openclaw-digital-workforce/openclaw/skills/bear-notes/SKILL.md, ...and 61 more</div>
   
   
 </div>
@@ -682,7 +728,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">&quot;description&quot;: &quot;OpenClaw diagnostics OpenTelemetry exporter&quot;,</div>
+  <div class="evidence-block">&quot;description&quot;: &quot;OpenProse VM skill pack plugin (slash command + telemetry).&quot;,</div>
   
   
 </div>

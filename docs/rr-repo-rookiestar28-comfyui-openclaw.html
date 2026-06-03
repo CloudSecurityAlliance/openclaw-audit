@@ -431,7 +431,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
-  <div class="evidence-block">self, template_id: str, inputs: dict, require_approval: bool = False</div>
+  <div class="evidence-block">decision.decision_code, CallbackDecisionCode.REQUIRE_APPROVAL.value</div>
   
   
 </div>

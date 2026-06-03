@@ -562,7 +562,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">tool_permissions: Vec&lt;String&gt;,</div>
+  <div class="evidence-block">frankclaw_tools::ToolPolicy::from_env(),</div>
   
   
 </div>

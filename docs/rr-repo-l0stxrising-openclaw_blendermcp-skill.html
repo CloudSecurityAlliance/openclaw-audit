@@ -431,7 +431,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">self.server_thread.join(timeout=1.0)</div>
+  <div class="evidence-block">timeout=60</div>
   
   
 </div>
@@ -442,7 +442,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">&quot;get_telemetry_consent&quot;: self.get_telemetry_consent,</div>
+  <div class="evidence-block">user_prompt: The original user prompt (for telemetry)</div>
   
   
 </div>

@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>freestylefly/wesight</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">13</strong></span>
+    <span>Exposure Score: <strong class="hero-score">17</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 56</span>
+    <span>Source Code Scan | Total Checks: 60</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **4 failure(s)** and **19 warning(s)** across 56 checks.</p>
+<div class="exec-tables"><p>The audit identified **8 failure(s)** and **19 warning(s)** across 60 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>4</td>
+<td>8</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,18 +188,64 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>2</td>
+<td>4</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>2</td>
+<td>4</td>
 </tr>
 <tr>
 <td>INFO</td>
 <td>19</td>
 </tr>
 </tbody></table></div>
-  <details class="section-group">
+  <details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">4 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:imap-smtp-email: reads sensitive sources (.env) and can egress (caps: [&#x27;email_send&#x27;]) [freestylefly/wesight/SKILLs/imap-smtp-email/SKILL.md, freestylefly/wesight/SKILLs/youdaonote/SKILL.md, freestylefly/wesight/SKILLs/music-search/SKILL.md, ...and 10 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:youdaonote: downloads and executes remote content (pipe-to-shell or defanged URL) [freestylefly/wesight/SKILLs/youdaonote/SKILL.md, freestylefly/wesight/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:technology-news-search: injection (OC-SKILL-001) with capabilities [&#x27;env_read&#x27;, &#x27;shell_exec&#x27;, &#x27;write_file&#x27;] [freestylefly/wesight/SKILLs/technology-news-search/SKILL.md, freestylefly/wesight/SKILLs/pptx/SKILL.md, freestylefly/wesight/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:skill-creator: session transcript access combined with an external sink [freestylefly/wesight/SKILLs/skill-creator/SKILL.md, freestylefly/wesight/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
+  
+</div>
+</details><details class="section-group">
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">18 findings</span></summary>
   <div class="finding-card sev-yellow">
   <div class="finding-header">
@@ -403,35 +449,24 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">5 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;eval() call&#x27;, &#x27;Node child_process&#x27;, &#x27;spawn() call&#x27;] [freestylefly/wesight/SKILLs/web-search/SKILL.md, freestylefly/wesight/SKILLs/films-search/SKILL.md, freestylefly/wesight/SKILLs/docx/SKILL.md, ...and 7 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
     <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
     <span class="severity-badge severity-critical">CRITICAL</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;]</div>
+  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [freestylefly/wesight/SKILLs/youdaonote/SKILL.md, freestylefly/wesight/skills]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
   
 </div>
 <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
     <span class="severity-badge severity-high">HIGH</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
-  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [freestylefly/wesight/SKILLs/technology-news-search/SKILL.md, freestylefly/wesight/SKILLs/pptx/SKILL.md]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [freestylefly/wesight/SKILLs/xlsx/SKILL.md, freestylefly/wesight/SKILLs/music-search/SKILL.md, freestylefly/wesight/SKILLs/films-search/SKILL.md, ...and 8 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -441,8 +476,19 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">Obfuscation: [&#x27;Unicode escape sequence&#x27;, &#x27;String.fromCharCode()&#x27;] [freestylefly/wesight/SKILLs/technology-news-search/SKILL.md, freestylefly/wesight/SKILLs/develop-web-game/SKILL.md]</div>
+  <div class="evidence-block">Obfuscation: [&#x27;Node base64 decode&#x27;] [freestylefly/wesight/SKILLs/develop-web-game/SKILL.md, freestylefly/wesight/SKILLs/technology-news-search/SKILL.md, freestylefly/wesight/skills]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [freestylefly/wesight/SKILLs/technology-news-search/SKILL.md, freestylefly/wesight/SKILLs/pptx/SKILL.md, freestylefly/wesight/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
   
 </div>
 <div class="finding-card sev-yellow">
@@ -452,7 +498,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;, &#x27;wget command&#x27;, &#x27;fetch() outbound&#x27;] [freestylefly/wesight/SKILLs/web-search/SKILL.md, freestylefly/wesight/SKILLs/youdaonote/SKILL.md, freestylefly/wesight/SKILLs/daily-trending/SKILL.md, ...and 3 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [freestylefly/wesight/SKILLs/youdaonote/SKILL.md, freestylefly/wesight/SKILLs/daily-trending/SKILL.md, freestylefly/wesight/SKILLs/web-search/SKILL.md, ...and 4 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -465,7 +511,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">freestylefly/wesight/SKILLs/create-plan/SKILL.md, freestylefly/wesight/SKILLs/content-planner/SKILL.md, freestylefly/wesight/SKILLs/stock-analyzer/SKILL.md, ...and 25 more</div>
+  <div class="evidence-block">freestylefly/wesight/SKILLs/imap-smtp-email/SKILL.md, freestylefly/wesight/SKILLs/youdaonote/SKILL.md, freestylefly/wesight/SKILLs/create-plan/SKILL.md, ...and 25 more</div>
   
   
 </div>
@@ -476,7 +522,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">freestylefly/wesight/SKILLs/create-plan/SKILL.md, freestylefly/wesight/SKILLs/content-planner/SKILL.md, freestylefly/wesight/SKILLs/stock-analyzer/SKILL.md, ...and 26 more</div>
+  <div class="evidence-block">freestylefly/wesight/SKILLs/imap-smtp-email/SKILL.md, freestylefly/wesight/SKILLs/create-plan/SKILL.md, freestylefly/wesight/SKILLs/stock-explorer/SKILL.md, ...and 26 more</div>
   
   
 </div>
@@ -487,7 +533,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">freestylefly/wesight/SKILLs/create-plan/SKILL.md, freestylefly/wesight/SKILLs/content-planner/SKILL.md, freestylefly/wesight/SKILLs/stock-analyzer/SKILL.md, ...and 17 more</div>
+  <div class="evidence-block">freestylefly/wesight/SKILLs/imap-smtp-email/SKILL.md, freestylefly/wesight/SKILLs/youdaonote/SKILL.md, freestylefly/wesight/SKILLs/create-plan/SKILL.md, ...and 17 more</div>
   
   
 </div>
@@ -498,7 +544,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">freestylefly/wesight/SKILLs/create-plan/SKILL.md, freestylefly/wesight/SKILLs/content-planner/SKILL.md, freestylefly/wesight/SKILLs/stock-analyzer/SKILL.md, ...and 25 more</div>
+  <div class="evidence-block">freestylefly/wesight/SKILLs/imap-smtp-email/SKILL.md, freestylefly/wesight/SKILLs/youdaonote/SKILL.md, freestylefly/wesight/SKILLs/create-plan/SKILL.md, ...and 25 more</div>
   
   
 </div>
@@ -509,7 +555,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">freestylefly/wesight/SKILLs/create-plan/SKILL.md, freestylefly/wesight/SKILLs/content-planner/SKILL.md, freestylefly/wesight/SKILLs/stock-analyzer/SKILL.md, ...and 21 more</div>
+  <div class="evidence-block">freestylefly/wesight/SKILLs/imap-smtp-email/SKILL.md, freestylefly/wesight/SKILLs/create-plan/SKILL.md, freestylefly/wesight/SKILLs/stock-explorer/SKILL.md, ...and 21 more</div>
   
   
 </div>
@@ -520,7 +566,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">freestylefly/wesight/SKILLs/create-plan/SKILL.md, freestylefly/wesight/SKILLs/content-planner/SKILL.md, freestylefly/wesight/SKILLs/stock-analyzer/SKILL.md, ...and 27 more</div>
+  <div class="evidence-block">freestylefly/wesight/SKILLs/imap-smtp-email/SKILL.md, freestylefly/wesight/SKILLs/youdaonote/SKILL.md, freestylefly/wesight/SKILLs/create-plan/SKILL.md, ...and 28 more</div>
   
   
 </div>
@@ -564,7 +610,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">import { RuntimeTelemetryStore } from &#x27;./runtimeTelemetryStore&#x27;;</div>
+  <div class="evidence-block">RuntimeTelemetryTracker,</div>
   
   
 </div>

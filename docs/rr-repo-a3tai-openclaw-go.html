@@ -444,7 +444,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">a3tai/openclaw-go/.opencode/skills/release-tag/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-design/SKILL.md, a3tai/openclaw-go/.opencode/skills/go-test/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">a3tai/openclaw-go/.opencode/skills/upstream-release/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-site/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-design/SKILL.md, ...and 4 more</div>
   
   
 </div>
@@ -455,7 +455,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">a3tai/openclaw-go/.opencode/skills/release-tag/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-design/SKILL.md, a3tai/openclaw-go/.opencode/skills/go-test/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">a3tai/openclaw-go/.opencode/skills/upstream-release/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-site/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-design/SKILL.md, ...and 4 more</div>
   
   
 </div>
@@ -466,7 +466,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">a3tai/openclaw-go/.opencode/skills/release-tag/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-design/SKILL.md, a3tai/openclaw-go/.opencode/skills/go-test/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">a3tai/openclaw-go/.opencode/skills/upstream-release/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-site/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-design/SKILL.md, ...and 4 more</div>
   
   
 </div>
@@ -477,18 +477,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">a3tai/openclaw-go/.opencode/skills/release-tag/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-design/SKILL.md, a3tai/openclaw-go/.opencode/skills/go-test/SKILL.md, ...and 4 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">a3tai/openclaw-go/.opencode/skills/release-tag/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-design/SKILL.md, a3tai/openclaw-go/.opencode/skills/go-test/SKILL.md, ...and 2 more</div>
+  <div class="evidence-block">a3tai/openclaw-go/.opencode/skills/upstream-release/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-site/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-design/SKILL.md, ...and 4 more</div>
   
   
 </div>
@@ -499,7 +488,18 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">a3tai/openclaw-go/.opencode/skills/release-tag/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-design/SKILL.md, a3tai/openclaw-go/.opencode/skills/go-test/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">a3tai/openclaw-go/.opencode/skills/upstream-release/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-site/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-design/SKILL.md, ...and 4 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
+  <div class="evidence-block">a3tai/openclaw-go/.opencode/skills/docs-site/SKILL.md, a3tai/openclaw-go/.opencode/skills/docs-design/SKILL.md, a3tai/openclaw-go/.opencode/skills/release-tag/SKILL.md, ...and 2 more</div>
   
   
 </div>
@@ -521,7 +521,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">run: timeout 90s go run ./examples/client example-token ws://localhost:18789/ws /tmp/openclaw-identity</div>
+  <div class="evidence-block">run: golangci-lint run --timeout=5m</div>
   
   
 </div>

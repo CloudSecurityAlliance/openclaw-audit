@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>crabwise-ai/crabwalk</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">7</strong></span>
+    <span>Exposure Score: <strong class="hero-score">8</strong></span>
     <span>➖ Confidence</span>
     <span>Source Code Scan | Total Checks: 51</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **3 failure(s)** and **22 warning(s)** across 51 checks.</p>
+<div class="exec-tables"><p>The audit identified **3 failure(s)** and **23 warning(s)** across 51 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -170,15 +170,15 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 <tr>
 <td>WARN</td>
-<td>22</td>
+<td>23</td>
 </tr>
 <tr>
 <td>PASS</td>
-<td>8</td>
+<td>13</td>
 </tr>
 <tr>
 <td>SKIP</td>
-<td>18</td>
+<td>12</td>
 </tr>
 </tbody></table>
 <table>
@@ -192,7 +192,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 <tr>
 <td>INFO</td>
-<td>22</td>
+<td>23</td>
 </tr>
 </tbody></table></div>
   <details class="section-group">
@@ -477,8 +477,76 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   
 </div>
 </details><details class="section-group">
-  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">8 findings</span></summary>
+  <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">1 finding</span></summary>
+  <div class="finding-card sev-yellow">
+  <div class="finding-header">
+    <span class="finding-title">🟡 OC-SKILL-005: Network exfiltration patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-warn">WARN</span>
+  </div>
+  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
+  
+</div>
+</details><details class="section-group">
+  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">13 findings</span></summary>
   <div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-002: External download instructions in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
+  
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  
+  
+  
+</div>
+<div class="finding-card sev-green">
   <div class="finding-header">
     <span class="finding-title">🟢 OC-CRED-001: API keys in plaintext config files</span>
     <span class="severity-badge severity-info">INFO</span>

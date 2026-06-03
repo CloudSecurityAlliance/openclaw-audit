@@ -407,7 +407,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">const timeout = setTimeout(() =&gt; {</div>
+  <div class="evidence-block">max_retries?: number;</div>
   
   
 </div>
@@ -418,7 +418,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
-  <div class="evidence-block">* GOTCHA: today only `ask_user_question` is emitted (Claude only).</div>
+  <div class="evidence-block">// Agent is paused waiting on the user (AskUserQuestion today;</div>
   
   
 </div>
@@ -440,7 +440,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">* the exact `approval_policy` + `sandbox_policy` the server used, so</div>
+  <div class="evidence-block">export type CodexSandboxMode = &quot;read-only&quot; | &quot;workspace-write&quot; | &quot;danger-full-access&quot;;</div>
   
   
 </div>

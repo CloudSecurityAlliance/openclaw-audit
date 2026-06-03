@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>oadank/openclaw-wiki-lancedb</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">25</strong></span>
+    <span>Exposure Score: <strong class="hero-score">29</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 63</span>
+    <span>Source Code Scan | Total Checks: 67</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **8 failure(s)** and **21 warning(s)** across 63 checks.</p>
+<div class="exec-tables"><p>The audit identified **12 failure(s)** and **21 warning(s)** across 67 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>8</td>
+<td>12</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,11 +188,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>3</td>
+<td>5</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>4</td>
+<td>6</td>
 </tr>
 <tr>
 <td>MEDIUM</td>
@@ -214,6 +214,52 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Enable human-in-the-loop for dangerous operations. Set agent.require_approval or auto_approve=false for file writes, network access, and command execution.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">4 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:repo: injection (OC-SKILL-001) with capabilities [&#x27;cloud_token_read&#x27;, &#x27;credential_read&#x27;, &#x27;env_read&#x27;, &#x27;mcp_tool_call&#x27;, &#x27;network_get&#x27;, &#x27;network_post&#x27;, &#x27;shell_exec&#x27;, &#x27;ssh_key_read&#x27;, &#x27;write_file&#x27;] [oadank/openclaw-wiki-lancedb/SKILL.md, oadank/openclaw-wiki-lancedb/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:repo: reads sensitive sources (.env, .ssh, .aws/credentials, .kube/config, session transcript) and can egress (caps: [&#x27;email_send&#x27;, &#x27;network_get&#x27;, &#x27;network_post&#x27;, &#x27;remote_code_download&#x27;, &#x27;webhook_call&#x27;]) [oadank/openclaw-wiki-lancedb/SKILL.md, oadank/openclaw-wiki-lancedb/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:repo: downloads and executes remote content (pipe-to-shell or defanged URL)</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:repo: session transcript access combined with an external sink</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
   
 </div>
 </details><details class="section-group">
@@ -449,7 +495,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o755) [oadank/openclaw-wiki-lancedb/reference/HEARTBEAT.md, oadank/openclaw-wiki-lancedb/templates/HEARTBEAT.md, oadank/openclaw-wiki-lancedb/gateway/heartbeat.md, ...and 1 more]</div>
+  <div class="evidence-block">writable (0o755); shell: [&#x27;bash\n&#x27;] [oadank/openclaw-wiki-lancedb/plugins/HEARTBEAT.md, oadank/openclaw-wiki-lancedb/templates/HEARTBEAT.md, oadank/openclaw-wiki-lancedb/reference/HEARTBEAT.md, ...and 5 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -460,7 +506,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">Found 3 URL(s): [&#x27;https://developers.openai.com/api/docs/guides/prompt-engineering&#x27;, &#x27;https://developers.openai.com/api/docs/guides/prompt-engineering#message-roles-and-instruction-following&#x27;, &#x27;http://SOUL.md`.&#x27;]</div>
+  <div class="evidence-block">Found 3 URL(s): [&#x27;https://developers.openai.com/api/docs/guides/prompt-engineering&#x27;, &#x27;https://developers.openai.com/api/docs/guides/prompt-engineering#message-roles-and-instruction-following&#x27;, &#x27;http://SOUL.md`.&#x27;] [oadank/openclaw-wiki-lancedb/concepts/SOUL.md, oadank/openclaw-wiki-lancedb/concepts/soul.md]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all URLs. Remove any that are not organizationally approved.</div>
   
 </div>
@@ -541,7 +587,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">oadank/openclaw-wiki-lancedb/reference/SOUL.md, oadank/openclaw-wiki-lancedb/templates/SOUL.md, oadank/openclaw-wiki-lancedb/concepts/soul.md</div>
+  <div class="evidence-block">oadank/openclaw-wiki-lancedb/concepts/SOUL.md, oadank/openclaw-wiki-lancedb/templates/SOUL.md, oadank/openclaw-wiki-lancedb/reference/SOUL.md, ...and 3 more</div>
   
   
 </div>
@@ -552,7 +598,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">oadank/openclaw-wiki-lancedb/reference/SOUL.md, oadank/openclaw-wiki-lancedb/templates/SOUL.md, oadank/openclaw-wiki-lancedb/concepts/soul.md</div>
+  <div class="evidence-block">oadank/openclaw-wiki-lancedb/concepts/SOUL.md, oadank/openclaw-wiki-lancedb/templates/SOUL.md, oadank/openclaw-wiki-lancedb/reference/SOUL.md, ...and 3 more</div>
   
   
 </div>
@@ -563,7 +609,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">oadank/openclaw-wiki-lancedb/reference/SOUL.md, oadank/openclaw-wiki-lancedb/templates/SOUL.md, oadank/openclaw-wiki-lancedb/concepts/soul.md</div>
+  <div class="evidence-block">oadank/openclaw-wiki-lancedb/concepts/SOUL.md, oadank/openclaw-wiki-lancedb/templates/SOUL.md, oadank/openclaw-wiki-lancedb/reference/SOUL.md, ...and 3 more</div>
   
   
 </div>
@@ -574,7 +620,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">oadank/openclaw-wiki-lancedb/reference/SOUL.md, oadank/openclaw-wiki-lancedb/templates/SOUL.md, oadank/openclaw-wiki-lancedb/concepts/soul.md</div>
+  <div class="evidence-block">oadank/openclaw-wiki-lancedb/concepts/SOUL.md, oadank/openclaw-wiki-lancedb/templates/SOUL.md, oadank/openclaw-wiki-lancedb/reference/SOUL.md, ...and 3 more</div>
   
   
 </div>
@@ -585,7 +631,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">oadank/openclaw-wiki-lancedb/reference/SOUL.md, oadank/openclaw-wiki-lancedb/templates/SOUL.md</div>
+  <div class="evidence-block">oadank/openclaw-wiki-lancedb/templates/SOUL.md, oadank/openclaw-wiki-lancedb/reference/SOUL.md, oadank/openclaw-wiki-lancedb/templates/soul.md, ...and 1 more</div>
   
   
 </div>
@@ -673,7 +719,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">capture_output=True, text=True, timeout=120,</div>
+  <div class="evidence-block">capture_output=True, text=True, timeout=30,</div>
   
   
 </div>

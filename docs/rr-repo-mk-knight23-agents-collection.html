@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>mk-knight23/AGENTS-COLLECTION</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">33</strong></span>
+    <span>Exposure Score: <strong class="hero-score">38</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 51</span>
+    <span>Source Code Scan | Total Checks: 56</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **21 failure(s)** and **2 warning(s)** across 51 checks.</p>
+<div class="exec-tables"><p>The audit identified **26 failure(s)** and **2 warning(s)** across 56 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>21</td>
+<td>26</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,11 +188,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>4</td>
+<td>6</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>13</td>
+<td>16</td>
 </tr>
 <tr>
 <td>MEDIUM</td>
@@ -204,6 +204,63 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 </tbody></table></div>
   <details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">5 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:DJANGO-SECURITY: reads sensitive sources (.env, browser cookies, api key) and can egress (caps: [&#x27;network_post&#x27;, &#x27;webhook_call&#x27;]) [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DJANGO-SECURITY/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/PYTHON-TESTING/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DOCKER-PATTERNS/SKILL.md, ...and 194 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:CONTINUOUS-LEARNING: session transcript access combined with an external sink [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/NANOBOT/AGENCY-ACCESSIBILITY-AUDITOR/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/OPENCLAW/PROJECT/SUMMARIZE/SKILL.md, ...and 24 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:AGENCY-DATA-ENGINEER: injection (OC-SKILL-001) with capabilities [&#x27;write_file&#x27;] [mk-knight23/AGENTS-COLLECTION/SKILLS/NANOBOT/AGENCY-DATA-ENGINEER/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/NANOBOT/AGENCY-RAPID-PROTOTYPER/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/NANOBOT/AGENCY-AGENTIC-IDENTITY-TRUST-ARCHITECT/SKILL.md, ...and 26 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:XURL: downloads and executes remote content (pipe-to-shell or defanged URL) [mk-knight23/AGENTS-COLLECTION/SKILLS/OPENCLAW/PROJECT/XURL/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/CLAUDE-CODE/LINKERD-PATTERNS/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/CLAUDE-CODE/LINUX-PRIVILEGE-ESCALATION/SKILL.md, ...and 5 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-005: Untrusted MCP server with broad tools</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An MCP server is sourced from a public registry with an unpinned version and no integrity verification, while exposing broad tool capabilities. A compromised or typosquatted package gains wide agent access.</div>
+  <div class="evidence-block">mcp:filesystem: public registry + unpinned version (OC-MCP-002, OC-MCP-005); capabilities [&#x27;mcp_tool_call&#x27;] [mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, ...and 1 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin MCP server versions, verify hashes/signatures, allowlist tools, and run untrusted MCP servers sandboxed with restricted egress.</div>
+  
+</div>
+</details><details class="section-group" open>
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">13 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
@@ -212,7 +269,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">No authentication mode set for the Gateway WebSocket server. Any local process or website (ClawJacked) can control the agent.</div>
-  <div class="evidence-block">gateway.auth.mode = None [mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more]</div>
+  <div class="evidence-block">gateway.auth.mode = None [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set gateway.auth.mode to &#x27;token&#x27; with a minimum 32-character random value.</div>
   
 </div>
@@ -223,7 +280,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">OpenClaw broadcasts its presence via mDNS, leaking filesystem paths and metadata to devices on the local network.</div>
-  <div class="evidence-block">mDNS not disabled [mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more]</div>
+  <div class="evidence-block">mDNS not disabled [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set discovery.mdns.mode to &#x27;off&#x27; or OPENCLAW_DISABLE_BONJOUR=1.</div>
   
 </div>
@@ -234,7 +291,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">tools.exec.security is not set to &#x27;deny&#x27;. The agent may execute arbitrary shell commands, enabling prompt-injection-to-RCE.</div>
-  <div class="evidence-block">tools.exec.security = None [mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more]</div>
+  <div class="evidence-block">tools.exec.security = None [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set tools.exec.security to &#x27;deny&#x27; and tools.exec.ask to &#x27;always&#x27;.</div>
   
 </div>
@@ -245,7 +302,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">tools.exec.ask is not &#x27;always&#x27;. The agent can invoke tools without user confirmation.</div>
-  <div class="evidence-block">tools.exec.ask = None [mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more]</div>
+  <div class="evidence-block">tools.exec.ask = None [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set tools.exec.ask to &#x27;always&#x27;.</div>
   
 </div>
@@ -256,7 +313,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Control-plane tools (gateway, cron, sessions_spawn, sessions_send) or groups (automation, runtime, fs) are not explicitly denied.</div>
-  <div class="evidence-block">Missing deny entries: [&#x27;cron&#x27;, &#x27;gateway&#x27;, &#x27;group:automation&#x27;, &#x27;group:runtime&#x27;, &#x27;sessions_send&#x27;, &#x27;sessions_spawn&#x27;] [mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more]</div>
+  <div class="evidence-block">Missing deny entries: [&#x27;cron&#x27;, &#x27;gateway&#x27;, &#x27;group:automation&#x27;, &#x27;group:runtime&#x27;, &#x27;sessions_send&#x27;, &#x27;sessions_spawn&#x27;] [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Add gateway, cron, sessions_spawn, sessions_send, group:automation, group:runtime to tools.deny.</div>
   
 </div>
@@ -267,7 +324,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Agent sandbox is not set to &#x27;all&#x27;. Code may execute directly on the host without containment.</div>
-  <div class="evidence-block">sandbox.mode = None [mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more]</div>
+  <div class="evidence-block">sandbox.mode = None [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set sandbox.mode to &#x27;all&#x27; for full Docker isolation.</div>
   
 </div>
@@ -278,7 +335,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">session.dmScope is not &#x27;per-channel-peer&#x27;, allowing context leakage between different message senders.</div>
-  <div class="evidence-block">session.dmScope = None [mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more]</div>
+  <div class="evidence-block">session.dmScope = None [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set session.dmScope to &#x27;per-channel-peer&#x27;.</div>
   
 </div>
@@ -289,7 +346,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">tools.fs.workspaceOnly is not true. The agent has access to the entire user home directory.</div>
-  <div class="evidence-block">tools.fs.workspaceOnly = None [mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more]</div>
+  <div class="evidence-block">tools.fs.workspaceOnly = None [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set tools.fs.workspaceOnly to true.</div>
   
 </div>
@@ -300,7 +357,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Automatic updates are not disabled. Enterprise deployments should use a controlled update pipeline where security evaluates each release.</div>
-  <div class="evidence-block">updates.autoUpdate = None, updates.mode = None [mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more]</div>
+  <div class="evidence-block">updates.autoUpdate = None, updates.mode = None [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set updates.autoUpdate to false. Use controlled update pipelines.</div>
   
 </div>
@@ -311,7 +368,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Moltbook connectivity is not explicitly disabled. The 4-hour heartbeat polling moltbook.com is a documented C2 vector; 1.5M tokens were exposed in the Moltbook database breach.</div>
-  <div class="evidence-block">moltbook.enabled = None, moltbook.heartbeat.enabled = None [mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more]</div>
+  <div class="evidence-block">moltbook.enabled = None, moltbook.heartbeat.enabled = None [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set moltbook.enabled to false and moltbook.heartbeat.enabled to false.</div>
   
 </div>
@@ -322,7 +379,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">config.patch is not in the tools deny list. OpenClaw config restrictions cover config.apply and config.update but omit config.patch, allowing unrestricted configuration modification.</div>
-  <div class="evidence-block">config.patch not in tools.deny list [mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more]</div>
+  <div class="evidence-block">config.patch not in tools.deny list [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Add config.patch to tools.deny list.</div>
   
 </div>
@@ -333,7 +390,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">File system exclusions do not cover critical sensitive directories (~/.ssh, ~/.aws, ~/.gnupg, ~/.kube, browser profiles, keychains, cryptocurrency wallets). A compromised agent can access these.</div>
-  <div class="evidence-block">Sensitive dirs not excluded: [&#x27;.ssh&#x27;, &#x27;.gnupg&#x27;, &#x27;.aws&#x27;, &#x27;.kube&#x27;, &#x27;.docker&#x27;] [mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more]</div>
+  <div class="evidence-block">Sensitive dirs not excluded: [&#x27;.ssh&#x27;, &#x27;.gnupg&#x27;, &#x27;.aws&#x27;, &#x27;.kube&#x27;, &#x27;.docker&#x27;] [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Add ~/.ssh, ~/.gnupg, ~/.aws, ~/.kube, ~/.docker, browser profiles, and keychain directories to tools.fs.exclude.</div>
   
 </div>
@@ -344,7 +401,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">browser.ssrfPolicy.dangerouslyAllowPrivateNetwork is true or browser mode allows unrestricted navigation.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set dangerouslyAllowPrivateNetwork to false. Disable browser if not required, or use hostnameAllowlist.</div>
   
 </div>
@@ -357,7 +414,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">An MCP server connection does not specify authentication.</div>
-  <div class="evidence-block">Server &#x27;filesystem&#x27; has no authentication configured [mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, ...and 1 more]</div>
+  <div class="evidence-block">Server &#x27;filesystem&#x27; has no authentication configured [mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Configure authentication for all MCP server connections.</div>
   
 </div>
@@ -368,7 +425,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">MCP server is sourced directly from a public registry (ClawHub, npm) rather than an internal vetted registry. Antiy CERT confirmed 1,184 malicious skills on ClawHub (~20% of packages); Koi Security found 820+ more. Direct public pulls enable supply chain attacks including rug-pull updates and the ClawHavoc campaign.</div>
-  <div class="evidence-block">Server &#x27;filesystem&#x27; sourced from public registry: npx -y @modelcontextprotocol/server-filesystem /Users/mkazi  [mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, ...and 1 more]</div>
+  <div class="evidence-block">Server &#x27;filesystem&#x27; sourced from public registry: npx -y @modelcontextprotocol/server-filesystem /Users/mkazi  [mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Use an internal MCP server registry. Do not pull directly from ClawHub or public npm. Audit all existing ClawHub-sourced servers against known-malicious package lists.</div>
   
 </div>
@@ -379,7 +436,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">MCP server uses &#x27;latest&#x27; tag or no version pin, enabling rug-pull attacks where tool behavior silently changes after user approval. With 82% of MCP implementations vulnerable to path traversal and 66% to code injection, unpinned versions are a high-risk supply chain vector.</div>
-  <div class="evidence-block">Server &#x27;figma&#x27; uses unpinned version: npx -y figma-mcp [mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, ...and 1 more]</div>
+  <div class="evidence-block">Server &#x27;figma&#x27; uses unpinned version: npx -y figma-mcp [mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Pin MCP server versions to specific releases. Never use &#x27;latest&#x27;. Use hash-pinning where supported to prevent tag mutation.</div>
   
 </div>
@@ -392,7 +449,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">No egress allowlist or network restriction policy is configured. Without egress controls, prompt injection attacks can exfiltrate data via URL parameters, DNS queries, or outbound HTTP requests.</div>
-  <div class="evidence-block">No network egress restrictions configured [mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more]</div>
+  <div class="evidence-block">No network egress restrictions configured [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Configure network.egress.allowlist with approved endpoints only. Block all other outbound connections.</div>
   
 </div>
@@ -400,13 +457,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">6 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
-    <span class="severity-badge severity-high">HIGH</span>
+    <span class="finding-title">🔴 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
-  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-AGENTIC-IDENTITY-TRUST-ARCHITECT/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-RAPID-PROTOTYPER/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-REPORT-DISTRIBUTION-AGENT/SKILL.md, ...and 26 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  <div class="evidence-block">Credential access: [&#x27;Crypto wallet&#x27;] [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/E2E-TESTING/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/NANOBOT/CLAWSEC-NANOCLAW/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/OPENCLAW/PROJECT/ORDERCLI/SKILL.md, ...and 12 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -416,7 +473,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">Obfuscation: [&#x27;Node base64 decode&#x27;] [mk-knight23/AGENTS-COLLECTION/PLUGINS/CLAUDE-CODE/CACHE/EVERYTHING-CLAUDE-CODE/EVERYTHING-CLAUDE-CODE/1.4.1/.CURSOR/SKILLS/SECURITY-REVIEW/SKILL.md, mk-knight23/AGENTS-COLLECTION/PLUGINS/CLAUDE-CODE/CACHE/EVERYTHING-CLAUDE-CODE/EVERYTHING-CLAUDE-CODE/1.4.1/DOCS/ZH-CN/SKILLS/SECURITY-REVIEW/SKILL.md, mk-knight23/AGENTS-COLLECTION/PLUGINS/CLAUDE-CODE/CACHE/EVERYTHING-CLAUDE-CODE/EVERYTHING-CLAUDE-CODE/1.4.1/DOCS/ZH-TW/SKILLS/SECURITY-REVIEW/SKILL.md, ...and 10 more]</div>
+  <div class="evidence-block">Obfuscation: [&#x27;Node base64 decode&#x27;] [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/SECURITY-REVIEW/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/NANOBOT/CLAWSEC-NANOCLAW/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/OPENCLAW/PROJECT/OPENAI-IMAGE-GEN/SKILL.md, ...and 15 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
   
 </div>
@@ -427,19 +484,19 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;exec() call&#x27;] [mk-knight23/AGENTS-COLLECTION/PLUGINS/CLAUDE-CODE/CACHE/EVERYTHING-CLAUDE-CODE/EVERYTHING-CLAUDE-CODE/1.4.1/.CURSOR/SKILLS/GOLANG-TESTING/SKILL.md, mk-knight23/AGENTS-COLLECTION/PLUGINS/CLAUDE-CODE/CACHE/EVERYTHING-CLAUDE-CODE/EVERYTHING-CLAUDE-CODE/1.4.1/DOCS/ZH-CN/SKILLS/GOLANG-TESTING/SKILL.md, mk-knight23/AGENTS-COLLECTION/PLUGINS/CLAUDE-CODE/CACHE/EVERYTHING-CLAUDE-CODE/EVERYTHING-CLAUDE-CODE/1.4.1/DOCS/ZH-TW/SKILLS/GOLANG-TESTING/SKILL.md, ...and 22 more]</div>
+  <div class="evidence-block">Shell execution: [&#x27;exec() call&#x27;] [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/GOLANG-TESTING/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/OPENCLAW/PROJECT/MODEL-USAGE/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/CLAUDE-CODE/AUDIO-TRANSCRIBER/SKILL.md, ...and 27 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
   
 </div>
 <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-006: Credential access patterns in skill</span>
-    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-high">HIGH</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
-  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">Credential access: [&#x27;SSH directory access&#x27;, &#x27;SSH private key&#x27;] [mk-knight23/AGENTS-COLLECTION/SKILLS/CLAUDE-CODE/SSH-PENETRATION-TESTING/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/CLAUDE-CODE/PENTEST-COMMANDS/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/CLAUDE-CODE/SYSTEMATIC-DEBUGGING/SKILL.md, ...and 10 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [mk-knight23/AGENTS-COLLECTION/SKILLS/NANOBOT/AGENCY-REPORT-DISTRIBUTION-AGENT/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/NANOBOT/AGENCY-DATA-ENGINEER/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/NANOBOT/AGENCY-RAPID-PROTOTYPER/SKILL.md, ...and 30 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -449,7 +506,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [mk-knight23/AGENTS-COLLECTION/SKILLS/CLAUDE-CODE/CLOUD-PENETRATION-TESTING/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/CLAUDE-CODE/BUN-DEVELOPMENT/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/CLAUDE-CODE/LINKERD-PATTERNS/SKILL.md, ...and 3 more]</div>
+  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [mk-knight23/AGENTS-COLLECTION/SKILLS/OPENCLAW/PROJECT/XURL/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/CLAUDE-CODE/LINKERD-PATTERNS/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/CLAUDE-CODE/LINUX-PRIVILEGE-ESCALATION/SKILL.md, ...and 5 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
   
 </div>
@@ -460,7 +517,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-INFRASTRUCTURE-MAINTAINER/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/ANTIGRAVITY/SKILLS/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/ANTIGRAVITY/SKILLS/AGENCY-INFRASTRUCTURE-MAINTAINER/SKILL.md, ...and 57 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;wget command&#x27;] [mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DOCKER-PATTERNS/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CPP-TESTING/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/API-DESIGN/SKILL.md, ...and 64 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -473,7 +530,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Gateway listens on all network interfaces, exposing the agent to the local network and potentially the internet.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more</div>
   
   
 </div>
@@ -484,7 +541,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">tools.elevated.enabled is true. Elevated tools bypass sandbox restrictions and execute on the host.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more</div>
   
   
 </div>
@@ -495,7 +552,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Direct message policy allows anyone to interact with the agent without authentication or pairing.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more</div>
   
   
 </div>
@@ -506,7 +563,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">dangerouslyAllowContainerNamespaceJoin is true, allowing sandbox escape via container namespace access.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/PICOCLAW/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, ...and 1 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING/config.json, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/CONTINUOUS-LEARNING-V2/config.json, mk-knight23/AGENTS-COLLECTION/CONFIGS/NANOBOT/config.json, ...and 1 more</div>
   
   
 </div>
@@ -517,7 +574,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/AGENTS/NANOCLAW/BASE/CONTAINER/SKILLS/AGENT-BROWSER/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-LSP-INDEX-ENGINEER/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-BACKEND-ARCHITECT/SKILL.md, ...and 983 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DJANGO-SECURITY/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/GOLANG-PATTERNS/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DJANGO-PATTERNS/SKILL.md, ...and 990 more</div>
   
   
 </div>
@@ -528,7 +585,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/AGENTS/NANOCLAW/BASE/CONTAINER/SKILLS/AGENT-BROWSER/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-LSP-INDEX-ENGINEER/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-BACKEND-ARCHITECT/SKILL.md, ...and 1006 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DJANGO-SECURITY/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/GOLANG-PATTERNS/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DJANGO-PATTERNS/SKILL.md, ...and 1015 more</div>
   
   
 </div>
@@ -539,7 +596,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/AGENTS/NANOCLAW/BASE/CONTAINER/SKILLS/AGENT-BROWSER/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-LSP-INDEX-ENGINEER/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-BACKEND-ARCHITECT/SKILL.md, ...and 987 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DJANGO-SECURITY/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/GOLANG-PATTERNS/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DJANGO-PATTERNS/SKILL.md, ...and 993 more</div>
   
   
 </div>
@@ -550,7 +607,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/AGENTS/NANOCLAW/BASE/CONTAINER/SKILLS/AGENT-BROWSER/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-LSP-INDEX-ENGINEER/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-BACKEND-ARCHITECT/SKILL.md, ...and 999 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DJANGO-SECURITY/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/GOLANG-PATTERNS/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DJANGO-PATTERNS/SKILL.md, ...and 1005 more</div>
   
   
 </div>
@@ -561,7 +618,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/AGENTS/NANOCLAW/BASE/CONTAINER/SKILLS/AGENT-BROWSER/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-LSP-INDEX-ENGINEER/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-BACKEND-ARCHITECT/SKILL.md, ...and 952 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DJANGO-SECURITY/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/GOLANG-PATTERNS/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DJANGO-PATTERNS/SKILL.md, ...and 956 more</div>
   
   
 </div>
@@ -572,7 +629,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/AGENTS/NANOCLAW/BASE/CONTAINER/SKILLS/AGENT-BROWSER/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-LSP-INDEX-ENGINEER/SKILL.md, mk-knight23/AGENTS-COLLECTION/AGENTS/AGENCY-SOURCE/INTEGRATIONS/ANTIGRAVITY/AGENCY-BACKEND-ARCHITECT/SKILL.md, ...and 999 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DJANGO-SECURITY/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/GOLANG-PATTERNS/SKILL.md, mk-knight23/AGENTS-COLLECTION/SKILLS/EVERYTHING-CC/DJANGO-PATTERNS/SKILL.md, ...and 1008 more</div>
   
   
 </div>
@@ -583,7 +640,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">MCP server uses &#x27;latest&#x27; tag or no version pin, enabling rug-pull attacks where tool behavior silently changes after user approval. With 82% of MCP implementations vulnerable to path traversal and 66% to code injection, unpinned versions are a high-risk supply chain vector.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, ...and 1 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, ...and 1 more</div>
   
   
 </div>
@@ -594,7 +651,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Localhost-bound MCP servers using HTTP (not stdio) are vulnerable to DNS rebinding attacks that allow remote websites to invoke tools (CVE-2026-34742). Attacker-controlled DNS can resolve to 127.0.0.1 and bypass same-origin protections.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, ...and 1 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, ...and 1 more</div>
   
   
 </div>
@@ -605,7 +662,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">An MCP server connection does not specify authentication.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, ...and 1 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, ...and 1 more</div>
   
   
 </div>
@@ -616,7 +673,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">An MCP server uses HTTP (not HTTPS) transport, allowing man-in-the-middle attacks.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, ...and 1 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, ...and 1 more</div>
   
   
 </div>
@@ -627,7 +684,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">MCP server is sourced directly from a public registry (ClawHub, npm) rather than an internal vetted registry. Antiy CERT confirmed 1,184 malicious skills on ClawHub (~20% of packages); Koi Security found 820+ more. Direct public pulls enable supply chain attacks including rug-pull updates and the ClawHavoc campaign.</div>
-  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, ...and 1 more</div>
+  <div class="evidence-block">mk-knight23/AGENTS-COLLECTION/CONFIGS/CURSOR/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CLAUDE-CODE/mcp.json, mk-knight23/AGENTS-COLLECTION/MCP/CURSOR/mcp.json, ...and 1 more</div>
   
   
 </div>
@@ -704,7 +761,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">allowed-tools:</div>
+  <div class="evidence-block">allowed_properties = {&quot;name&quot;, &quot;description&quot;, &quot;license&quot;, &quot;allowed-tools&quot;, &quot;metadata&quot;}</div>
   
   
 </div>

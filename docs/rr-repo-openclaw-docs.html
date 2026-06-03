@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>openclaw/docs</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">11</strong></span>
+    <span>Exposure Score: <strong class="hero-score">13</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 60</span>
+    <span>Source Code Scan | Total Checks: 62</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **4 failure(s)** and **21 warning(s)** across 60 checks.</p>
+<div class="exec-tables"><p>The audit identified **6 failure(s)** and **21 warning(s)** across 62 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>4</td>
+<td>6</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -187,8 +187,12 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
+<td>CRITICAL</td>
+<td>1</td>
+</tr>
+<tr>
 <td>HIGH</td>
-<td>4</td>
+<td>5</td>
 </tr>
 <tr>
 <td>INFO</td>
@@ -217,6 +221,30 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Enable audit logging for all agent actions. Configure logging.audit or telemetry.enabled in the agent config.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">2 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:crabbox: injection (OC-SKILL-001) with capabilities [&#x27;cloud_token_read&#x27;, &#x27;env_read&#x27;, &#x27;shell_exec&#x27;, &#x27;write_file&#x27;] [openclaw/docs/.agents/skills/crabbox/SKILL.md, openclaw/docs/.agents/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:crabbox: reads sensitive sources (.env, .aws/credentials, api key) and can egress (caps: []) [openclaw/docs/.agents/skills/crabbox/SKILL.md, openclaw/docs/.agents/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
   
 </div>
 </details><details class="section-group">
@@ -428,7 +456,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">Found 1 base64 string(s), first: 5dc43662747c0f6119c4a2779d7a4c7aa89e6ac3c6cec3cd34647dfc8e59... [openclaw/docs/docs/id/reference/templates/SOUL.md, openclaw/docs/docs/zh-CN/reference/templates/SOUL.md, openclaw/docs/docs/vi/reference/templates/SOUL.md, ...and 33 more]</div>
+  <div class="evidence-block">Found 1 base64 string(s), first: 2101c0c7a22ab1fe5acfd0d2d413a002326dca380fc6e020a7d77a242d13... [openclaw/docs/docs/tr/concepts/SOUL.md, openclaw/docs/docs/tr/reference/templates/SOUL.md, openclaw/docs/docs/th/concepts/SOUL.md, ...and 69 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove base64-encoded content. Review decoded payload.</div>
   
 </div>
@@ -439,7 +467,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">Found 34 zero-width/invisible Unicode character(s) [openclaw/docs/docs/fa/reference/templates/SOUL.md, openclaw/docs/docs/fa/concepts/soul.md]</div>
+  <div class="evidence-block">Found 50 zero-width/invisible Unicode character(s) [openclaw/docs/docs/fa/concepts/SOUL.md, openclaw/docs/docs/fa/reference/templates/SOUL.md, openclaw/docs/docs/fa/concepts/soul.md, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Strip all zero-width Unicode characters from SOUL.md.</div>
   
 </div>
@@ -450,7 +478,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644) [openclaw/docs/docs/id/reference/templates/HEARTBEAT.md, openclaw/docs/docs/zh-CN/reference/templates/HEARTBEAT.md, openclaw/docs/docs/reference/templates/HEARTBEAT.md, ...and 35 more]</div>
+  <div class="evidence-block">writable (0o644); shell: [&#x27;bash\n&#x27;] [openclaw/docs/docs/gateway/HEARTBEAT.md, openclaw/docs/docs/tr/gateway/HEARTBEAT.md, openclaw/docs/docs/tr/reference/templates/HEARTBEAT.md, ...and 73 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -461,7 +489,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">Found 3 URL(s): [&#x27;https://developers.openai.com/api/docs/guides/prompt-engineering&#x27;, &#x27;https://developers.openai.com/api/docs/guides/prompt-engineering#message-roles-and-instruction-following&#x27;, &#x27;http://SOUL.md`.&#x27;] [openclaw/docs/docs/concepts/soul.md, openclaw/docs/docs/id/concepts/soul.md, openclaw/docs/docs/zh-CN/concepts/soul.md, ...and 16 more]</div>
+  <div class="evidence-block">Found 3 URL(s): [&#x27;https://developers.openai.com/api/docs/guides/prompt-engineering&#x27;, &#x27;https://developers.openai.com/api/docs/guides/prompt-engineering#message-roles-and-instruction-following&#x27;, &#x27;http://SOUL.md`.&#x27;] [openclaw/docs/docs/concepts/SOUL.md, openclaw/docs/docs/tr/concepts/SOUL.md, openclaw/docs/docs/th/concepts/SOUL.md, ...and 35 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all URLs. Remove any that are not organizationally approved.</div>
   
 </div>
@@ -482,12 +510,23 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">14 findings</span></summary>
   <div class="finding-card sev-green">
   <div class="finding-header">
+    <span class="finding-title">🟢 OC-SOUL-002: Base64-encoded content in SOUL.md</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
+  <div class="evidence-block">openclaw/docs/docs/concepts/SOUL.md, openclaw/docs/docs/reference/templates/SOUL.md, openclaw/docs/docs/concepts/soul.md, ...and 1 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
     <span class="finding-title">🟢 OC-SOUL-003: Zero-width Unicode characters in SOUL.md</span>
     <span class="severity-badge severity-info">INFO</span>
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">openclaw/docs/docs/id/reference/templates/SOUL.md, openclaw/docs/docs/zh-CN/reference/templates/SOUL.md, openclaw/docs/docs/reference/templates/SOUL.md, ...and 33 more</div>
+  <div class="evidence-block">openclaw/docs/docs/concepts/SOUL.md, openclaw/docs/docs/tr/concepts/SOUL.md, openclaw/docs/docs/tr/reference/templates/SOUL.md, ...and 69 more</div>
   
   
 </div>
@@ -498,7 +537,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">openclaw/docs/docs/id/reference/templates/SOUL.md, openclaw/docs/docs/zh-CN/reference/templates/SOUL.md, openclaw/docs/docs/reference/templates/SOUL.md, ...and 35 more</div>
+  <div class="evidence-block">openclaw/docs/docs/concepts/SOUL.md, openclaw/docs/docs/tr/concepts/SOUL.md, openclaw/docs/docs/tr/reference/templates/SOUL.md, ...and 73 more</div>
   
   
 </div>
@@ -509,7 +548,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">openclaw/docs/docs/id/reference/templates/SOUL.md, openclaw/docs/docs/zh-CN/reference/templates/SOUL.md, openclaw/docs/docs/reference/templates/SOUL.md, ...and 35 more</div>
+  <div class="evidence-block">openclaw/docs/docs/concepts/SOUL.md, openclaw/docs/docs/tr/concepts/SOUL.md, openclaw/docs/docs/tr/reference/templates/SOUL.md, ...and 73 more</div>
   
   
 </div>
@@ -520,18 +559,62 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">openclaw/docs/docs/id/reference/templates/SOUL.md, openclaw/docs/docs/zh-CN/reference/templates/SOUL.md, openclaw/docs/docs/reference/templates/SOUL.md, ...and 16 more</div>
+  <div class="evidence-block">openclaw/docs/docs/tr/reference/templates/SOUL.md, openclaw/docs/docs/reference/templates/SOUL.md, openclaw/docs/docs/th/reference/templates/SOUL.md, ...and 35 more</div>
   
   
 </div>
 <div class="finding-card sev-green">
   <div class="finding-header">
-    <span class="finding-title">🟢 OC-SOUL-002: Base64-encoded content in SOUL.md</span>
+    <span class="finding-title">🟢 OC-SKILL-002: External download instructions in skill</span>
     <span class="severity-badge severity-info">INFO</span>
     <span class="status-badge status-pass">PASS</span>
   </div>
-  <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">openclaw/docs/docs/reference/templates/SOUL.md, openclaw/docs/docs/concepts/soul.md</div>
+  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
+  <div class="evidence-block">openclaw/docs/.agents/skills/crabbox/SKILL.md, openclaw/docs/.agents/skills/autoreview/SKILL.md, openclaw/docs/.agents/skills</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">openclaw/docs/.agents/skills/crabbox/SKILL.md, openclaw/docs/.agents/skills/autoreview/SKILL.md, openclaw/docs/.agents/skills</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  <div class="evidence-block">openclaw/docs/.agents/skills/crabbox/SKILL.md, openclaw/docs/.agents/skills/autoreview/SKILL.md, openclaw/docs/.agents/skills</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
+  <div class="evidence-block">openclaw/docs/.agents/skills/crabbox/SKILL.md, openclaw/docs/.agents/skills/autoreview/SKILL.md, openclaw/docs/.agents/skills</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  <div class="evidence-block">openclaw/docs/.agents/skills/crabbox/SKILL.md, openclaw/docs/.agents/skills/autoreview/SKILL.md, openclaw/docs/.agents/skills</div>
   
   
 </div>
@@ -543,61 +626,6 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
   
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-002: External download instructions in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">openclaw/docs/.agents/skills/autoreview/SKILL.md, openclaw/docs/.agents/skills/crabbox/SKILL.md, openclaw/docs/.agents/skills</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">openclaw/docs/.agents/skills/autoreview/SKILL.md, openclaw/docs/.agents/skills/crabbox/SKILL.md, openclaw/docs/.agents/skills</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">openclaw/docs/.agents/skills/autoreview/SKILL.md, openclaw/docs/.agents/skills/crabbox/SKILL.md, openclaw/docs/.agents/skills</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">openclaw/docs/.agents/skills/autoreview/SKILL.md, openclaw/docs/.agents/skills/crabbox/SKILL.md, openclaw/docs/.agents/skills</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">openclaw/docs/.agents/skills/autoreview/SKILL.md, openclaw/docs/.agents/skills/crabbox/SKILL.md, openclaw/docs/.agents/skills</div>
   
   
 </div>
@@ -619,7 +647,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">timeout-minutes: 15</div>
+  <div class="evidence-block">timeout-minutes: 30</div>
   
   
 </div>

@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>davepoon/buildwithclaude</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">23</strong></span>
+    <span>Exposure Score: <strong class="hero-score">22</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 49</span>
+    <span>Source Code Scan | Total Checks: 54</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **9 failure(s)** and **20 warning(s)** across 49 checks.</p>
+<div class="exec-tables"><p>The audit identified **12 failure(s)** and **20 warning(s)** across 54 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>9</td>
+<td>12</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -178,7 +178,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 <tr>
 <td>SKIP</td>
-<td>6</td>
+<td>8</td>
 </tr>
 </tbody></table>
 <table>
@@ -188,15 +188,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>2</td>
+<td>4</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>6</td>
-</tr>
-<tr>
-<td>MEDIUM</td>
-<td>1</td>
+<td>8</td>
 </tr>
 <tr>
 <td>INFO</td>
@@ -214,6 +210,63 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Enable human-in-the-loop for dangerous operations. Set agent.require_approval or auto_approve=false for file writes, network access, and command execution.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">5 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:init: downloads and executes remote content (pipe-to-shell or defanged URL) [davepoon/buildwithclaude/plugins/origin/skills/init/SKILL.md, davepoon/buildwithclaude/plugins/origin/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:handoff: injection (OC-SKILL-001) with capabilities [&#x27;shell_exec&#x27;, &#x27;write_file&#x27;] [davepoon/buildwithclaude/plugins/origin/skills/handoff/SKILL.md, davepoon/buildwithclaude/plugins/gsd/skills/next/SKILL.md, davepoon/buildwithclaude/plugins/gsd/skills/reapply-patches/SKILL.md, ...and 24 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:sdd-pipeline: reads sensitive sources (api key) and can egress (caps: [&#x27;network_get&#x27;]) [davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/sdd-pipeline/SKILL.md, davepoon/buildwithclaude/plugins/give-claude-eyes/skills/qwen-vision/SKILL.md, davepoon/buildwithclaude/plugins/all-skills/skills/supabase-automation/SKILL.md, ...and 41 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:resemble-detect: session transcript access combined with an external sink [davepoon/buildwithclaude/plugins/all-skills/skills/resemble-detect/SKILL.md, davepoon/buildwithclaude/plugins/claude-ops/skills/setup/SKILL.md, davepoon/buildwithclaude/plugins/claude-ops/skills/ops-voice/SKILL.md, ...and 5 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-005: Untrusted MCP server with broad tools</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An MCP server is sourced from a public registry with an unpinned version and no integrity verification, while exposing broad tool capabilities. A compromised or typosquatted package gains wide agent access.</div>
+  <div class="evidence-block">mcp:meigen: public registry + unpinned version (OC-MCP-002, OC-MCP-005); capabilities [&#x27;mcp_tool_call&#x27;]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin MCP server versions, verify hashes/signatures, allowlist tools, and run untrusted MCP servers sandboxed with restricted egress.</div>
   
 </div>
 </details><details class="section-group">
@@ -417,30 +470,6 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   
 </div>
 </details><details class="section-group" open>
-  <summary><span class="section-h2">Credential Hygiene</span> <span class="count-badge">2 findings</span></summary>
-  <div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-CRED-002: API keys in .env files</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Plaintext API keys found in .env files, accessible to any process running under the same user.</div>
-  <div class="evidence-block">davepoon/buildwithclaude/scripts/mcp-importers/.env.example: API key (API_KEY=...here)</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Migrate to secrets manager. Remove .env files with credentials.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-CRED-004: Standing long-lived API keys detected</span>
-    <span class="severity-badge severity-medium">MEDIUM</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Configuration contains static API keys or tokens without JIT provisioning, rotation, or vault integration. Standing credentials increase blast radius upon compromise (cf. Salesloft Drift: 700+ orgs).</div>
-  <div class="evidence-block">davepoon/buildwithclaude/scripts/mcp-importers/.env.example: static credentials in .env</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Replace standing API keys with JIT credentials (5-15 min TTL) via HashiCorp Vault, AWS STS, or OS keychain integration.</div>
-  
-</div>
-</details><details class="section-group" open>
   <summary><span class="section-h2">MCP Server</span> <span class="count-badge">3 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
@@ -449,7 +478,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">An MCP server connection does not specify authentication.</div>
-  <div class="evidence-block">Server &#x27;trigger&#x27; has no authentication configured [davepoon/buildwithclaude/web-ui/.cursor/mcp.json, davepoon/buildwithclaude/plugins/kegg-mcp-server/.mcp.json, davepoon/buildwithclaude/plugins/mcp-servers-creative/.mcp.json, ...and 3 more]</div>
+  <div class="evidence-block">Server &#x27;trigger&#x27; has no authentication configured [davepoon/buildwithclaude/web-ui/.cursor/mcp.json, davepoon/buildwithclaude/plugins/mcp-servers-creative/.mcp.json, davepoon/buildwithclaude/plugins/cashflow/.mcp.json, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Configure authentication for all MCP server connections.</div>
   
 </div>
@@ -479,17 +508,6 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">5 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [davepoon/buildwithclaude/plugins/gsd/skills/resume-at/SKILL.md, davepoon/buildwithclaude/plugins/gsd/skills/next/SKILL.md, davepoon/buildwithclaude/plugins/gsd/skills/reapply-patches/SKILL.md, ...and 26 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
     <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
     <span class="severity-badge severity-critical">CRITICAL</span>
     <span class="status-badge status-fail">FAIL</span>
@@ -501,12 +519,23 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </div>
 <div class="finding-card sev-red">
   <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [davepoon/buildwithclaude/plugins/origin/skills/handoff/SKILL.md, davepoon/buildwithclaude/plugins/gsd/skills/next/SKILL.md, davepoon/buildwithclaude/plugins/gsd/skills/reapply-patches/SKILL.md, ...and 26 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
     <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
     <span class="severity-badge severity-high">HIGH</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [davepoon/buildwithclaude/plugins/give-claude-eyes/skills/qwen-vision/SKILL.md, davepoon/buildwithclaude/plugins/claude-ops/skills/setup/SKILL.md, davepoon/buildwithclaude/plugins/all-skills/skills/docx/SKILL.md, ...and 7 more]</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [davepoon/buildwithclaude/plugins/give-claude-eyes/skills/qwen-vision/SKILL.md, davepoon/buildwithclaude/plugins/all-skills/skills/video-downloader/SKILL.md, davepoon/buildwithclaude/plugins/all-skills/skills/xlsx/SKILL.md, ...and 7 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
   
 </div>
@@ -517,7 +546,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">Credential access: [&#x27;macOS Keychain&#x27;] [davepoon/buildwithclaude/plugins/claude-ops/skills/ops-voice/SKILL.md, davepoon/buildwithclaude/plugins/claude-ops/skills/uninstall/SKILL.md, davepoon/buildwithclaude/plugins/claude-ops/skills/ops-ecom/SKILL.md, ...and 5 more]</div>
+  <div class="evidence-block">Credential access: [&#x27;macOS Keychain&#x27;, &#x27;Browser credentials&#x27;] [davepoon/buildwithclaude/plugins/claude-ops/skills/setup/SKILL.md, davepoon/buildwithclaude/plugins/claude-ops/skills/ops-marketing/SKILL.md, davepoon/buildwithclaude/plugins/claude-ops/skills/uninstall/SKILL.md, ...and 5 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
   
 </div>
@@ -528,7 +557,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;fetch() outbound&#x27;] [davepoon/buildwithclaude/plugins/nextjs-expert/skills/route-handlers/SKILL.md, davepoon/buildwithclaude/plugins/nextjs-expert/skills/app-router/SKILL.md, davepoon/buildwithclaude/plugins/nextjs-expert/skills/server-actions/SKILL.md, ...and 29 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [davepoon/buildwithclaude/plugins/origin/skills/init/SKILL.md, davepoon/buildwithclaude/plugins/agents-uc-taskmanager/skills/sdd-pipeline/SKILL.md, davepoon/buildwithclaude/plugins/all-skills/skills/lobsterdomains/SKILL.md, ...and 29 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -541,7 +570,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">davepoon/buildwithclaude/plugins/frontend-design-pro/skills/inspiration-analyzer/SKILL.md, davepoon/buildwithclaude/plugins/frontend-design-pro/skills/moodboard-creator/SKILL.md, davepoon/buildwithclaude/plugins/frontend-design-pro/skills/color-curator/SKILL.md, ...and 341 more</div>
+  <div class="evidence-block">davepoon/buildwithclaude/plugins/public-plugin-builder/skills/public-plugin-builder/SKILL.md, davepoon/buildwithclaude/plugins/slopmop/skills/slopmop/SKILL.md, davepoon/buildwithclaude/plugins/shipwright/skills/build/SKILL.md, ...and 341 more</div>
   
   
 </div>
@@ -552,7 +581,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">davepoon/buildwithclaude/plugins/frontend-design-pro/skills/inspiration-analyzer/SKILL.md, davepoon/buildwithclaude/plugins/frontend-design-pro/skills/moodboard-creator/SKILL.md, davepoon/buildwithclaude/plugins/frontend-design-pro/skills/color-curator/SKILL.md, ...and 368 more</div>
+  <div class="evidence-block">davepoon/buildwithclaude/plugins/public-plugin-builder/skills/public-plugin-builder/SKILL.md, davepoon/buildwithclaude/plugins/slopmop/skills/slopmop/SKILL.md, davepoon/buildwithclaude/plugins/shipwright/skills/build/SKILL.md, ...and 368 more</div>
   
   
 </div>
@@ -563,7 +592,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">davepoon/buildwithclaude/plugins/frontend-design-pro/skills/inspiration-analyzer/SKILL.md, davepoon/buildwithclaude/plugins/frontend-design-pro/skills/moodboard-creator/SKILL.md, davepoon/buildwithclaude/plugins/frontend-design-pro/skills/color-curator/SKILL.md, ...and 360 more</div>
+  <div class="evidence-block">davepoon/buildwithclaude/plugins/public-plugin-builder/skills/public-plugin-builder/SKILL.md, davepoon/buildwithclaude/plugins/slopmop/skills/slopmop/SKILL.md, davepoon/buildwithclaude/plugins/shipwright/skills/build/SKILL.md, ...and 360 more</div>
   
   
 </div>
@@ -574,7 +603,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">davepoon/buildwithclaude/plugins/frontend-design-pro/skills/inspiration-analyzer/SKILL.md, davepoon/buildwithclaude/plugins/frontend-design-pro/skills/moodboard-creator/SKILL.md, davepoon/buildwithclaude/plugins/frontend-design-pro/skills/color-curator/SKILL.md, ...and 370 more</div>
+  <div class="evidence-block">davepoon/buildwithclaude/plugins/public-plugin-builder/skills/public-plugin-builder/SKILL.md, davepoon/buildwithclaude/plugins/slopmop/skills/slopmop/SKILL.md, davepoon/buildwithclaude/plugins/shipwright/skills/build/SKILL.md, ...and 370 more</div>
   
   
 </div>
@@ -585,7 +614,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">davepoon/buildwithclaude/plugins/frontend-design-pro/skills/inspiration-analyzer/SKILL.md, davepoon/buildwithclaude/plugins/frontend-design-pro/skills/moodboard-creator/SKILL.md, davepoon/buildwithclaude/plugins/frontend-design-pro/skills/color-curator/SKILL.md, ...and 338 more</div>
+  <div class="evidence-block">davepoon/buildwithclaude/plugins/public-plugin-builder/skills/public-plugin-builder/SKILL.md, davepoon/buildwithclaude/plugins/slopmop/skills/slopmop/SKILL.md, davepoon/buildwithclaude/plugins/shipwright/skills/build/SKILL.md, ...and 338 more</div>
   
   
 </div>
@@ -596,7 +625,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">davepoon/buildwithclaude/plugins/frontend-design-pro/skills/inspiration-analyzer/SKILL.md, davepoon/buildwithclaude/plugins/frontend-design-pro/skills/moodboard-creator/SKILL.md, davepoon/buildwithclaude/plugins/frontend-design-pro/skills/color-curator/SKILL.md, ...and 362 more</div>
+  <div class="evidence-block">davepoon/buildwithclaude/plugins/public-plugin-builder/skills/public-plugin-builder/SKILL.md, davepoon/buildwithclaude/plugins/slopmop/skills/slopmop/SKILL.md, davepoon/buildwithclaude/plugins/shipwright/skills/build/SKILL.md, ...and 362 more</div>
   
   
 </div>
@@ -607,7 +636,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">MCP server uses &#x27;latest&#x27; tag or no version pin, enabling rug-pull attacks where tool behavior silently changes after user approval. With 82% of MCP implementations vulnerable to path traversal and 66% to code injection, unpinned versions are a high-risk supply chain vector.</div>
-  <div class="evidence-block">davepoon/buildwithclaude/web-ui/.cursor/mcp.json, davepoon/buildwithclaude/plugins/kegg-mcp-server/.mcp.json, davepoon/buildwithclaude/plugins/mortgage/.mcp.json, ...and 2 more</div>
+  <div class="evidence-block">davepoon/buildwithclaude/web-ui/.cursor/mcp.json, davepoon/buildwithclaude/plugins/cashflow/.mcp.json, davepoon/buildwithclaude/plugins/kegg-mcp-server/.mcp.json, ...and 2 more</div>
   
   
 </div>
@@ -618,18 +647,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Localhost-bound MCP servers using HTTP (not stdio) are vulnerable to DNS rebinding attacks that allow remote websites to invoke tools (CVE-2026-34742). Attacker-controlled DNS can resolve to 127.0.0.1 and bypass same-origin protections.</div>
-  <div class="evidence-block">davepoon/buildwithclaude/web-ui/.cursor/mcp.json, davepoon/buildwithclaude/plugins/kegg-mcp-server/.mcp.json, davepoon/buildwithclaude/plugins/mcp-servers-creative/.mcp.json, ...and 3 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-MCP-005: MCP server from unvetted public source</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">MCP server is sourced directly from a public registry (ClawHub, npm) rather than an internal vetted registry. Antiy CERT confirmed 1,184 malicious skills on ClawHub (~20% of packages); Koi Security found 820+ more. Direct public pulls enable supply chain attacks including rug-pull updates and the ClawHavoc campaign.</div>
-  <div class="evidence-block">davepoon/buildwithclaude/plugins/kegg-mcp-server/.mcp.json, davepoon/buildwithclaude/plugins/mortgage/.mcp.json, davepoon/buildwithclaude/plugins/cashflow/.mcp.json, ...and 1 more</div>
+  <div class="evidence-block">davepoon/buildwithclaude/web-ui/.cursor/mcp.json, davepoon/buildwithclaude/plugins/mcp-servers-creative/.mcp.json, davepoon/buildwithclaude/plugins/cashflow/.mcp.json, ...and 3 more</div>
   
   
 </div>
@@ -640,7 +658,18 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">An MCP server uses HTTP (not HTTPS) transport, allowing man-in-the-middle attacks.</div>
-  <div class="evidence-block">davepoon/buildwithclaude/plugins/mortgage/.mcp.json, davepoon/buildwithclaude/plugins/cashflow/.mcp.json</div>
+  <div class="evidence-block">davepoon/buildwithclaude/plugins/cashflow/.mcp.json, davepoon/buildwithclaude/plugins/mortgage/.mcp.json</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-MCP-005: MCP server from unvetted public source</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">MCP server is sourced directly from a public registry (ClawHub, npm) rather than an internal vetted registry. Antiy CERT confirmed 1,184 malicious skills on ClawHub (~20% of packages); Koi Security found 820+ more. Direct public pulls enable supply chain attacks including rug-pull updates and the ClawHavoc campaign.</div>
+  <div class="evidence-block">davepoon/buildwithclaude/plugins/cashflow/.mcp.json, davepoon/buildwithclaude/plugins/kegg-mcp-server/.mcp.json, davepoon/buildwithclaude/plugins/mortgage/.mcp.json, ...and 1 more</div>
   
   
 </div>

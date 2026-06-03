@@ -471,7 +471,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">&quot;body&quot;: &quot;## Summary\n\nThis branch consolidates cron isolated announce behavior with the shared subagent announce pipeline, while keeping cron-specific routing/session behavior intact.\n\n### Main cha</div>
+  <div class="evidence-block">&quot;body&quot;: &quot;## Summary\n\nCron jobs are systematically skipped when the timer fires even 1ms after the scheduled time due to a race condition in the timer execution order. This is a **root cause** for ma</div>
   
   
 </div>

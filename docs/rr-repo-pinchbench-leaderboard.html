@@ -497,7 +497,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">timeout_seconds?: number;</div>
+  <div class="evidence-block">const toastTimeouts = new Map&lt;string, ReturnType&lt;typeof setTimeout&gt;&gt;()</div>
   
   
 </div>

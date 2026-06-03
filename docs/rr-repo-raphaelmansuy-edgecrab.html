@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>raphaelmansuy/edgecrab</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">19</strong></span>
+    <span>Exposure Score: <strong class="hero-score">23</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 62</span>
+    <span>Source Code Scan | Total Checks: 66</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **8 failure(s)** and **21 warning(s)** across 62 checks.</p>
+<div class="exec-tables"><p>The audit identified **12 failure(s)** and **21 warning(s)** across 66 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>8</td>
+<td>12</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,11 +188,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>3</td>
+<td>5</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>2</td>
+<td>4</td>
 </tr>
 <tr>
 <td>MEDIUM</td>
@@ -214,6 +214,52 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Enable human-in-the-loop for dangerous operations. Set agent.require_approval or auto_approve=false for file writes, network access, and command execution.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">4 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:dogfood: injection (OC-SKILL-001) with capabilities [&#x27;env_read&#x27;, &#x27;write_file&#x27;] [raphaelmansuy/edgecrab/skills/dogfood/SKILL.md, raphaelmansuy/edgecrab/skills/productivity/powerpoint/SKILL.md, raphaelmansuy/edgecrab/skills/creative/ascii-video/SKILL.md, ...and 10 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:dogfood: reads sensitive sources (.env, session transcript, api key) and can egress (caps: []) [raphaelmansuy/edgecrab/skills/dogfood/SKILL.md, raphaelmansuy/edgecrab/skills/media/youtube-content/SKILL.md, raphaelmansuy/edgecrab/skills/media/heartmula/SKILL.md, ...and 54 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:dogfood: session transcript access combined with an external sink [raphaelmansuy/edgecrab/skills/dogfood/SKILL.md, raphaelmansuy/edgecrab/skills/media/youtube-content/SKILL.md, raphaelmansuy/edgecrab/skills/media/heartmula/SKILL.md, ...and 10 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:hermes-agent: downloads and executes remote content (pipe-to-shell or defanged URL) [raphaelmansuy/edgecrab/skills/autonomous-ai-agents/hermes-agent/SKILL.md, raphaelmansuy/edgecrab/skills/github/github-repo-management/SKILL.md, raphaelmansuy/edgecrab/skills/inference-sh/cli/SKILL.md, ...and 8 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
   
 </div>
 </details><details class="section-group">
@@ -471,7 +517,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [raphaelmansuy/edgecrab/optional-skills/migration/openclaw-migration/SKILL.md, raphaelmansuy/edgecrab/optional-skills/health/neuroskill-bci/SKILL.md, raphaelmansuy/edgecrab/skills/dogfood/SKILL.md, ...and 10 more]</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [raphaelmansuy/edgecrab/skills/dogfood/SKILL.md, raphaelmansuy/edgecrab/skills/productivity/powerpoint/SKILL.md, raphaelmansuy/edgecrab/skills/creative/ascii-video/SKILL.md, ...and 10 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
   
 </div>
@@ -482,8 +528,19 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [raphaelmansuy/edgecrab/optional-skills/security/oss-forensics/SKILL.md, raphaelmansuy/edgecrab/skills/inference-sh/cli/SKILL.md, raphaelmansuy/edgecrab/skills/github/github-repo-management/SKILL.md, ...and 8 more]</div>
+  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [raphaelmansuy/edgecrab/skills/autonomous-ai-agents/hermes-agent/SKILL.md, raphaelmansuy/edgecrab/skills/github/github-repo-management/SKILL.md, raphaelmansuy/edgecrab/skills/inference-sh/cli/SKILL.md, ...and 8 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [raphaelmansuy/edgecrab/skills/creative/ascii-video/SKILL.md, raphaelmansuy/edgecrab/skills/red-teaming/godmode/SKILL.md, raphaelmansuy/edgecrab/skills/mlops/evaluation/lm-evaluation-harness/SKILL.md, ...and 10 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -493,7 +550,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">Obfuscation: [&#x27;base64 decode&#x27;] [raphaelmansuy/edgecrab/optional-skills/security/oss-forensics/SKILL.md, raphaelmansuy/edgecrab/skills/creative/ascii-video/SKILL.md, raphaelmansuy/edgecrab/skills]</div>
+  <div class="evidence-block">Obfuscation: [&#x27;Unicode escape sequence&#x27;] [raphaelmansuy/edgecrab/skills/creative/ascii-video/SKILL.md, raphaelmansuy/edgecrab/optional-skills/security/oss-forensics/SKILL.md, raphaelmansuy/edgecrab/skills]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
   
 </div>
@@ -504,19 +561,8 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">Credential access: [&#x27;SSH directory access&#x27;, &#x27;SSH private key&#x27;] [raphaelmansuy/edgecrab/optional-skills/security/oss-forensics/SKILL.md, raphaelmansuy/edgecrab/skills/github/github-auth/SKILL.md, raphaelmansuy/edgecrab/skills/github/github-repo-management/SKILL.md, ...and 3 more]</div>
+  <div class="evidence-block">Credential access: [&#x27;SSH directory access&#x27;, &#x27;SSH private key&#x27;] [raphaelmansuy/edgecrab/skills/github/github-auth/SKILL.md, raphaelmansuy/edgecrab/skills/github/github-repo-management/SKILL.md, raphaelmansuy/edgecrab/skills/mlops/cloud/lambda-labs/SKILL.md, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;exec() call&#x27;] [raphaelmansuy/edgecrab/skills/red-teaming/godmode/SKILL.md, raphaelmansuy/edgecrab/skills/mlops/training/pytorch-lightning/SKILL.md, raphaelmansuy/edgecrab/skills/mlops/training/hermes-atropos-environments/SKILL.md, ...and 10 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
   
 </div>
 <div class="finding-card sev-yellow">
@@ -526,7 +572,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [raphaelmansuy/edgecrab/optional-skills/research/qmd/SKILL.md, raphaelmansuy/edgecrab/optional-skills/devops/docker-management/SKILL.md, raphaelmansuy/edgecrab/optional-skills/security/oss-forensics/SKILL.md, ...and 37 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [raphaelmansuy/edgecrab/skills/media/gif-search/SKILL.md, raphaelmansuy/edgecrab/skills/productivity/linear/SKILL.md, raphaelmansuy/edgecrab/skills/productivity/notion/SKILL.md, ...and 37 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -539,7 +585,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/work/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/research/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/homelab/SOUL.md</div>
+  <div class="evidence-block">raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/research/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/homelab/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/work/SOUL.md, ...and 3 more</div>
   
   
 </div>
@@ -550,7 +596,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/work/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/research/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/homelab/SOUL.md</div>
+  <div class="evidence-block">raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/research/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/homelab/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/work/SOUL.md, ...and 3 more</div>
   
   
 </div>
@@ -561,7 +607,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/work/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/research/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/homelab/SOUL.md</div>
+  <div class="evidence-block">raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/research/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/homelab/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/work/SOUL.md, ...and 3 more</div>
   
   
 </div>
@@ -572,7 +618,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/work/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/research/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/homelab/SOUL.md</div>
+  <div class="evidence-block">raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/research/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/homelab/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/work/SOUL.md, ...and 3 more</div>
   
   
 </div>
@@ -583,18 +629,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/work/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/research/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/homelab/SOUL.md</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">raphaelmansuy/edgecrab/optional-skills/email/agentmail/SKILL.md, raphaelmansuy/edgecrab/optional-skills/blockchain/base/SKILL.md, raphaelmansuy/edgecrab/optional-skills/blockchain/solana/SKILL.md, ...and 98 more</div>
+  <div class="evidence-block">raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/research/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/homelab/SOUL.md, raphaelmansuy/edgecrab/crates/edgecrab-cli/bundled-profiles/work/SOUL.md, ...and 3 more</div>
   
   
 </div>
@@ -605,7 +640,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">raphaelmansuy/edgecrab/optional-skills/email/agentmail/SKILL.md, raphaelmansuy/edgecrab/optional-skills/blockchain/base/SKILL.md, raphaelmansuy/edgecrab/optional-skills/blockchain/solana/SKILL.md, ...and 100 more</div>
+  <div class="evidence-block">raphaelmansuy/edgecrab/skills/dogfood/SKILL.md, raphaelmansuy/edgecrab/skills/media/youtube-content/SKILL.md, raphaelmansuy/edgecrab/skills/media/heartmula/SKILL.md, ...and 100 more</div>
   
   
 </div>
@@ -616,7 +651,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">raphaelmansuy/edgecrab/optional-skills/email/agentmail/SKILL.md, raphaelmansuy/edgecrab/optional-skills/blockchain/base/SKILL.md, raphaelmansuy/edgecrab/optional-skills/blockchain/solana/SKILL.md, ...and 98 more</div>
+  <div class="evidence-block">raphaelmansuy/edgecrab/skills/dogfood/SKILL.md, raphaelmansuy/edgecrab/skills/media/youtube-content/SKILL.md, raphaelmansuy/edgecrab/skills/media/heartmula/SKILL.md, ...and 98 more</div>
   
   
 </div>
@@ -627,7 +662,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">raphaelmansuy/edgecrab/optional-skills/email/agentmail/SKILL.md, raphaelmansuy/edgecrab/optional-skills/blockchain/base/SKILL.md, raphaelmansuy/edgecrab/optional-skills/blockchain/solana/SKILL.md, ...and 108 more</div>
+  <div class="evidence-block">raphaelmansuy/edgecrab/skills/dogfood/SKILL.md, raphaelmansuy/edgecrab/skills/media/youtube-content/SKILL.md, raphaelmansuy/edgecrab/skills/media/heartmula/SKILL.md, ...and 108 more</div>
   
   
 </div>
@@ -638,7 +673,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">raphaelmansuy/edgecrab/optional-skills/email/agentmail/SKILL.md, raphaelmansuy/edgecrab/optional-skills/blockchain/base/SKILL.md, raphaelmansuy/edgecrab/optional-skills/blockchain/solana/SKILL.md, ...and 71 more</div>
+  <div class="evidence-block">raphaelmansuy/edgecrab/skills/dogfood/SKILL.md, raphaelmansuy/edgecrab/skills/media/youtube-content/SKILL.md, raphaelmansuy/edgecrab/skills/media/heartmula/SKILL.md, ...and 71 more</div>
   
   
 </div>
@@ -649,7 +684,18 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">raphaelmansuy/edgecrab/optional-skills/email/agentmail/SKILL.md, raphaelmansuy/edgecrab/optional-skills/blockchain/base/SKILL.md, raphaelmansuy/edgecrab/optional-skills/blockchain/solana/SKILL.md, ...and 105 more</div>
+  <div class="evidence-block">raphaelmansuy/edgecrab/skills/dogfood/SKILL.md, raphaelmansuy/edgecrab/skills/media/youtube-content/SKILL.md, raphaelmansuy/edgecrab/skills/media/heartmula/SKILL.md, ...and 105 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">raphaelmansuy/edgecrab/skills/media/youtube-content/SKILL.md, raphaelmansuy/edgecrab/skills/media/heartmula/SKILL.md, raphaelmansuy/edgecrab/skills/media/songsee/SKILL.md, ...and 98 more</div>
   
   
 </div>
@@ -737,7 +783,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">ResetToolPolicy,</div>
+  <div class="evidence-block">allowed_tools: Vec&lt;String&gt;,</div>
   
   
 </div>

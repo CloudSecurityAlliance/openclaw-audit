@@ -438,24 +438,24 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">SOUL.md Integrity</span> <span class="count-badge">3 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SOUL-004: Embedded shell commands in SOUL.md</span>
-    <span class="severity-badge severity-critical">CRITICAL</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">Shell patterns: [&#x27;bash &#x27;] [will-assistant/openclaw-agents/agents/80s-pop-culture/macgyver/SOUL.md, will-assistant/openclaw-agents/agents/tech-founders/guido-van-rossum/SOUL.md]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Remove shell commands from SOUL.md. Investigate source.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
     <span class="finding-title">🔴 OC-SOUL-003: Zero-width Unicode characters in SOUL.md</span>
     <span class="severity-badge severity-high">HIGH</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">Found 1 zero-width/invisible Unicode character(s) [will-assistant/openclaw-agents/agents/sports/shannon-sharpe/SOUL.md, will-assistant/openclaw-agents/agents/professional/chef-gordon/SOUL.md, will-assistant/openclaw-agents/agents/professional/deadpan-pirate-lawyer/SOUL.md, ...and 3 more]</div>
+  <div class="evidence-block">Found 1 zero-width/invisible Unicode character(s) [will-assistant/openclaw-agents/agents/creatures/pirate-captain/SOUL.md, will-assistant/openclaw-agents/agents/action-heroes/jack-sparrow/SOUL.md, will-assistant/openclaw-agents/agents/sports/shannon-sharpe/SOUL.md, ...and 9 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Strip all zero-width Unicode characters from SOUL.md.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SOUL-004: Embedded shell commands in SOUL.md</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
+  <div class="evidence-block">Shell patterns: [&#x27;bash &#x27;] [will-assistant/openclaw-agents/agents/tech-founders/guido-van-rossum/SOUL.md, will-assistant/openclaw-agents/agents/80s-pop-culture/macgyver/SOUL.md, will-assistant/openclaw-agents/agents/tech-founders/guido-van-rossum/soul.md, ...and 1 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove shell commands from SOUL.md. Investigate source.</div>
   
 </div>
 <div class="finding-card sev-yellow">
@@ -465,7 +465,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">Found 7 URL(s): [&#x27;https://docs.openclaw.ai/start/getting-started&#x27;, &#x27;https://docs.openclaw.ai/cli&#x27;, &#x27;https://docs.openclaw.ai/cli/agents&#x27;] [will-assistant/openclaw-agents/agents/professional/clawsmith/SOUL.md, will-assistant/openclaw-agents/agents/coding/devclaw/SOUL.md, will-assistant/openclaw-agents/agents/coding/nitpick/SOUL.md, ...and 1 more]</div>
+  <div class="evidence-block">Found 1 URL(s): [&#x27;https://github.com/emily-flambe/openclaw-identities&#x27;] [will-assistant/openclaw-agents/agents/coding/nitpick/SOUL.md, will-assistant/openclaw-agents/agents/coding/shipit/SOUL.md, will-assistant/openclaw-agents/agents/coding/devclaw/SOUL.md, ...and 5 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all URLs. Remove any that are not organizationally approved.</div>
   
 </div>
@@ -478,7 +478,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">will-assistant/openclaw-agents/agents/cultural-icons/norm-macdonald/SOUL.md, will-assistant/openclaw-agents/agents/cultural-icons/gordon-ramsay/SOUL.md, will-assistant/openclaw-agents/agents/cultural-icons/mr-rogers/SOUL.md, ...and 214 more</div>
+  <div class="evidence-block">will-assistant/openclaw-agents/agents/anime-gaming/spike-spiegel/SOUL.md, will-assistant/openclaw-agents/agents/anime-gaming/solid-snake/SOUL.md, will-assistant/openclaw-agents/agents/anime-gaming/goku/SOUL.md, ...and 431 more</div>
   
   
 </div>
@@ -489,7 +489,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">will-assistant/openclaw-agents/agents/cultural-icons/norm-macdonald/SOUL.md, will-assistant/openclaw-agents/agents/cultural-icons/gordon-ramsay/SOUL.md, will-assistant/openclaw-agents/agents/cultural-icons/mr-rogers/SOUL.md, ...and 208 more</div>
+  <div class="evidence-block">will-assistant/openclaw-agents/agents/anime-gaming/spike-spiegel/SOUL.md, will-assistant/openclaw-agents/agents/anime-gaming/solid-snake/SOUL.md, will-assistant/openclaw-agents/agents/anime-gaming/goku/SOUL.md, ...and 419 more</div>
   
   
 </div>
@@ -500,7 +500,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">will-assistant/openclaw-agents/agents/cultural-icons/norm-macdonald/SOUL.md, will-assistant/openclaw-agents/agents/cultural-icons/gordon-ramsay/SOUL.md, will-assistant/openclaw-agents/agents/cultural-icons/mr-rogers/SOUL.md, ...and 212 more</div>
+  <div class="evidence-block">will-assistant/openclaw-agents/agents/anime-gaming/spike-spiegel/SOUL.md, will-assistant/openclaw-agents/agents/anime-gaming/solid-snake/SOUL.md, will-assistant/openclaw-agents/agents/anime-gaming/goku/SOUL.md, ...and 427 more</div>
   
   
 </div>
@@ -511,7 +511,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">will-assistant/openclaw-agents/agents/cultural-icons/norm-macdonald/SOUL.md, will-assistant/openclaw-agents/agents/cultural-icons/gordon-ramsay/SOUL.md, will-assistant/openclaw-agents/agents/cultural-icons/mr-rogers/SOUL.md, ...and 214 more</div>
+  <div class="evidence-block">will-assistant/openclaw-agents/agents/anime-gaming/spike-spiegel/SOUL.md, will-assistant/openclaw-agents/agents/anime-gaming/solid-snake/SOUL.md, will-assistant/openclaw-agents/agents/anime-gaming/goku/SOUL.md, ...and 431 more</div>
   
   
 </div>
@@ -522,7 +522,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">will-assistant/openclaw-agents/agents/cultural-icons/norm-macdonald/SOUL.md, will-assistant/openclaw-agents/agents/cultural-icons/gordon-ramsay/SOUL.md, will-assistant/openclaw-agents/agents/cultural-icons/mr-rogers/SOUL.md, ...and 210 more</div>
+  <div class="evidence-block">will-assistant/openclaw-agents/agents/anime-gaming/spike-spiegel/SOUL.md, will-assistant/openclaw-agents/agents/anime-gaming/solid-snake/SOUL.md, will-assistant/openclaw-agents/agents/anime-gaming/goku/SOUL.md, ...and 423 more</div>
   
   
 </div>

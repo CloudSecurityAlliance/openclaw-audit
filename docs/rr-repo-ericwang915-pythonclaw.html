@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>ericwang915/PythonClaw</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">12</strong></span>
+    <span>Exposure Score: <strong class="hero-score">15</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 60</span>
+    <span>Source Code Scan | Total Checks: 63</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **3 failure(s)** and **21 warning(s)** across 60 checks.</p>
+<div class="exec-tables"><p>The audit identified **6 failure(s)** and **21 warning(s)** across 63 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>3</td>
+<td>6</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,11 +188,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>2</td>
+<td>4</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>1</td>
+<td>2</td>
 </tr>
 <tr>
 <td>INFO</td>
@@ -221,6 +221,41 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Define an explicit tool allowlist (agent.allowed_tools) scoped to the minimum set of tools needed for the task.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">3 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:image_gen: reads sensitive sources (api key) and can egress (caps: [&#x27;network_get&#x27;, &#x27;network_post&#x27;]) [ericwang915/PythonClaw/pythonclaw/templates/skills/media/image_gen/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/productivity/notion/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/productivity/trello/SKILL.md, ...and 6 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:trello: downloads and executes remote content (pipe-to-shell or defanged URL) [ericwang915/PythonClaw/pythonclaw/templates/skills/productivity/trello/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/web/summarize/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:youtube: session transcript access combined with an external sink [ericwang915/PythonClaw/pythonclaw/templates/skills/data/youtube/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/web/summarize/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
   
 </div>
 </details><details class="section-group">
@@ -427,28 +462,6 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">4 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [ericwang915/PythonClaw/pythonclaw/templates/skills/dev/code_runner/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
-    <span class="severity-badge severity-critical">CRITICAL</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [ericwang915/PythonClaw/pythonclaw/templates/skills/web/summarize/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/productivity/trello/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
     <span class="finding-title">🔴 OC-SKILL-004: Obfuscated code in skill</span>
     <span class="severity-badge severity-critical">CRITICAL</span>
     <span class="status-badge status-fail">FAIL</span>
@@ -458,6 +471,28 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
   
 </div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
+  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [ericwang915/PythonClaw/pythonclaw/templates/skills/productivity/trello/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/web/summarize/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [ericwang915/PythonClaw/pythonclaw/templates/skills/dev/code_runner/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
+  
+</div>
 <div class="finding-card sev-yellow">
   <div class="finding-header">
     <span class="finding-title">🟡 OC-SKILL-005: Network exfiltration patterns in skill</span>
@@ -465,7 +500,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;Python requests outbound&#x27;] [ericwang915/PythonClaw/pythonclaw/templates/skills/dev/github/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/communication/slack/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/data/weather/SKILL.md, ...and 6 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;Python requests outbound&#x27;] [ericwang915/PythonClaw/pythonclaw/templates/skills/media/image_gen/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/media/spotify/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/productivity/trello/SKILL.md, ...and 6 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -478,7 +513,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  
+  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/soul/SOUL.md, ericwang915/PythonClaw/pythonclaw/templates/soul/soul.md</div>
   
   
 </div>
@@ -489,7 +524,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  
+  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/soul/SOUL.md, ericwang915/PythonClaw/pythonclaw/templates/soul/soul.md</div>
   
   
 </div>
@@ -500,7 +535,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  
+  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/soul/SOUL.md, ericwang915/PythonClaw/pythonclaw/templates/soul/soul.md</div>
   
   
 </div>
@@ -511,7 +546,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  
+  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/soul/SOUL.md, ericwang915/PythonClaw/pythonclaw/templates/soul/soul.md</div>
   
   
 </div>
@@ -522,7 +557,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  
+  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/soul/SOUL.md, ericwang915/PythonClaw/pythonclaw/templates/soul/soul.md</div>
   
   
 </div>
@@ -533,7 +568,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/skills/dev/code_runner/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/dev/github/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/dev/http_request/SKILL.md, ...and 34 more</div>
+  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/skills/media/image_gen/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/media/spotify/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/media/tts/SKILL.md, ...and 34 more</div>
   
   
 </div>
@@ -544,40 +579,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/skills/dev/code_runner/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/dev/github/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/dev/http_request/SKILL.md, ...and 31 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/skills/dev/code_runner/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/dev/github/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/dev/http_request/SKILL.md, ...and 32 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/skills/dev/code_runner/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/dev/http_request/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/communication/email/SKILL.md, ...and 25 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/skills/dev/code_runner/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/dev/github/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/dev/http_request/SKILL.md, ...and 34 more</div>
+  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/skills/media/image_gen/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/media/spotify/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/media/tts/SKILL.md, ...and 31 more</div>
   
   
 </div>
@@ -588,7 +590,40 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/skills/dev/github/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/dev/http_request/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/communication/email/SKILL.md, ...and 32 more</div>
+  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/skills/media/image_gen/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/media/spotify/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/media/tts/SKILL.md, ...and 32 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/skills/media/image_gen/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/media/spotify/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/media/tts/SKILL.md, ...and 34 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/skills/media/spotify/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/media/tts/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/productivity/notion/SKILL.md, ...and 32 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
+  <div class="evidence-block">ericwang915/PythonClaw/pythonclaw/templates/skills/media/tts/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/productivity/notion/SKILL.md, ericwang915/PythonClaw/pythonclaw/templates/skills/productivity/obsidian/SKILL.md, ...and 25 more</div>
   
   
 </div>
@@ -610,7 +645,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">with urllib.request.urlopen(req, timeout=15, context=_get_ssl_ctx()) as resp:</div>
+  <div class="evidence-block">timeout=60, env=_venv_env(), cwd=_files_dir(),</div>
   
   
 </div>

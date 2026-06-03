@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>clawpod-app/awesome-openclaw-agent-packs</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">10</strong></span>
+    <span>Exposure Score: <strong class="hero-score">11</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 57</span>
+    <span>Source Code Scan | Total Checks: 58</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **2 failure(s)** and **22 warning(s)** across 57 checks.</p>
+<div class="exec-tables"><p>The audit identified **3 failure(s)** and **22 warning(s)** across 58 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>2</td>
+<td>3</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,7 +188,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>HIGH</td>
-<td>2</td>
+<td>3</td>
 </tr>
 <tr>
 <td>INFO</td>
@@ -239,6 +239,19 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Define an explicit tool allowlist (agent.allowed_tools) scoped to the minimum set of tools needed for the task.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">1 finding</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:validate-data: injection (OC-SKILL-001) with capabilities [&#x27;write_file&#x27;] [clawpod-app/awesome-openclaw-agent-packs/packs/data/skills/validate-data/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/data/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
   
 </div>
 </details><details class="section-group">
@@ -450,7 +463,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644) [clawpod-app/awesome-openclaw-agent-packs/packs/seo/HEARTBEAT.md, clawpod-app/awesome-openclaw-agent-packs/packs/legal/HEARTBEAT.md, clawpod-app/awesome-openclaw-agent-packs/packs/education/HEARTBEAT.md, ...and 27 more]</div>
+  <div class="evidence-block">writable (0o644) [clawpod-app/awesome-openclaw-agent-packs/packs/research/HEARTBEAT.md, clawpod-app/awesome-openclaw-agent-packs/packs/customer-support/HEARTBEAT.md, clawpod-app/awesome-openclaw-agent-packs/packs/startup-advisor/HEARTBEAT.md, ...and 57 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -476,7 +489,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/seo/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/legal/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/education/SOUL.md, ...and 27 more</div>
+  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/research/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/customer-support/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/startup-advisor/SOUL.md, ...and 57 more</div>
   
   
 </div>
@@ -487,7 +500,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/seo/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/legal/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/education/SOUL.md, ...and 27 more</div>
+  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/research/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/customer-support/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/startup-advisor/SOUL.md, ...and 57 more</div>
   
   
 </div>
@@ -498,7 +511,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/seo/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/legal/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/education/SOUL.md, ...and 27 more</div>
+  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/research/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/customer-support/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/startup-advisor/SOUL.md, ...and 57 more</div>
   
   
 </div>
@@ -509,7 +522,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/seo/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/legal/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/education/SOUL.md, ...and 27 more</div>
+  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/research/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/customer-support/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/startup-advisor/SOUL.md, ...and 57 more</div>
   
   
 </div>
@@ -520,7 +533,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/seo/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/legal/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/education/SOUL.md, ...and 27 more</div>
+  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/research/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/customer-support/SOUL.md, clawpod-app/awesome-openclaw-agent-packs/packs/startup-advisor/SOUL.md, ...and 57 more</div>
   
   
 </div>
@@ -531,7 +544,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/seo/skills/seo-content/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/seo/skills/keyword-research/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/legal/skills/signature-request/SKILL.md, ...and 156 more</div>
+  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/writing/skills/draft-assist/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/writing/skills/edit-review/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/recruiting/skills/resume-screening/SKILL.md, ...and 156 more</div>
   
   
 </div>
@@ -542,7 +555,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/seo/skills/seo-content/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/seo/skills/keyword-research/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/legal/skills/signature-request/SKILL.md, ...and 158 more</div>
+  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/writing/skills/draft-assist/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/writing/skills/edit-review/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/recruiting/skills/resume-screening/SKILL.md, ...and 158 more</div>
   
   
 </div>
@@ -553,7 +566,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/seo/skills/seo-content/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/seo/skills/keyword-research/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/legal/skills/signature-request/SKILL.md, ...and 158 more</div>
+  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/writing/skills/draft-assist/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/writing/skills/edit-review/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/recruiting/skills/resume-screening/SKILL.md, ...and 158 more</div>
   
   
 </div>
@@ -564,7 +577,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/seo/skills/seo-content/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/seo/skills/keyword-research/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/legal/skills/signature-request/SKILL.md, ...and 158 more</div>
+  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/writing/skills/draft-assist/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/writing/skills/edit-review/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/recruiting/skills/resume-screening/SKILL.md, ...and 158 more</div>
   
   
 </div>
@@ -575,7 +588,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/seo/skills/seo-content/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/seo/skills/keyword-research/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/legal/skills/signature-request/SKILL.md, ...and 158 more</div>
+  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/writing/skills/draft-assist/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/writing/skills/edit-review/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/recruiting/skills/resume-screening/SKILL.md, ...and 158 more</div>
   
   
 </div>
@@ -586,7 +599,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/seo/skills/seo-content/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/seo/skills/keyword-research/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/legal/skills/signature-request/SKILL.md, ...and 158 more</div>
+  <div class="evidence-block">clawpod-app/awesome-openclaw-agent-packs/packs/writing/skills/draft-assist/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/writing/skills/edit-review/SKILL.md, clawpod-app/awesome-openclaw-agent-packs/packs/recruiting/skills/resume-screening/SKILL.md, ...and 158 more</div>
   
   
 </div>

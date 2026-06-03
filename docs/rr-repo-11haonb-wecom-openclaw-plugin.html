@@ -442,7 +442,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">const req = protocol.get(url, { family: 4, timeout: 30000 }, (res: any) =&gt; {</div>
+  <div class="evidence-block">return { on: vi.fn().mockReturnThis(), setTimeout: vi.fn() } as any;</div>
   
   
 </div>

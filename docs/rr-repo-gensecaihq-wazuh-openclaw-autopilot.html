@@ -447,7 +447,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644); URLs: [&#x27;http://localhost:9090`.&#x27;, &#x27;http://localhost:9090/api/cases?token=&#x27;] [gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/triage/HEARTBEAT.md, gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/reporting/HEARTBEAT.md, gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/correlation/HEARTBEAT.md]</div>
+  <div class="evidence-block">writable (0o644); URLs: [&#x27;http://localhost:9090`.&#x27;, &#x27;http://localhost:9090/api/cases/summary?token=&#x27;] [gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/reporting/HEARTBEAT.md, gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/correlation/HEARTBEAT.md, gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/triage/HEARTBEAT.md, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -460,7 +460,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  
+  <div class="evidence-block">gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/_shared/SOUL.md, gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/_shared/soul.md</div>
   
   
 </div>
@@ -471,7 +471,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  
+  <div class="evidence-block">gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/_shared/SOUL.md, gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/_shared/soul.md</div>
   
   
 </div>
@@ -482,7 +482,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  
+  <div class="evidence-block">gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/_shared/SOUL.md, gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/_shared/soul.md</div>
   
   
 </div>
@@ -493,7 +493,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  
+  <div class="evidence-block">gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/_shared/SOUL.md, gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/_shared/soul.md</div>
   
   
 </div>
@@ -504,7 +504,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  
+  <div class="evidence-block">gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/_shared/SOUL.md, gensecaihq/Wazuh-Openclaw-Autopilot/openclaw/agents/_shared/soul.md</div>
   
   
 </div>
@@ -614,7 +614,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
-  <div class="evidence-block">// WARNING: This disables human-in-the-loop review for response plans</div>
+  <div class="evidence-block">assert.equal(status.human_approval_required, true);</div>
   
   
 </div>

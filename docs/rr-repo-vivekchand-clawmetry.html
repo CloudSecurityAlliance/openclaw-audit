@@ -151,19 +151,23 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="hero-card">
   <h2>vivekchand/clawmetry</h2>
   <div class="hero-meta">
-    <span class="grade-badge grade-green">GREEN</span>
-    <span>Exposure Score: <strong class="hero-score">0</strong></span>
-    <span>❓ Confidence</span>
-    <span>Source Code Scan | Total Checks: 43</span>
+    <span class="grade-badge grade-red">RED</span>
+    <span>Exposure Score: <strong class="hero-score">2</strong></span>
+    <span>➖ Confidence</span>
+    <span>Source Code Scan | Total Checks: 45</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **0 failure(s)** and **18 warning(s)** across 43 checks.</p>
+<div class="exec-tables"><p>The audit identified **2 failure(s)** and **18 warning(s)** across 45 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
 <th scope="col">Count</th>
 </tr></thead><tbody>
+<tr>
+<td>FAIL</td>
+<td>2</td>
+</tr>
 <tr>
 <td>WARN</td>
 <td>18</td>
@@ -183,11 +187,43 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
+<td>CRITICAL</td>
+<td>1</td>
+</tr>
+<tr>
+<td>HIGH</td>
+<td>1</td>
+</tr>
+<tr>
 <td>INFO</td>
 <td>18</td>
 </tr>
 </tbody></table></div>
-  <details class="section-group">
+  <details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">2 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:clawmetry: reads sensitive sources (session transcript, api key) and can egress (caps: []) [vivekchand/clawmetry/clawhub-plugin/skills/clawmetry/SKILL.md, vivekchand/clawmetry/clawhub-plugin/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:clawmetry: session transcript access combined with an external sink [vivekchand/clawmetry/clawhub-plugin/skills/clawmetry/SKILL.md, vivekchand/clawmetry/clawhub-plugin/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
+  
+</div>
+</details><details class="section-group">
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">18 findings</span></summary>
   <div class="finding-card sev-yellow">
   <div class="finding-header">
@@ -473,7 +509,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">&quot;approvals.approval_timeout&quot;: &quot;Approval timeout&quot;,</div>
+  <div class="evidence-block">&quot;approvals.approval_timeout&quot;: &quot;Onay zaman aşımı&quot;,</div>
   
   
 </div>
@@ -484,7 +520,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
-  <div class="evidence-block">{&quot;name&quot;: &quot;approvals&quot;,    &quot;description&quot;: &quot;Cloud-mediated human-in-the-loop approval queue.&quot;},</div>
+  <div class="evidence-block">&quot;thinking&quot;: &quot;Considered send_email and ask_user but chose create_event.&quot;,</div>
   
   
 </div>
@@ -506,7 +542,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">&quot;app.failed_to_load_tool_policy&quot;: &quot;Failed to load tool policy&quot;,</div>
+  <div class="evidence-block">&quot;app.failed_to_load_tool_policy&quot;: &quot;Araç politikası yüklenemedi&quot;,</div>
   
   
 </div>

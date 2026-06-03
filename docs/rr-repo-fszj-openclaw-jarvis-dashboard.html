@@ -464,7 +464,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">def _request_json(cls, url: str, headers: Dict[str, str], timeout: int = 6) -&gt; Dict[str, Any]:</div>
+  <div class="evidence-block">with urlopen(req, timeout=5) as resp:</div>
   
   
 </div>

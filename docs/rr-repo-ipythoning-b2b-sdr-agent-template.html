@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>iPythoning/b2b-sdr-agent-template</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">15</strong></span>
+    <span>Exposure Score: <strong class="hero-score">19</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 61</span>
+    <span>Source Code Scan | Total Checks: 65</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **6 failure(s)** and **19 warning(s)** across 61 checks.</p>
+<div class="exec-tables"><p>The audit identified **10 failure(s)** and **19 warning(s)** across 65 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>6</td>
+<td>10</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,18 +188,64 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>4</td>
+<td>6</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>2</td>
+<td>4</td>
 </tr>
 <tr>
 <td>INFO</td>
 <td>19</td>
 </tr>
 </tbody></table></div>
-  <details class="section-group">
+  <details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">4 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:repo: injection (OC-SKILL-001) with capabilities [&#x27;credential_read&#x27;, &#x27;env_read&#x27;, &#x27;network_get&#x27;, &#x27;network_post&#x27;, &#x27;shell_exec&#x27;, &#x27;write_file&#x27;] [iPythoning/b2b-sdr-agent-template/SKILL.md, iPythoning/b2b-sdr-agent-template/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:repo: reads sensitive sources (.env, session transcript, api key) and can egress (caps: [&#x27;network_get&#x27;, &#x27;network_post&#x27;, &#x27;remote_code_download&#x27;, &#x27;webhook_call&#x27;]) [iPythoning/b2b-sdr-agent-template/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/lead-discovery/SKILL.md, iPythoning/b2b-sdr-agent-template/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:repo: downloads and executes remote content (pipe-to-shell or defanged URL)</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:repo: session transcript access combined with an external sink</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
+  
+</div>
+</details><details class="section-group">
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">18 findings</span></summary>
   <div class="finding-card sev-yellow">
   <div class="finding-header">
@@ -408,7 +454,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">Override patterns: [&#x27;ignore previous instructions&#x27;]</div>
+  <div class="evidence-block">Override patterns: [&#x27;ignore previous instructions&#x27;] [iPythoning/b2b-sdr-agent-template/workspace/SOUL.md, iPythoning/b2b-sdr-agent-template/workspace/soul.md]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove override instructions. Investigate how they were added.</div>
   
 </div>
@@ -419,7 +465,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644)</div>
+  <div class="evidence-block">writable (0o644) [iPythoning/b2b-sdr-agent-template/workspace/HEARTBEAT.md, iPythoning/b2b-sdr-agent-template/workspace/heartbeat.md]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -489,7 +535,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  
+  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/workspace/SOUL.md, iPythoning/b2b-sdr-agent-template/workspace/soul.md</div>
   
   
 </div>
@@ -500,7 +546,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  
+  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/workspace/SOUL.md, iPythoning/b2b-sdr-agent-template/workspace/soul.md</div>
   
   
 </div>
@@ -511,7 +557,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  
+  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/workspace/SOUL.md, iPythoning/b2b-sdr-agent-template/workspace/soul.md</div>
   
   
 </div>
@@ -522,7 +568,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  
+  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/workspace/SOUL.md, iPythoning/b2b-sdr-agent-template/workspace/soul.md</div>
   
   
 </div>
@@ -533,7 +579,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/sdr-humanizer/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/lead-discovery/SKILL.md, ...and 7 more</div>
+  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/telegram-toolkit/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/sdr-humanizer/SKILL.md, ...and 7 more</div>
   
   
 </div>
@@ -544,7 +590,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/skills/sdr-humanizer/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/lead-discovery/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/delivery-queue/SKILL.md, ...and 6 more</div>
+  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/skills/telegram-toolkit/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/sdr-humanizer/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/chroma-memory/SKILL.md, ...and 6 more</div>
   
   
 </div>
@@ -555,7 +601,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/skills/sdr-humanizer/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/lead-discovery/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/delivery-queue/SKILL.md, ...and 6 more</div>
+  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/skills/telegram-toolkit/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/sdr-humanizer/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/chroma-memory/SKILL.md, ...and 6 more</div>
   
   
 </div>
@@ -566,7 +612,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/skills/sdr-humanizer/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/lead-discovery/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/delivery-queue/SKILL.md, ...and 6 more</div>
+  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/skills/telegram-toolkit/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/sdr-humanizer/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/chroma-memory/SKILL.md, ...and 6 more</div>
   
   
 </div>
@@ -577,7 +623,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/skills/sdr-humanizer/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/delivery-queue/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/supermemory/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/skills/telegram-toolkit/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/sdr-humanizer/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/chroma-memory/SKILL.md, ...and 4 more</div>
   
   
 </div>
@@ -588,7 +634,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/skills/sdr-humanizer/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/lead-discovery/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/delivery-queue/SKILL.md, ...and 6 more</div>
+  <div class="evidence-block">iPythoning/b2b-sdr-agent-template/skills/telegram-toolkit/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/sdr-humanizer/SKILL.md, iPythoning/b2b-sdr-agent-template/skills/chroma-memory/SKILL.md, ...and 6 more</div>
   
   
 </div>
@@ -610,7 +656,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">&quot;content&quot;: &quot;# OpenClaw v2026.4.23：图像生成、子智能体与89项修复\n\nOpenClaw v2026.4.23 于2026年4月24日发布，带来了一批高价值更新：**OpenAI 与 OpenRouter 图像生成及参考图编辑**（通过 Codex OAuth）、**子智能体分叉上下文**（支持多步骤原生工作流）、**逐调用超时预算**（用于生成式媒体工具）、以及</div>
+  <div class="evidence-block">&quot;content&quot;: &quot;# OpenClaw v2026.5.19：全局技能部署、Docker Python扩展与150项修复\n\nOpenClaw v2026.5.19 于2026年5月20日正式发布——这是一次聚焦**可靠性与企业工具化**的重要版本，包含 **150+ 项Bug修复**、全新 `--global` 技能管理标志、Docker Python包支持以及更严格的浏览器安全控制。对</div>
   
   
 </div>
@@ -632,7 +678,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">{&quot;title&quot;: &quot;OpenClaw 2026.4.25: Full TTS Upgrade, ElevenLabs v3 &amp; OTel Observability&quot;, &quot;slug&quot;: &quot;openclaw-v2026-4-25-tts-elevenlabs-v3-otel-observability&quot;, &quot;description&quot;: &quot;OpenClaw 2026.4.25 ships a com</div>
+  <div class="evidence-block">&quot;content&quot;: &quot;# OpenClaw v2026.5.26：启动提速、转录管线与实时语音控制 — B2B SDR 团队必读\n\nOpenClaw 于 2026 年 5 月 27 日发布 v2026.5.26，这是一次以**速度、会议智能、多渠道可靠性**为核心的生产加固版本。本文梳理了所有与 AI 外贸销售团队直接相关的变更。\n\n---\n\n## v2026.5.26 核心变更\n</div>
   
   
 </div>

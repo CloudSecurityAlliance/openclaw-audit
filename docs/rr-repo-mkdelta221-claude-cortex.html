@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>mkdelta221/claude-cortex</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">7</strong></span>
+    <span>Exposure Score: <strong class="hero-score">8</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 51</span>
+    <span>Source Code Scan | Total Checks: 52</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **3 failure(s)** and **20 warning(s)** across 51 checks.</p>
+<div class="exec-tables"><p>The audit identified **4 failure(s)** and **20 warning(s)** across 52 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>3</td>
+<td>4</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,7 +188,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>HIGH</td>
-<td>3</td>
+<td>4</td>
 </tr>
 <tr>
 <td>INFO</td>
@@ -217,6 +217,19 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Define an explicit tool allowlist (agent.allowed_tools) scoped to the minimum set of tools needed for the task.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">1 finding</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-005: Untrusted MCP server with broad tools</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An MCP server is sourced from a public registry with an unpinned version and no integrity verification, while exposing broad tool capabilities. A compromised or typosquatted package gains wide agent access.</div>
+  <div class="evidence-block">mcp:memory: public registry + unpinned version (OC-MCP-002, OC-MCP-005); capabilities [&#x27;mcp_tool_call&#x27;]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin MCP server versions, verify hashes/signatures, allowlist tools, and run untrusted MCP servers sandboxed with restricted egress.</div>
   
 </div>
 </details><details class="section-group">

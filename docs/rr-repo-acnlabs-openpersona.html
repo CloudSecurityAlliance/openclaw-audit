@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>acnlabs/OpenPersona</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">8</strong></span>
+    <span>Exposure Score: <strong class="hero-score">11</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 54</span>
+    <span>Source Code Scan | Total Checks: 57</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **2 failure(s)** and **20 warning(s)** across 54 checks.</p>
+<div class="exec-tables"><p>The audit identified **5 failure(s)** and **20 warning(s)** across 57 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>2</td>
+<td>5</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -187,8 +187,12 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
+<td>CRITICAL</td>
+<td>1</td>
+</tr>
+<tr>
 <td>HIGH</td>
-<td>2</td>
+<td>4</td>
 </tr>
 <tr>
 <td>INFO</td>
@@ -206,6 +210,41 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Enable human-in-the-loop for dangerous operations. Set agent.require_approval or auto_approve=false for file writes, network access, and command execution.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">3 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:economy: reads sensitive sources (.env) and can egress (caps: []) [acnlabs/OpenPersona/aspects/economy/SKILL.md, acnlabs/OpenPersona/skills/secondme-skill/SKILL.md, acnlabs/OpenPersona/skills/anyone-skill/SKILL.md, ...and 8 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:persona-evaluator: injection (OC-SKILL-001) with capabilities [&#x27;shell_exec&#x27;, &#x27;write_file&#x27;] [acnlabs/OpenPersona/skills/persona-evaluator/SKILL.md, acnlabs/OpenPersona/skills/secondme-skill/SKILL.md, acnlabs/OpenPersona/skills/open-persona/SKILL.md, ...and 3 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:anyone-skill: session transcript access combined with an external sink [acnlabs/OpenPersona/skills/anyone-skill/SKILL.md, acnlabs/OpenPersona/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
   
 </div>
 </details><details class="section-group">
@@ -412,24 +451,24 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">3 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;Node child_process&#x27;] [acnlabs/OpenPersona/layers/faculties/avatar/SKILL.md, acnlabs/OpenPersona/layers/skills/music/SKILL.md, acnlabs/OpenPersona/skills/persona-knowledge/SKILL.md, ...and 3 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
     <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
     <span class="severity-badge severity-high">HIGH</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [acnlabs/OpenPersona/skills/persona-evaluator/SKILL.md, acnlabs/OpenPersona/skills/secondme-skill/SKILL.md, acnlabs/OpenPersona/skills/persona-model-trainer/SKILL.md, ...and 3 more]</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [acnlabs/OpenPersona/skills/persona-evaluator/SKILL.md, acnlabs/OpenPersona/skills/secondme-skill/SKILL.md, acnlabs/OpenPersona/skills/open-persona/SKILL.md, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [acnlabs/OpenPersona/skills/persona-knowledge/SKILL.md, acnlabs/OpenPersona/skills/persona-model-trainer/SKILL.md, acnlabs/OpenPersona/layers/skills/music/SKILL.md, ...and 3 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
   
 </div>
 <div class="finding-card sev-yellow">
@@ -439,7 +478,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [acnlabs/OpenPersona/layers/faculties/voice/SKILL.md, acnlabs/OpenPersona/layers/skills/selfie/SKILL.md, acnlabs/OpenPersona/layers/skills/music/SKILL.md, ...and 3 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [acnlabs/OpenPersona/skills/persona-model-trainer/SKILL.md, acnlabs/OpenPersona/layers/skills/music/SKILL.md, acnlabs/OpenPersona/layers/skills/selfie/SKILL.md, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -452,7 +491,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">acnlabs/OpenPersona/layers/faculties/emotion-sensing/SKILL.md, acnlabs/OpenPersona/layers/faculties/memory/SKILL.md, acnlabs/OpenPersona/layers/faculties/avatar/SKILL.md, ...and 11 more</div>
+  <div class="evidence-block">acnlabs/OpenPersona/aspects/economy/SKILL.md, acnlabs/OpenPersona/skills/anyone-skill/SKILL.md, acnlabs/OpenPersona/skills/brand-persona-skill/SKILL.md, ...and 11 more</div>
   
   
 </div>
@@ -463,7 +502,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">acnlabs/OpenPersona/layers/faculties/emotion-sensing/SKILL.md, acnlabs/OpenPersona/layers/faculties/memory/SKILL.md, acnlabs/OpenPersona/layers/faculties/avatar/SKILL.md, ...and 17 more</div>
+  <div class="evidence-block">acnlabs/OpenPersona/aspects/economy/SKILL.md, acnlabs/OpenPersona/skills/persona-evaluator/SKILL.md, acnlabs/OpenPersona/skills/secondme-skill/SKILL.md, ...and 17 more</div>
   
   
 </div>
@@ -474,7 +513,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">acnlabs/OpenPersona/layers/faculties/emotion-sensing/SKILL.md, acnlabs/OpenPersona/layers/faculties/memory/SKILL.md, acnlabs/OpenPersona/layers/faculties/vision/SKILL.md, ...and 11 more</div>
+  <div class="evidence-block">acnlabs/OpenPersona/aspects/economy/SKILL.md, acnlabs/OpenPersona/skills/persona-evaluator/SKILL.md, acnlabs/OpenPersona/skills/secondme-skill/SKILL.md, ...and 11 more</div>
   
   
 </div>
@@ -485,7 +524,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">acnlabs/OpenPersona/layers/faculties/emotion-sensing/SKILL.md, acnlabs/OpenPersona/layers/faculties/memory/SKILL.md, acnlabs/OpenPersona/layers/faculties/avatar/SKILL.md, ...and 17 more</div>
+  <div class="evidence-block">acnlabs/OpenPersona/aspects/economy/SKILL.md, acnlabs/OpenPersona/skills/persona-evaluator/SKILL.md, acnlabs/OpenPersona/skills/secondme-skill/SKILL.md, ...and 17 more</div>
   
   
 </div>
@@ -496,7 +535,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">acnlabs/OpenPersona/layers/faculties/emotion-sensing/SKILL.md, acnlabs/OpenPersona/layers/faculties/memory/SKILL.md, acnlabs/OpenPersona/layers/faculties/avatar/SKILL.md, ...and 11 more</div>
+  <div class="evidence-block">acnlabs/OpenPersona/aspects/economy/SKILL.md, acnlabs/OpenPersona/skills/persona-evaluator/SKILL.md, acnlabs/OpenPersona/skills/secondme-skill/SKILL.md, ...and 11 more</div>
   
   
 </div>
@@ -507,7 +546,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">acnlabs/OpenPersona/layers/faculties/emotion-sensing/SKILL.md, acnlabs/OpenPersona/layers/faculties/memory/SKILL.md, acnlabs/OpenPersona/layers/faculties/avatar/SKILL.md, ...and 17 more</div>
+  <div class="evidence-block">acnlabs/OpenPersona/aspects/economy/SKILL.md, acnlabs/OpenPersona/skills/persona-evaluator/SKILL.md, acnlabs/OpenPersona/skills/secondme-skill/SKILL.md, ...and 17 more</div>
   
   
 </div>

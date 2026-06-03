@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>redf0x1/camofox-browser</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">8</strong></span>
+    <span>Exposure Score: <strong class="hero-score">10</strong></span>
     <span>➖ Confidence</span>
-    <span>Source Code Scan | Total Checks: 52</span>
+    <span>Source Code Scan | Total Checks: 54</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **3 failure(s)** and **23 warning(s)** across 52 checks.</p>
+<div class="exec-tables"><p>The audit identified **5 failure(s)** and **23 warning(s)** across 54 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>3</td>
+<td>5</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -186,6 +186,14 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <th scope="col">Severity</th>
 <th scope="col">Count</th>
 </tr></thead><tbody>
+<tr>
+<td>CRITICAL</td>
+<td>1</td>
+</tr>
+<tr>
+<td>HIGH</td>
+<td>1</td>
+</tr>
 <tr>
 <td>MEDIUM</td>
 <td>3</td>
@@ -228,6 +236,30 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Define an explicit tool allowlist (agent.allowed_tools) scoped to the minimum set of tools needed for the task.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">2 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:camofox-browser: reads sensitive sources (session transcript, browser cookies, api key) and can egress (caps: [&#x27;network_get&#x27;]) [redf0x1/camofox-browser/skills/camofox-browser/SKILL.md, redf0x1/camofox-browser/skills/gemini-image/SKILL.md, redf0x1/camofox-browser/skills/reddit/SKILL.md, ...and 1 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:camofox-browser: session transcript access combined with an external sink [redf0x1/camofox-browser/skills/camofox-browser/SKILL.md, redf0x1/camofox-browser/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
   
 </div>
 </details><details class="section-group">
@@ -485,7 +517,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [redf0x1/camofox-browser/skills/gemini-image/SKILL.md, redf0x1/camofox-browser/skills/camofox-browser/SKILL.md, redf0x1/camofox-browser/skills]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [redf0x1/camofox-browser/skills/camofox-browser/SKILL.md, redf0x1/camofox-browser/skills/gemini-image/SKILL.md, redf0x1/camofox-browser/skills]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -498,7 +530,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">redf0x1/camofox-browser/skills/dogfood/SKILL.md, redf0x1/camofox-browser/skills/camofox-cli/SKILL.md, redf0x1/camofox-browser/skills/gemini-image/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">redf0x1/camofox-browser/skills/camofox-cli/SKILL.md, redf0x1/camofox-browser/skills/camofox-browser/SKILL.md, redf0x1/camofox-browser/skills/gemini-image/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -509,7 +541,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">redf0x1/camofox-browser/skills/dogfood/SKILL.md, redf0x1/camofox-browser/skills/camofox-cli/SKILL.md, redf0x1/camofox-browser/skills/gemini-image/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">redf0x1/camofox-browser/skills/camofox-cli/SKILL.md, redf0x1/camofox-browser/skills/camofox-browser/SKILL.md, redf0x1/camofox-browser/skills/gemini-image/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -520,7 +552,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">redf0x1/camofox-browser/skills/dogfood/SKILL.md, redf0x1/camofox-browser/skills/camofox-cli/SKILL.md, redf0x1/camofox-browser/skills/gemini-image/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">redf0x1/camofox-browser/skills/camofox-cli/SKILL.md, redf0x1/camofox-browser/skills/camofox-browser/SKILL.md, redf0x1/camofox-browser/skills/gemini-image/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -531,7 +563,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">redf0x1/camofox-browser/skills/dogfood/SKILL.md, redf0x1/camofox-browser/skills/camofox-cli/SKILL.md, redf0x1/camofox-browser/skills/gemini-image/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">redf0x1/camofox-browser/skills/camofox-cli/SKILL.md, redf0x1/camofox-browser/skills/camofox-browser/SKILL.md, redf0x1/camofox-browser/skills/gemini-image/SKILL.md, ...and 3 more</div>
   
   
 </div>
@@ -542,7 +574,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">redf0x1/camofox-browser/skills/dogfood/SKILL.md, redf0x1/camofox-browser/skills/camofox-cli/SKILL.md, redf0x1/camofox-browser/skills/reddit/SKILL.md</div>
+  <div class="evidence-block">redf0x1/camofox-browser/skills/camofox-cli/SKILL.md, redf0x1/camofox-browser/skills/reddit/SKILL.md, redf0x1/camofox-browser/skills/dogfood/SKILL.md</div>
   
   
 </div>
@@ -553,7 +585,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">redf0x1/camofox-browser/skills/dogfood/SKILL.md, redf0x1/camofox-browser/skills/camofox-cli/SKILL.md, redf0x1/camofox-browser/skills/gemini-image/SKILL.md, ...and 3 more</div>
+  <div class="evidence-block">redf0x1/camofox-browser/skills/camofox-cli/SKILL.md, redf0x1/camofox-browser/skills/camofox-browser/SKILL.md, redf0x1/camofox-browser/skills/gemini-image/SKILL.md, ...and 3 more</div>
   
   
 </div>

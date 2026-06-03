@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>FreedomIntelligence/OpenClaw-Medical-Skills</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">36</strong></span>
+    <span>Exposure Score: <strong class="hero-score">40</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 49</span>
+    <span>Source Code Scan | Total Checks: 53</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **20 failure(s)** and **4 warning(s)** across 49 checks.</p>
+<div class="exec-tables"><p>The audit identified **24 failure(s)** and **4 warning(s)** across 53 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>20</td>
+<td>24</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,11 +188,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>4</td>
+<td>6</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>11</td>
+<td>13</td>
 </tr>
 <tr>
 <td>MEDIUM</td>
@@ -225,6 +225,52 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Define an explicit tool allowlist (agent.allowed_tools) scoped to the minimum set of tools needed for the task.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">4 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:tooluniverse-metabolomics-analysis: reads sensitive sources (session transcript) and can egress (caps: []) [FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-metabolomics-analysis/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-immune-repertoire-analysis/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/biomcp-server/SKILL.md, ...and 144 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:tooluniverse-metabolomics-analysis: session transcript access combined with an external sink [FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-metabolomics-analysis/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-immune-repertoire-analysis/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/biomcp-server/SKILL.md, ...and 77 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:biomcp-server: downloads and executes remote content (pipe-to-shell or defanged URL) [FreedomIntelligence/OpenClaw-Medical-Skills/skills/biomcp-server/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/alphafold-database/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/single-preprocessing/SKILL.md, ...and 4 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:prior-auth-review-skill: injection (OC-SKILL-001) with capabilities [&#x27;write_file&#x27;] [FreedomIntelligence/OpenClaw-Medical-Skills/skills/prior-auth-review-skill/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/post-processing/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/test-driven-development/SKILL.md, ...and 14 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
   
 </div>
 </details><details class="section-group" open>
@@ -381,7 +427,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Plaintext API keys found in .env files, accessible to any process running under the same user.</div>
-  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-gwas-trait-to-gene/.env.template: Password (PASSWORD...here); FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-multiomic-disease-characterization/.env.template: Password (PASSWORD...here); FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-systems-biology/.env.template: Password (PASSWORD...here); FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-protein-interactions/.env.template: Password (PASSWORD...here); FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-clinical-trial-design/.env.template: Password (PASSWORD...here)</div>
+  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-gwas-study-explorer/.env.template: Password (PASSWORD...here); FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-single-cell/.env.template: Password (PASSWORD...here); FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-epigenomics/.env.template: Password (PASSWORD...here); FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-polygenic-risk-score/.env.template: Password (PASSWORD...here); FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-gwas-trait-to-gene/.env.template: Password (PASSWORD...here)</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Migrate to secrets manager. Remove .env files with credentials.</div>
   
 </div>
@@ -392,7 +438,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Configuration contains static API keys or tokens without JIT provisioning, rotation, or vault integration. Standing credentials increase blast radius upon compromise (cf. Salesloft Drift: 700+ orgs).</div>
-  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-gwas-trait-to-gene/.env.template: static credentials in .env; FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-multiomic-disease-characterization/.env.template: static credentials in .env; FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-systems-biology/.env.template: static credentials in .env; FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-protein-interactions/.env.template: static credentials in .env; FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-clinical-trial-design/.env.template: static credentials in .env</div>
+  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-gwas-study-explorer/.env.template: static credentials in .env; FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-single-cell/.env.template: static credentials in .env; FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-epigenomics/.env.template: static credentials in .env; FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-polygenic-risk-score/.env.template: static credentials in .env; FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-gwas-trait-to-gene/.env.template: static credentials in .env</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Replace standing API keys with JIT credentials (5-15 min TTL) via HashiCorp Vault, AWS STS, or OS keychain integration.</div>
   
 </div>
@@ -413,12 +459,34 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">6 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  <div class="evidence-block">Obfuscation: [&#x27;chr() encoding&#x27;] [FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-single-cell/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/biomcp-server/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/scientific-schematics/SKILL.md, ...and 12 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
+  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [FreedomIntelligence/OpenClaw-Medical-Skills/skills/biomcp-server/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/alphafold-database/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/single-preprocessing/SKILL.md, ...and 4 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
     <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
     <span class="severity-badge severity-high">HIGH</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [FreedomIntelligence/OpenClaw-Medical-Skills/skills/zinc-database/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-liquid-biopsy-pipeline/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-systems-biology-metabolic-reconstruction/SKILL.md, ...and 93 more]</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [FreedomIntelligence/OpenClaw-Medical-Skills/skills/biomcp-server/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-methylation-based-detection/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-crispr-screens-jacks-analysis/SKILL.md, ...and 93 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
   
 </div>
@@ -429,30 +497,8 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [FreedomIntelligence/OpenClaw-Medical-Skills/skills/post-processing/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/statsmodels/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-binder-discovery/SKILL.md, ...and 14 more]</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [FreedomIntelligence/OpenClaw-Medical-Skills/skills/prior-auth-review-skill/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/post-processing/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/test-driven-development/SKILL.md, ...and 14 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-002: External download instructions in skill</span>
-    <span class="severity-badge severity-critical">CRITICAL</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [FreedomIntelligence/OpenClaw-Medical-Skills/skills/biomcp-server/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/alphafold-database/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/lobster-bioinformatics/SKILL.md, ...and 4 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-004: Obfuscated code in skill</span>
-    <span class="severity-badge severity-critical">CRITICAL</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">Obfuscation: [&#x27;JavaScript atob()&#x27;, &#x27;String.fromCharCode()&#x27;] [FreedomIntelligence/OpenClaw-Medical-Skills/skills/biomcp-server/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/scientific-schematics/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/scientific-slides/SKILL.md, ...and 12 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -473,7 +519,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [FreedomIntelligence/OpenClaw-Medical-Skills/skills/metabolomics-workbench-database/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/zinc-database/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-clinical-databases-clinvar-lookup/SKILL.md, ...and 78 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;Python requests outbound&#x27;] [FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-immunoinformatics-epitope-prediction/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/metabolomics-workbench-database/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-genome-assembly-scaffolding/SKILL.md, ...and 78 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -530,7 +576,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/vcf-annotator/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/chemist-analyst/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-alignment-io/SKILL.md, ...and 877 more</div>
+  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-restriction-enzyme-selection/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-gwas-study-explorer/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-metabolomics-analysis/SKILL.md, ...and 878 more</div>
   
   
 </div>
@@ -541,7 +587,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/vcf-annotator/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/chemist-analyst/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-alignment-io/SKILL.md, ...and 887 more</div>
+  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-restriction-enzyme-selection/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-gwas-study-explorer/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-metabolomics-analysis/SKILL.md, ...and 888 more</div>
   
   
 </div>
@@ -552,7 +598,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/vcf-annotator/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/chemist-analyst/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-alignment-io/SKILL.md, ...and 798 more</div>
+  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-restriction-enzyme-selection/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-gwas-study-explorer/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-metabolomics-analysis/SKILL.md, ...and 799 more</div>
   
   
 </div>
@@ -563,7 +609,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/vcf-annotator/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/chemist-analyst/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-alignment-io/SKILL.md, ...and 879 more</div>
+  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-restriction-enzyme-selection/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-gwas-study-explorer/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-metabolomics-analysis/SKILL.md, ...and 880 more</div>
   
   
 </div>
@@ -574,7 +620,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/vcf-annotator/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/chemist-analyst/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-alignment-io/SKILL.md, ...and 813 more</div>
+  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-restriction-enzyme-selection/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-gwas-study-explorer/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-metabolomics-analysis/SKILL.md, ...and 814 more</div>
   
   
 </div>
@@ -585,7 +631,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/vcf-annotator/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/chemist-analyst/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-alignment-io/SKILL.md, ...and 891 more</div>
+  <div class="evidence-block">FreedomIntelligence/OpenClaw-Medical-Skills/skills/bio-restriction-enzyme-selection/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-gwas-study-explorer/SKILL.md, FreedomIntelligence/OpenClaw-Medical-Skills/skills/tooluniverse-metabolomics-analysis/SKILL.md, ...and 892 more</div>
   
   
 </div>

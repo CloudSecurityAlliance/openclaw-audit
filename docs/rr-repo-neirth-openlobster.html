@@ -616,7 +616,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">&quot;settings.field.subagentsDefaultTimeout&quot;: &quot;Default Timeout&quot;,</div>
+  <div class="evidence-block">&quot;settings.field.subagentsDefaultTimeout&quot;: &quot;默认超时&quot;,</div>
   
   
 </div>
@@ -638,7 +638,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">deleteToolPermission: MutationResult;</div>
+  <div class="evidence-block">export type ToolPermissionMode = &#x27;allow&#x27; | &#x27;deny&#x27;;</div>
   
   
 </div>

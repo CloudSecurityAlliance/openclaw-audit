@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>Peiiii/nextclaw</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">31</strong></span>
+    <span>Exposure Score: <strong class="hero-score">35</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 55</span>
+    <span>Source Code Scan | Total Checks: 59</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **19 failure(s)** and **2 warning(s)** across 55 checks.</p>
+<div class="exec-tables"><p>The audit identified **23 failure(s)** and **2 warning(s)** across 59 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>19</td>
+<td>23</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,11 +188,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>4</td>
+<td>6</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>11</td>
+<td>13</td>
 </tr>
 <tr>
 <td>MEDIUM</td>
@@ -204,6 +204,52 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 </tbody></table></div>
   <details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">4 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:ui-ux-pro-max: injection (OC-SKILL-001) with capabilities [&#x27;write_file&#x27;] [Peiiii/nextclaw/skills/ui-ux-pro-max/SKILL.md, Peiiii/nextclaw/skills/skillhub-guide/SKILL.md, Peiiii/nextclaw/skills/clawhub-nextclaw/SKILL.md, ...and 10 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:skillhub-guide: downloads and executes remote content (pipe-to-shell or defanged URL) [Peiiii/nextclaw/skills/skillhub-guide/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/hermes-runtime/SKILL.md, Peiiii/nextclaw/skills, ...and 1 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:claude-code-narp-runtime: reads sensitive sources (api key) and can egress (caps: []) [Peiiii/nextclaw/skills/claude-code-narp-runtime/SKILL.md, Peiiii/nextclaw/skills/mmx-cli/SKILL.md, Peiiii/nextclaw/skills/codex-narp-runtime/SKILL.md, ...and 11 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:bb-browser: session transcript access combined with an external sink [Peiiii/nextclaw/skills/bb-browser/SKILL.md, Peiiii/nextclaw/skills/opencli/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/summarize/SKILL.md, ...and 4 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
+  
+</div>
+</details><details class="section-group" open>
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">13 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
@@ -370,7 +416,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644) [Peiiii/nextclaw/HEARTBEAT.md, Peiiii/nextclaw/workspace/HEARTBEAT.md]</div>
+  <div class="evidence-block">writable (0o644) [Peiiii/nextclaw/HEARTBEAT.md, Peiiii/nextclaw/workspace/HEARTBEAT.md, Peiiii/nextclaw/heartbeat.md, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -383,7 +429,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/nextclaw-autostart/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/hermes-runtime/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/cross-channel-messaging/SKILL.md, ...and 15 more]</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [Peiiii/nextclaw/skills/ui-ux-pro-max/SKILL.md, Peiiii/nextclaw/skills/skillhub-guide/SKILL.md, Peiiii/nextclaw/skills/linear-cli/SKILL.md, ...and 15 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
   
 </div>
@@ -394,8 +440,19 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/hermes-runtime/SKILL.md, Peiiii/nextclaw/skills/skillhub-guide/SKILL.md, Peiiii/nextclaw/skills, ...and 1 more]</div>
+  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [Peiiii/nextclaw/skills/skillhub-guide/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/hermes-runtime/SKILL.md, Peiiii/nextclaw/skills, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  <div class="evidence-block">Credential access: [&#x27;Browser credentials&#x27;] [Peiiii/nextclaw/skills/opencli/SKILL.md, Peiiii/nextclaw/skills/superpowers/SKILL.md, Peiiii/nextclaw/.agents/skills/isolated-npm-release-worktree/SKILL.md, ...and 6 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -407,17 +464,6 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
   <div class="evidence-block">Shell execution: [&#x27;Node child_process&#x27;, &quot;require(&#x27;child_process&#x27;)&quot;, &#x27;execSync() call&#x27;] [Peiiii/nextclaw/.agents/skills/directory-structure-governance-overview/SKILL.md, Peiiii/nextclaw/.agents/skills]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-006: Credential access patterns in skill</span>
-    <span class="severity-badge severity-critical">CRITICAL</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">Credential access: [&#x27;macOS Keychain&#x27;] [Peiiii/nextclaw/.agents/skills/desktop-release-contract-guard/SKILL.md, Peiiii/nextclaw/.agents/skills/isolated-npm-release-worktree/SKILL.md, Peiiii/nextclaw/.agents/skills/unsigned-desktop-release-playbook/SKILL.md, ...and 6 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -438,7 +484,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;Socket/request send&#x27;] [Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/panel-app-creator/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/nextclaw-app-creator/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/weather/SKILL.md, ...and 7 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [Peiiii/nextclaw/skills/skillhub-guide/SKILL.md, Peiiii/nextclaw/skills/publish-to-nextclaw-marketplace/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/panel-app-creator/SKILL.md, ...and 7 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -495,7 +541,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  
+  <div class="evidence-block">Peiiii/nextclaw/packages/nextclaw/templates/SOUL.md, Peiiii/nextclaw/packages/nextclaw/templates/soul.md</div>
   
   
 </div>
@@ -506,7 +552,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  
+  <div class="evidence-block">Peiiii/nextclaw/packages/nextclaw/templates/SOUL.md, Peiiii/nextclaw/packages/nextclaw/templates/soul.md</div>
   
   
 </div>
@@ -517,7 +563,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  
+  <div class="evidence-block">Peiiii/nextclaw/packages/nextclaw/templates/SOUL.md, Peiiii/nextclaw/packages/nextclaw/templates/soul.md</div>
   
   
 </div>
@@ -528,7 +574,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  
+  <div class="evidence-block">Peiiii/nextclaw/packages/nextclaw/templates/SOUL.md, Peiiii/nextclaw/packages/nextclaw/templates/soul.md</div>
   
   
 </div>
@@ -539,18 +585,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/qq-url-guard/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/nextclaw-self-manage/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/qq-group-speaker-distinction/SKILL.md, ...and 62 more</div>
+  <div class="evidence-block">Peiiii/nextclaw/packages/nextclaw/templates/SOUL.md, Peiiii/nextclaw/packages/nextclaw/templates/soul.md</div>
   
   
 </div>
@@ -561,7 +596,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/qq-url-guard/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/nextclaw-self-manage/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/qq-group-speaker-distinction/SKILL.md, ...and 76 more</div>
+  <div class="evidence-block">Peiiii/nextclaw/skills/ui-ux-pro-max/SKILL.md, Peiiii/nextclaw/skills/gemigo-cli/SKILL.md, Peiiii/nextclaw/skills/linear-cli/SKILL.md, ...and 78 more</div>
   
   
 </div>
@@ -572,7 +607,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/qq-url-guard/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/nextclaw-self-manage/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/qq-group-speaker-distinction/SKILL.md, ...and 78 more</div>
+  <div class="evidence-block">Peiiii/nextclaw/skills/ui-ux-pro-max/SKILL.md, Peiiii/nextclaw/skills/gemigo-cli/SKILL.md, Peiiii/nextclaw/skills/skillhub-guide/SKILL.md, ...and 80 more</div>
   
   
 </div>
@@ -583,7 +618,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/qq-url-guard/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/nextclaw-self-manage/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/qq-group-speaker-distinction/SKILL.md, ...and 79 more</div>
+  <div class="evidence-block">Peiiii/nextclaw/skills/ui-ux-pro-max/SKILL.md, Peiiii/nextclaw/skills/gemigo-cli/SKILL.md, Peiiii/nextclaw/skills/skillhub-guide/SKILL.md, ...and 81 more</div>
   
   
 </div>
@@ -594,7 +629,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/qq-url-guard/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/nextclaw-self-manage/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/qq-group-speaker-distinction/SKILL.md, ...and 70 more</div>
+  <div class="evidence-block">Peiiii/nextclaw/skills/ui-ux-pro-max/SKILL.md, Peiiii/nextclaw/skills/gemigo-cli/SKILL.md, Peiiii/nextclaw/skills/linear-cli/SKILL.md, ...and 72 more</div>
   
   
 </div>
@@ -605,7 +640,18 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/qq-url-guard/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/nextclaw-self-manage/SKILL.md, Peiiii/nextclaw/packages/nextclaw-core/src/features/agent/shared/skills/qq-group-speaker-distinction/SKILL.md, ...and 71 more</div>
+  <div class="evidence-block">Peiiii/nextclaw/skills/ui-ux-pro-max/SKILL.md, Peiiii/nextclaw/skills/gemigo-cli/SKILL.md, Peiiii/nextclaw/skills/skillhub-guide/SKILL.md, ...and 73 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">Peiiii/nextclaw/skills/gemigo-cli/SKILL.md, Peiiii/nextclaw/skills/claude-code-narp-runtime/SKILL.md, Peiiii/nextclaw/skills/find-skills/SKILL.md, ...and 64 more</div>
   
   
 </div>

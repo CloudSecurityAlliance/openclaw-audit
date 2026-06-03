@@ -438,7 +438,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Docker configuration does not drop Linux capabilities. Containers run with default capability set.</div>
-  <div class="evidence-block">No cap_drop: ALL found [heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.test.yml, heypinchy/pinchy/docker-compose.dev.yml, ...and 6 more]</div>
+  <div class="evidence-block">No cap_drop: ALL found [heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.e2e.yml, heypinchy/pinchy/docker-compose.web-test.yml, ...and 6 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Add cap_drop: ALL and selectively re-add only required capabilities.</div>
   
 </div>
@@ -449,7 +449,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Docker container root filesystem is not mounted read-only.</div>
-  <div class="evidence-block">read_only not set to true [heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.test.yml, heypinchy/pinchy/docker-compose.dev.yml, ...and 6 more]</div>
+  <div class="evidence-block">read_only not set to true [heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.e2e.yml, heypinchy/pinchy/docker-compose.web-test.yml, ...and 6 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set read_only: true and add explicit tmpfs/writable mounts.</div>
   
 </div>
@@ -460,7 +460,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Docker configuration does not specify a seccomp profile for system call filtering.</div>
-  <div class="evidence-block">No seccomp profile configured [heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.test.yml, heypinchy/pinchy/docker-compose.dev.yml, ...and 6 more]</div>
+  <div class="evidence-block">No seccomp profile configured [heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.e2e.yml, heypinchy/pinchy/docker-compose.web-test.yml, ...and 6 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Configure a custom seccomp profile restricting available syscalls.</div>
   
 </div>
@@ -482,7 +482,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Docker container does not specify a non-root user.</div>
-  <div class="evidence-block">heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.test.yml, heypinchy/pinchy/docker-compose.dev.yml, ...and 6 more</div>
+  <div class="evidence-block">heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.e2e.yml, heypinchy/pinchy/docker-compose.web-test.yml, ...and 6 more</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set user: to a non-root UID in the Docker configuration.</div>
   
 </div>
@@ -517,7 +517,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Docker binds mount sensitive host paths: Docker socket, /etc, /proc, /sys, /dev, SSH directory, or browser profiles.</div>
-  <div class="evidence-block">heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.test.yml, heypinchy/pinchy/docker-compose.dev.yml, ...and 5 more</div>
+  <div class="evidence-block">heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.e2e.yml, heypinchy/pinchy/docker-compose.web-test.yml, ...and 5 more</div>
   
   
 </div>
@@ -528,7 +528,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Docker container runs in privileged mode, with full host access.</div>
-  <div class="evidence-block">heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.test.yml, heypinchy/pinchy/docker-compose.dev.yml, ...and 6 more</div>
+  <div class="evidence-block">heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.e2e.yml, heypinchy/pinchy/docker-compose.web-test.yml, ...and 6 more</div>
   
   
 </div>
@@ -539,7 +539,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Security profile explicitly set to &#x27;unconfined&#x27;, disabling kernel-level containment.</div>
-  <div class="evidence-block">heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.test.yml, heypinchy/pinchy/docker-compose.dev.yml, ...and 6 more</div>
+  <div class="evidence-block">heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.e2e.yml, heypinchy/pinchy/docker-compose.web-test.yml, ...and 6 more</div>
   
   
 </div>
@@ -550,7 +550,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Docker container uses host network mode, eliminating network isolation between the sandbox and the host.</div>
-  <div class="evidence-block">heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.test.yml, heypinchy/pinchy/docker-compose.dev.yml, ...and 6 more</div>
+  <div class="evidence-block">heypinchy/pinchy/docker-compose.yml, heypinchy/pinchy/docker-compose.e2e.yml, heypinchy/pinchy/docker-compose.web-test.yml, ...and 6 more</div>
   
   
 </div>

@@ -454,7 +454,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">Override patterns: [&#x27;Do not ask&#x27;, &#x27;Do not ask&#x27;] [partme-ai/teams-of-agents/1、IM Channels/telegram/3-telegram-support/SOUL.md, partme-ai/teams-of-agents/1、IM Channels/telegram/2-telegram-community/SOUL.md, partme-ai/teams-of-agents/1、IM Channels/telegram/1-telegram-bot-developer/SOUL.md, ...and 153 more]</div>
+  <div class="evidence-block">Override patterns: [&#x27;Do not ask&#x27;, &#x27;Do not ask&#x27;] [partme-ai/teams-of-agents/2、Digital Workforce/1、Customer Service/data-extraction-agent/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/Software &amp; Ops/1-openclaw-assistant/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/11、Customer Service/data-extraction-agent/SOUL.md, ...and 309 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove override instructions. Investigate how they were added.</div>
   
 </div>
@@ -465,7 +465,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">Found 1 zero-width/invisible Unicode character(s) [partme-ai/teams-of-agents/2、Digital Workforce/9、Software &amp; Delivery/rapid-prototyper/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/9、Software &amp; Delivery/mobile-app-builder/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/8、Research &amp; Strategy/app-store-optimizer/SOUL.md]</div>
+  <div class="evidence-block">Found 1 zero-width/invisible Unicode character(s) [partme-ai/teams-of-agents/2、Digital Workforce/8、Research &amp; Strategy/app-store-optimizer/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/9、Software &amp; Delivery/rapid-prototyper/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/9、Software &amp; Delivery/mobile-app-builder/SOUL.md, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Strip all zero-width Unicode characters from SOUL.md.</div>
   
 </div>
@@ -476,7 +476,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644) [partme-ai/teams-of-agents/1、IM Channels/telegram/3-telegram-support/HEARTBEAT.md, partme-ai/teams-of-agents/1、IM Channels/telegram/2-telegram-community/HEARTBEAT.md, partme-ai/teams-of-agents/1、IM Channels/telegram/1-telegram-bot-developer/HEARTBEAT.md, ...and 360 more]</div>
+  <div class="evidence-block">writable (0o644) [partme-ai/teams-of-agents/2、Digital Workforce/Software &amp; Ops/1-openclaw-assistant/HEARTBEAT.md, partme-ai/teams-of-agents/2、Digital Workforce/Software &amp; Ops/1-openclaw-assistant/zh-CN/HEARTBEAT.md, partme-ai/teams-of-agents/2、Digital Workforce/11、Customer Service/data-extraction-agent/HEARTBEAT.md, ...and 723 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -487,7 +487,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">Found 1 URL(s): [&#x27;https://fluxui.dev/docs/components/[component-name&#x27;] [partme-ai/teams-of-agents/2、Digital Workforce/9、Software &amp; Delivery/senior-developer/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/Software &amp; Ops/1-openclaw-assistant/zh-CN/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/8、Research &amp; Strategy/jira-workflow-steward/SOUL.md]</div>
+  <div class="evidence-block">Found 1 URL(s): [&#x27;https://docs.openclaw.ai/`&#x27;] [partme-ai/teams-of-agents/2、Digital Workforce/Software &amp; Ops/1-openclaw-assistant/zh-CN/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/8、Research &amp; Strategy/jira-workflow-steward/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/9、Software &amp; Delivery/senior-developer/SOUL.md, ...and 3 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all URLs. Remove any that are not organizationally approved.</div>
   
 </div>
@@ -500,7 +500,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">partme-ai/teams-of-agents/1、IM Channels/telegram/3-telegram-support/SOUL.md, partme-ai/teams-of-agents/1、IM Channels/telegram/2-telegram-community/SOUL.md, partme-ai/teams-of-agents/1、IM Channels/telegram/1-telegram-bot-developer/SOUL.md, ...and 608 more</div>
+  <div class="evidence-block">partme-ai/teams-of-agents/2、Digital Workforce/1、Customer Service/data-extraction-agent/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/1、Customer Service/data-extraction-agent/zh-CN/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/Software &amp; Ops/1-openclaw-assistant/SOUL.md, ...and 1219 more</div>
   
   
 </div>
@@ -511,7 +511,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">partme-ai/teams-of-agents/1、IM Channels/telegram/3-telegram-support/SOUL.md, partme-ai/teams-of-agents/1、IM Channels/telegram/2-telegram-community/SOUL.md, partme-ai/teams-of-agents/1、IM Channels/telegram/1-telegram-bot-developer/SOUL.md, ...and 605 more</div>
+  <div class="evidence-block">partme-ai/teams-of-agents/2、Digital Workforce/1、Customer Service/data-extraction-agent/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/1、Customer Service/data-extraction-agent/zh-CN/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/Software &amp; Ops/1-openclaw-assistant/SOUL.md, ...and 1213 more</div>
   
   
 </div>
@@ -522,7 +522,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">partme-ai/teams-of-agents/1、IM Channels/telegram/3-telegram-support/SOUL.md, partme-ai/teams-of-agents/1、IM Channels/telegram/2-telegram-community/SOUL.md, partme-ai/teams-of-agents/1、IM Channels/telegram/1-telegram-bot-developer/SOUL.md, ...and 608 more</div>
+  <div class="evidence-block">partme-ai/teams-of-agents/2、Digital Workforce/1、Customer Service/data-extraction-agent/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/1、Customer Service/data-extraction-agent/zh-CN/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/Software &amp; Ops/1-openclaw-assistant/SOUL.md, ...and 1219 more</div>
   
   
 </div>
@@ -533,7 +533,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">partme-ai/teams-of-agents/1、IM Channels/telegram/3-telegram-support/SOUL.md, partme-ai/teams-of-agents/1、IM Channels/telegram/2-telegram-community/SOUL.md, partme-ai/teams-of-agents/1、IM Channels/telegram/1-telegram-bot-developer/SOUL.md, ...and 605 more</div>
+  <div class="evidence-block">partme-ai/teams-of-agents/2、Digital Workforce/1、Customer Service/data-extraction-agent/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/1、Customer Service/data-extraction-agent/zh-CN/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/Software &amp; Ops/1-openclaw-assistant/SOUL.md, ...and 1213 more</div>
   
   
 </div>
@@ -544,7 +544,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">partme-ai/teams-of-agents/1、IM Channels/telegram/3-telegram-support/zh-CN/SOUL.md, partme-ai/teams-of-agents/1、IM Channels/telegram/2-telegram-community/zh-CN/SOUL.md, partme-ai/teams-of-agents/1、IM Channels/telegram/1-telegram-bot-developer/zh-CN/SOUL.md, ...and 452 more</div>
+  <div class="evidence-block">partme-ai/teams-of-agents/2、Digital Workforce/1、Customer Service/data-extraction-agent/zh-CN/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/Software &amp; Ops/1-openclaw-assistant/zh-CN/SOUL.md, partme-ai/teams-of-agents/2、Digital Workforce/11、Customer Service/support-responder/SOUL.md, ...and 907 more</div>
   
   
 </div>

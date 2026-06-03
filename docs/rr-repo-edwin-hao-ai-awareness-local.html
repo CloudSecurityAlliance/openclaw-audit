@@ -496,7 +496,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">/** Fire-and-forget telemetry via local daemon endpoint. Silent on failure. */</div>
+  <div class="evidence-block">* Uses /api/v1/telemetry/{status,enable,recent,data} endpoints.</div>
   
   
 </div>

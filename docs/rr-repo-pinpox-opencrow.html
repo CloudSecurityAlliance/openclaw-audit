@@ -439,7 +439,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">Found 1 zero-width/invisible Unicode character(s)</div>
+  <div class="evidence-block">Found 1 zero-width/invisible Unicode character(s) [pinpox/opencrow/SOUL.md, pinpox/opencrow/soul.md]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Strip all zero-width Unicode characters from SOUL.md.</div>
   
 </div>
@@ -450,7 +450,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644)</div>
+  <div class="evidence-block">writable (0o644) [pinpox/opencrow/docs/HEARTBEAT.md, pinpox/opencrow/docs/heartbeat.md]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -476,7 +476,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  
+  <div class="evidence-block">pinpox/opencrow/SOUL.md, pinpox/opencrow/soul.md</div>
   
   
 </div>
@@ -487,7 +487,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  
+  <div class="evidence-block">pinpox/opencrow/SOUL.md, pinpox/opencrow/soul.md</div>
   
   
 </div>
@@ -498,7 +498,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  
+  <div class="evidence-block">pinpox/opencrow/SOUL.md, pinpox/opencrow/soul.md</div>
   
   
 </div>
@@ -509,7 +509,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  
+  <div class="evidence-block">pinpox/opencrow/SOUL.md, pinpox/opencrow/soul.md</div>
   
   
 </div>
@@ -586,7 +586,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">// .timeout mirrors the Go side&#x27;s busy_timeout(5000): WAL persists</div>
+  <div class="evidence-block">const SEDIMENT_TIMEOUT = 10_000;</div>
   
   
 </div>

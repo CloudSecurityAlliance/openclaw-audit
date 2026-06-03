@@ -421,7 +421,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Plaintext API keys found in .env files, accessible to any process running under the same user.</div>
-  <div class="evidence-block">EthanThePhoenix38/OpenClawTuto/docker/.env.koyeb: API key (API_KEY=...here); EthanThePhoenix38/OpenClawTuto/docker/.env.example: Password (PASSWORD..._MOI)</div>
+  <div class="evidence-block">EthanThePhoenix38/OpenClawTuto/docker/.env.example: Password (PASSWORD..._MOI); EthanThePhoenix38/OpenClawTuto/docker/.env.koyeb: API key (API_KEY=...here)</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Migrate to secrets manager. Remove .env files with credentials.</div>
   
 </div>
@@ -432,7 +432,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Configuration contains static API keys or tokens without JIT provisioning, rotation, or vault integration. Standing credentials increase blast radius upon compromise (cf. Salesloft Drift: 700+ orgs).</div>
-  <div class="evidence-block">EthanThePhoenix38/OpenClawTuto/docker/.env.koyeb: static credentials in .env; EthanThePhoenix38/OpenClawTuto/docker/.env.example: static credentials in .env</div>
+  <div class="evidence-block">EthanThePhoenix38/OpenClawTuto/docker/.env.example: static credentials in .env; EthanThePhoenix38/OpenClawTuto/docker/.env.koyeb: static credentials in .env</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Replace standing API keys with JIT credentials (5-15 min TTL) via HashiCorp Vault, AWS STS, or OS keychain integration.</div>
   
 </div>

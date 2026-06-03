@@ -151,30 +151,34 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="hero-card">
   <h2>zbjincheng/openclaw-skill-videotranslate</h2>
   <div class="hero-meta">
-    <span class="grade-badge grade-yellow">YELLOW</span>
-    <span>Exposure Score: <strong class="hero-score">3</strong></span>
-    <span>➖ Confidence</span>
-    <span>Source Code Scan | Total Checks: 50</span>
+    <span class="grade-badge grade-red">RED</span>
+    <span>Exposure Score: <strong class="hero-score">14</strong></span>
+    <span>✔ Confidence</span>
+    <span>Source Code Scan | Total Checks: 52</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **0 failure(s)** and **21 warning(s)** across 50 checks.</p>
+<div class="exec-tables"><p>The audit identified **5 failure(s)** and **21 warning(s)** across 52 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
+<td>FAIL</td>
+<td>5</td>
+</tr>
+<tr>
 <td>WARN</td>
 <td>21</td>
 </tr>
 <tr>
 <td>PASS</td>
-<td>4</td>
+<td>7</td>
 </tr>
 <tr>
 <td>SKIP</td>
-<td>25</td>
+<td>19</td>
 </tr>
 </tbody></table>
 <table>
@@ -182,6 +186,14 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <th scope="col">Severity</th>
 <th scope="col">Count</th>
 </tr></thead><tbody>
+<tr>
+<td>CRITICAL</td>
+<td>2</td>
+</tr>
+<tr>
+<td>HIGH</td>
+<td>3</td>
+</tr>
 <tr>
 <td>INFO</td>
 <td>21</td>
@@ -220,6 +232,30 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
   
   <div class="recommendation-box"><strong>Recommendation:</strong> Define an explicit tool allowlist (agent.allowed_tools) scoped to the minimum set of tools needed for the task.</div>
+  
+</div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">2 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:repo: injection (OC-SKILL-001) with capabilities [&#x27;env_read&#x27;, &#x27;shell_exec&#x27;, &#x27;write_file&#x27;]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:repo: reads sensitive sources (.env, github token, api key) and can egress (caps: [])</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
   
 </div>
 </details><details class="section-group">
@@ -422,9 +458,77 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="recommendation-box"><strong>Recommendation:</strong> Add ~/.ssh, ~/.gnupg, ~/.aws, ~/.kube, ~/.docker, browser profiles, and keychain directories to tools.fs.exclude.</div>
   
 </div>
+</details><details class="section-group" open>
+  <summary><span class="section-h2">Skill Vetting</span> <span class="count-badge">3 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  <div class="evidence-block">Obfuscation: [&#x27;base64 decode&#x27;]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
+  
+</div>
 </details><details class="section-group">
-  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">4 findings</span></summary>
+  <summary><span class="section-h2">Passing Checks</span> <span class="count-badge">7 findings</span></summary>
   <div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-002: External download instructions in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
+  
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
+  
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  
+  
+  
+</div>
+<div class="finding-card sev-green">
   <div class="finding-header">
     <span class="finding-title">🟢 OC-CRED-001: API keys in plaintext config files</span>
     <span class="severity-badge severity-info">INFO</span>

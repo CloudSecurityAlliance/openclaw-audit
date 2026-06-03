@@ -442,7 +442,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">const uciPath = execSync(&#x27;uci -q get openclaw.main.install_path 2&gt;/dev/null&#x27;, { encoding: &#x27;utf8&#x27;, timeout: 3000 }).trim();</div>
+  <div class="evidence-block">await new Promise(r =&gt; setTimeout(r, 3000));</div>
   
   
 </div>

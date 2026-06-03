@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>johnson7788/MultiUserClaw</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">27</strong></span>
+    <span>Exposure Score: <strong class="hero-score">31</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 62</span>
+    <span>Source Code Scan | Total Checks: 66</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **11 failure(s)** and **20 warning(s)** across 62 checks.</p>
+<div class="exec-tables"><p>The audit identified **15 failure(s)** and **20 warning(s)** across 66 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>11</td>
+<td>15</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,11 +188,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>4</td>
+<td>6</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>3</td>
+<td>5</td>
 </tr>
 <tr>
 <td>MEDIUM</td>
@@ -203,7 +203,53 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <td>20</td>
 </tr>
 </tbody></table></div>
-  <details class="section-group">
+  <details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">4 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:dogfood: injection (OC-SKILL-001) with capabilities [&#x27;write_file&#x27;] [johnson7788/MultiUserClaw/hermes-agent/skills/dogfood/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/productivity/teams-meeting-pipeline/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/productivity/powerpoint/SKILL.md, ...and 34 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:youtube-content: reads sensitive sources (session transcript) and can egress (caps: []) [johnson7788/MultiUserClaw/hermes-agent/skills/media/youtube-content/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/media/heartmula/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/media/gif-search/SKILL.md, ...and 94 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:youtube-content: session transcript access combined with an external sink [johnson7788/MultiUserClaw/hermes-agent/skills/media/youtube-content/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/media/heartmula/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/productivity/teams-meeting-pipeline/SKILL.md, ...and 20 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-006: Remote code download to execution</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset downloads remote content and pipes or sources it into a shell/interpreter, allowing arbitrary remote code to execute on the host.</div>
+  <div class="evidence-block">skill:notion: downloads and executes remote content (pipe-to-shell or defanged URL) [johnson7788/MultiUserClaw/hermes-agent/skills/productivity/notion/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/autonomous-ai-agents/hermes-agent/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/creative/comfyui/SKILL.md, ...and 15 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Pin and verify downloads, never pipe remote content into a shell, and require review for remote install scripts.</div>
+  
+</div>
+</details><details class="section-group">
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">18 findings</span></summary>
   <div class="finding-card sev-yellow">
   <div class="finding-header">
@@ -493,30 +539,8 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [johnson7788/MultiUserClaw/deploy_copy/skills/pptx/SKILL.md, johnson7788/MultiUserClaw/.codex/skills/container-build-guard/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/web-development/page-agent/SKILL.md, ...and 35 more]</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [johnson7788/MultiUserClaw/hermes-agent/skills/dogfood/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/productivity/teams-meeting-pipeline/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/productivity/powerpoint/SKILL.md, ...and 35 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
-    <span class="severity-badge severity-high">HIGH</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [johnson7788/MultiUserClaw/deploy_copy/skills/pptx/SKILL.md, johnson7788/MultiUserClaw/.codex/skills/container-build-guard/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/mlops/pytorch-lightning/SKILL.md, ...and 29 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
-  
-</div>
-<div class="finding-card sev-red">
-  <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-006: Credential access patterns in skill</span>
-    <span class="severity-badge severity-critical">CRITICAL</span>
-    <span class="status-badge status-fail">FAIL</span>
-  </div>
-  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">Credential access: [&#x27;Browser credentials&#x27;, &#x27;Browser credentials&#x27;] [johnson7788/MultiUserClaw/deploy_copy/skills/agent-browser/SKILL.md, johnson7788/MultiUserClaw/.codex/skills/container-build-guard/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/mlops/lambda-labs/SKILL.md, ...and 10 more]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -526,8 +550,30 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [johnson7788/MultiUserClaw/.codex/skills/container-build-guard/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/mlops/lambda-labs/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/mlops/training/unsloth/SKILL.md, ...and 15 more]</div>
+  <div class="evidence-block">Download patterns: [&#x27;Pipe-to-shell download pattern&#x27;] [johnson7788/MultiUserClaw/hermes-agent/skills/productivity/notion/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/autonomous-ai-agents/hermes-agent/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/creative/comfyui/SKILL.md, ...and 15 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. This matches the ClawHavoc attack pattern.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  <div class="evidence-block">Credential access: [&#x27;macOS Keychain&#x27;] [johnson7788/MultiUserClaw/hermes-agent/skills/productivity/notion/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/github/github-auth/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/github/github-repo-management/SKILL.md, ...and 10 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill immediately. Credential access is the primary ClawHavoc/AMOS payload objective.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-SKILL-003: Shell command execution in skill scripts</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
+  <div class="evidence-block">Shell execution: [&#x27;subprocess call&#x27;] [johnson7788/MultiUserClaw/hermes-agent/skills/productivity/google-workspace/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/creative/comfyui/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/creative/ascii-video/SKILL.md, ...and 29 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -537,7 +583,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">Obfuscation: [&#x27;base64 decode&#x27;] [johnson7788/MultiUserClaw/hermes-agent/optional-skills/security/oss-forensics/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/creative/ascii-video/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/plugins/google_meet/SKILL.md, ...and 1 more]</div>
+  <div class="evidence-block">Obfuscation: [&#x27;Unicode escape sequence&#x27;] [johnson7788/MultiUserClaw/hermes-agent/skills/creative/ascii-video/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/security/oss-forensics/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/plugins/google_meet/SKILL.md, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
   
 </div>
@@ -548,7 +594,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [johnson7788/MultiUserClaw/deploy_copy/skills/agent-browser/SKILL.md, johnson7788/MultiUserClaw/.codex/skills/container-build-guard/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/web-development/page-agent/SKILL.md, ...and 67 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [johnson7788/MultiUserClaw/hermes-agent/skills/media/gif-search/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/productivity/linear/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/productivity/notion/SKILL.md, ...and 67 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -561,7 +607,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">johnson7788/MultiUserClaw/deploy_copy/Agents/manager/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/researcher/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/main/SOUL.md, ...and 4 more</div>
+  <div class="evidence-block">johnson7788/MultiUserClaw/hermes-agent/docker/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/doctor/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/manager/SOUL.md, ...and 11 more</div>
   
   
 </div>
@@ -572,7 +618,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">johnson7788/MultiUserClaw/deploy_copy/Agents/manager/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/researcher/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/main/SOUL.md, ...and 4 more</div>
+  <div class="evidence-block">johnson7788/MultiUserClaw/hermes-agent/docker/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/doctor/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/manager/SOUL.md, ...and 11 more</div>
   
   
 </div>
@@ -583,7 +629,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">johnson7788/MultiUserClaw/deploy_copy/Agents/manager/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/researcher/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/main/SOUL.md, ...and 4 more</div>
+  <div class="evidence-block">johnson7788/MultiUserClaw/hermes-agent/docker/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/doctor/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/manager/SOUL.md, ...and 11 more</div>
   
   
 </div>
@@ -594,7 +640,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">johnson7788/MultiUserClaw/deploy_copy/Agents/manager/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/researcher/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/main/SOUL.md, ...and 4 more</div>
+  <div class="evidence-block">johnson7788/MultiUserClaw/hermes-agent/docker/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/doctor/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/manager/SOUL.md, ...and 11 more</div>
   
   
 </div>
@@ -605,51 +651,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">johnson7788/MultiUserClaw/deploy_copy/Agents/manager/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/researcher/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/main/SOUL.md, ...and 4 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-002: External download instructions in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">johnson7788/MultiUserClaw/deploy_copy/skills/pptx/SKILL.md, johnson7788/MultiUserClaw/deploy_copy/skills/agent-browser/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/email/agentmail/SKILL.md, ...and 163 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">johnson7788/MultiUserClaw/deploy_copy/skills/pptx/SKILL.md, johnson7788/MultiUserClaw/deploy_copy/skills/agent-browser/SKILL.md, johnson7788/MultiUserClaw/.codex/skills/container-build-guard/SKILL.md, ...and 177 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">johnson7788/MultiUserClaw/deploy_copy/skills/pptx/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/email/agentmail/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/blockchain/base/SKILL.md, ...and 111 more</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">johnson7788/MultiUserClaw/deploy_copy/skills/pptx/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/email/agentmail/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/blockchain/base/SKILL.md, ...and 168 more</div>
+  <div class="evidence-block">johnson7788/MultiUserClaw/hermes-agent/docker/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/doctor/SOUL.md, johnson7788/MultiUserClaw/deploy_copy/Agents/manager/SOUL.md, ...and 11 more</div>
   
   
 </div>
@@ -660,7 +662,18 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">johnson7788/MultiUserClaw/deploy_copy/skills/agent-browser/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/email/agentmail/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/blockchain/base/SKILL.md, ...and 143 more</div>
+  <div class="evidence-block">johnson7788/MultiUserClaw/hermes-agent/skills/yuanbao/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/media/youtube-content/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/media/heartmula/SKILL.md, ...and 143 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-002: External download instructions in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
+  <div class="evidence-block">johnson7788/MultiUserClaw/hermes-agent/skills/yuanbao/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/dogfood/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/media/youtube-content/SKILL.md, ...and 163 more</div>
   
   
 </div>
@@ -671,7 +684,40 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">johnson7788/MultiUserClaw/deploy_copy/skills/agent-browser/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/email/agentmail/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/optional-skills/blockchain/base/SKILL.md, ...and 149 more</div>
+  <div class="evidence-block">johnson7788/MultiUserClaw/hermes-agent/skills/yuanbao/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/dogfood/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/media/youtube-content/SKILL.md, ...and 149 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  <div class="evidence-block">johnson7788/MultiUserClaw/hermes-agent/skills/yuanbao/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/dogfood/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/media/youtube-content/SKILL.md, ...and 177 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-005: Network exfiltration patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
+  <div class="evidence-block">johnson7788/MultiUserClaw/hermes-agent/skills/yuanbao/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/dogfood/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/media/youtube-content/SKILL.md, ...and 111 more</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
+    <span class="finding-title">🟢 OC-SKILL-006: Credential access patterns in skill</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
+  <div class="evidence-block">johnson7788/MultiUserClaw/hermes-agent/skills/yuanbao/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/dogfood/SKILL.md, johnson7788/MultiUserClaw/hermes-agent/skills/media/youtube-content/SKILL.md, ...and 168 more</div>
   
   
 </div>
@@ -737,7 +783,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
-  <div class="evidence-block">user_confirm = bool(params.get(&quot;confirm&quot;, False))</div>
+  <div class="evidence-block">Config key: delegation.subagent_auto_approve (bool, default False).</div>
   
   
 </div>

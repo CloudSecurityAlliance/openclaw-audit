@@ -530,7 +530,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">r = httpx.get(s.openclaw_gateway_url.rstrip(&quot;/&quot;) + &quot;/health&quot;, timeout=5.0)</div>
+  <div class="evidence-block">async with httpx.AsyncClient(timeout=90.0) as client:</div>
   
   
 </div>

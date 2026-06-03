@@ -453,7 +453,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">challenge = json.loads(await asyncio.wait_for(ws.recv(), timeout=10))</div>
+  <div class="evidence-block">async def get_msg(ws, timeout=10):</div>
   
   
 </div>

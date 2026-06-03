@@ -442,7 +442,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">const baseSandboxTools = (baseSandbox as any)?.tools ?? {};</div>
+  <div class="evidence-block">logVerbose(target, &quot;tool-policy: WeCom Bot 会话已禁用 message 工具（tools.deny += message；并同步到 tools.sandbox.tools.deny，防止绕过 Bot 交付）&quot;);</div>
   
   
 </div>

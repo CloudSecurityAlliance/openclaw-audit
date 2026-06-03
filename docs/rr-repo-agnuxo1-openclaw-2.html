@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>Agnuxo1/OpenCLAW-2</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">39</strong></span>
+    <span>Exposure Score: <strong class="hero-score">42</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 64</span>
+    <span>Source Code Scan | Total Checks: 67</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **24 failure(s)** and **3 warning(s)** across 64 checks.</p>
+<div class="exec-tables"><p>The audit identified **27 failure(s)** and **3 warning(s)** across 67 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>24</td>
+<td>27</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -188,11 +188,11 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>CRITICAL</td>
-<td>3</td>
+<td>4</td>
 </tr>
 <tr>
 <td>HIGH</td>
-<td>13</td>
+<td>15</td>
 </tr>
 <tr>
 <td>MEDIUM</td>
@@ -204,6 +204,41 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 </tbody></table></div>
   <details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">3 findings</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:literary-agent-skill: reads sensitive sources (api key) and can egress (caps: [&#x27;email_send&#x27;, &#x27;network_get&#x27;, &#x27;webhook_call&#x27;]) [Agnuxo1/OpenCLAW-2/literary-agent-skill/SKILL.md, Agnuxo1/OpenCLAW-2/skills/autonomous-engine/SKILL.md, Agnuxo1/OpenCLAW-2/skills/gifgrep/SKILL.md, ...and 19 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:coding-agent: injection (OC-SKILL-001) with capabilities [&#x27;shell_exec&#x27;, &#x27;write_file&#x27;] [Agnuxo1/OpenCLAW-2/skills/coding-agent/SKILL.md, Agnuxo1/OpenCLAW-2/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+<div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-007: Session transcript leakage</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">Session transcript content can be read and is moved to a file, log, or external sink. Transcripts often contain credentials, internal URLs, and business-sensitive content.</div>
+  <div class="evidence-block">skill:summarize: session transcript access combined with an external sink [Agnuxo1/OpenCLAW-2/skills/summarize/SKILL.md, Agnuxo1/OpenCLAW-2/skills/openai-whisper-api/SKILL.md, Agnuxo1/OpenCLAW-2/skills/gh-issues/SKILL.md, ...and 1 more]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Redact and encrypt transcripts, restrict file permissions, disable transcript export by default, and add DLP/secret scanning.</div>
+  
+</div>
+</details><details class="section-group" open>
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">13 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
@@ -440,7 +475,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  <div class="evidence-block">Found 1 base64 string(s), first: b62a054ecddb454527a6819aa8d4f51d7616bc6154fbf4c6f5f6b20d8aa5...</div>
+  <div class="evidence-block">Found 1 base64 string(s), first: b62a054ecddb454527a6819aa8d4f51d7616bc6154fbf4c6f5f6b20d8aa5... [Agnuxo1/OpenCLAW-2/docs/zh-CN/reference/templates/SOUL.md, Agnuxo1/OpenCLAW-2/docs/zh-CN/reference/templates/soul.md]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Remove base64-encoded content. Review decoded payload.</div>
   
 </div>
@@ -451,7 +486,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644) [Agnuxo1/OpenCLAW-2/.agents/skills/book-marketing-agent/HEARTBEAT.md, Agnuxo1/OpenCLAW-2/docs/zh-CN/reference/templates/HEARTBEAT.md, Agnuxo1/OpenCLAW-2/docs/reference/templates/HEARTBEAT.md, ...and 2 more]</div>
+  <div class="evidence-block">writable (0o644); shell: [&#x27;bash\n&#x27;] [Agnuxo1/OpenCLAW-2/docs/gateway/HEARTBEAT.md, Agnuxo1/OpenCLAW-2/docs/reference/templates/HEARTBEAT.md, Agnuxo1/OpenCLAW-2/docs/zh-CN/gateway/HEARTBEAT.md, ...and 7 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -464,19 +499,19 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Shell execution: [&#x27;Node child_process&#x27;, &#x27;spawn() call&#x27;] [Agnuxo1/OpenCLAW-2/extensions/lobster/SKILL.md, Agnuxo1/OpenCLAW-2/skills/autonomous-engine/SKILL.md, Agnuxo1/OpenCLAW-2/skills/model-usage/SKILL.md, ...and 1 more]</div>
+  <div class="evidence-block">Shell execution: [&#x27;exec() call&#x27;, &#x27;Node child_process&#x27;] [Agnuxo1/OpenCLAW-2/skills/autonomous-engine/SKILL.md, Agnuxo1/OpenCLAW-2/skills/model-usage/SKILL.md, Agnuxo1/OpenCLAW-2/extensions/lobster/SKILL.md, ...and 1 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Review all shell commands. Quarantine if not justified.</div>
   
 </div>
 <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-004: Obfuscated code in skill</span>
-    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
+    <span class="severity-badge severity-high">HIGH</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
-  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">Obfuscation: [&#x27;base64 decode&#x27;] [Agnuxo1/OpenCLAW-2/skills/nano-banana-pro/SKILL.md, Agnuxo1/OpenCLAW-2/skills/openai-image-gen/SKILL.md, Agnuxo1/OpenCLAW-2/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
+  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
+  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [Agnuxo1/OpenCLAW-2/skills/coding-agent/SKILL.md, Agnuxo1/OpenCLAW-2/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
   
 </div>
 <div class="finding-card sev-red">
@@ -492,13 +527,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </div>
 <div class="finding-card sev-red">
   <div class="finding-header">
-    <span class="finding-title">🔴 OC-SKILL-001: Prompt injection patterns in SKILL.md</span>
-    <span class="severity-badge severity-high">HIGH</span>
+    <span class="finding-title">🔴 OC-SKILL-004: Obfuscated code in skill</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
     <span class="status-badge status-fail">FAIL</span>
   </div>
-  <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Injection patterns: [&#x27;Silent action directive&#x27;] [Agnuxo1/OpenCLAW-2/skills/coding-agent/SKILL.md, Agnuxo1/OpenCLAW-2/skills]</div>
-  <div class="recommendation-box"><strong>Recommendation:</strong> Quarantine skill. Review SKILL.md content for hidden instructions.</div>
+  <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
+  <div class="evidence-block">Obfuscation: [&#x27;base64 decode&#x27;] [Agnuxo1/OpenCLAW-2/skills/openai-image-gen/SKILL.md, Agnuxo1/OpenCLAW-2/skills/nano-banana-pro/SKILL.md, Agnuxo1/OpenCLAW-2/skills]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove skill. Obfuscated code in skills is a strong malware indicator.</div>
   
 </div>
 <div class="finding-card sev-yellow">
@@ -508,7 +543,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [Agnuxo1/OpenCLAW-2/literary-agent-skill/SKILL.md, Agnuxo1/OpenCLAW-2/extensions/open-prose/skills/prose/SKILL.md, Agnuxo1/OpenCLAW-2/skills/autonomous-engine/SKILL.md, ...and 8 more]</div>
+  <div class="evidence-block">Network calls: [&#x27;curl command&#x27;] [Agnuxo1/OpenCLAW-2/literary-agent-skill/SKILL.md, Agnuxo1/OpenCLAW-2/skills/autonomous-engine/SKILL.md, Agnuxo1/OpenCLAW-2/skills/canvas/SKILL.md, ...and 8 more]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Verify all network endpoints are legitimate and approved.</div>
   
 </div>
@@ -560,12 +595,23 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </div>
 <div class="finding-card sev-green">
   <div class="finding-header">
+    <span class="finding-title">🟢 OC-SOUL-002: Base64-encoded content in SOUL.md</span>
+    <span class="severity-badge severity-info">INFO</span>
+    <span class="status-badge status-pass">PASS</span>
+  </div>
+  <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
+  <div class="evidence-block">Agnuxo1/OpenCLAW-2/docs/reference/templates/SOUL.md, Agnuxo1/OpenCLAW-2/docs/reference/templates/soul.md</div>
+  
+  
+</div>
+<div class="finding-card sev-green">
+  <div class="finding-header">
     <span class="finding-title">🟢 OC-SOUL-003: Zero-width Unicode characters in SOUL.md</span>
     <span class="severity-badge severity-info">INFO</span>
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  <div class="evidence-block">Agnuxo1/OpenCLAW-2/docs/zh-CN/reference/templates/SOUL.md, Agnuxo1/OpenCLAW-2/docs/reference/templates/SOUL.md</div>
+  <div class="evidence-block">Agnuxo1/OpenCLAW-2/docs/reference/templates/SOUL.md, Agnuxo1/OpenCLAW-2/docs/zh-CN/reference/templates/SOUL.md, Agnuxo1/OpenCLAW-2/docs/reference/templates/soul.md, ...and 1 more</div>
   
   
 </div>
@@ -576,7 +622,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  <div class="evidence-block">Agnuxo1/OpenCLAW-2/docs/zh-CN/reference/templates/SOUL.md, Agnuxo1/OpenCLAW-2/docs/reference/templates/SOUL.md</div>
+  <div class="evidence-block">Agnuxo1/OpenCLAW-2/docs/reference/templates/SOUL.md, Agnuxo1/OpenCLAW-2/docs/zh-CN/reference/templates/SOUL.md, Agnuxo1/OpenCLAW-2/docs/reference/templates/soul.md, ...and 1 more</div>
   
   
 </div>
@@ -587,7 +633,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  <div class="evidence-block">Agnuxo1/OpenCLAW-2/docs/zh-CN/reference/templates/SOUL.md, Agnuxo1/OpenCLAW-2/docs/reference/templates/SOUL.md</div>
+  <div class="evidence-block">Agnuxo1/OpenCLAW-2/docs/reference/templates/SOUL.md, Agnuxo1/OpenCLAW-2/docs/zh-CN/reference/templates/SOUL.md, Agnuxo1/OpenCLAW-2/docs/reference/templates/soul.md, ...and 1 more</div>
   
   
 </div>
@@ -598,18 +644,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  <div class="evidence-block">Agnuxo1/OpenCLAW-2/docs/zh-CN/reference/templates/SOUL.md, Agnuxo1/OpenCLAW-2/docs/reference/templates/SOUL.md</div>
-  
-  
-</div>
-<div class="finding-card sev-green">
-  <div class="finding-header">
-    <span class="finding-title">🟢 OC-SOUL-002: Base64-encoded content in SOUL.md</span>
-    <span class="severity-badge severity-info">INFO</span>
-    <span class="status-badge status-pass">PASS</span>
-  </div>
-  <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  
+  <div class="evidence-block">Agnuxo1/OpenCLAW-2/docs/reference/templates/SOUL.md, Agnuxo1/OpenCLAW-2/docs/zh-CN/reference/templates/SOUL.md, Agnuxo1/OpenCLAW-2/docs/reference/templates/soul.md, ...and 1 more</div>
   
   
 </div>
@@ -620,7 +655,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">Agnuxo1/OpenCLAW-2/literary-agent-skill/SKILL.md, Agnuxo1/OpenCLAW-2/.agents/archive/merge-pr-v1/SKILL.md, Agnuxo1/OpenCLAW-2/.agents/archive/review-pr-v1/SKILL.md, ...and 70 more</div>
+  <div class="evidence-block">Agnuxo1/OpenCLAW-2/literary-agent-skill/SKILL.md, Agnuxo1/OpenCLAW-2/skills/nano-pdf/SKILL.md, Agnuxo1/OpenCLAW-2/skills/himalaya/SKILL.md, ...and 70 more</div>
   
   
 </div>
@@ -631,7 +666,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">Agnuxo1/OpenCLAW-2/literary-agent-skill/SKILL.md, Agnuxo1/OpenCLAW-2/.agents/archive/merge-pr-v1/SKILL.md, Agnuxo1/OpenCLAW-2/.agents/archive/review-pr-v1/SKILL.md, ...and 72 more</div>
+  <div class="evidence-block">Agnuxo1/OpenCLAW-2/literary-agent-skill/SKILL.md, Agnuxo1/OpenCLAW-2/skills/nano-pdf/SKILL.md, Agnuxo1/OpenCLAW-2/skills/himalaya/SKILL.md, ...and 72 more</div>
   
   
 </div>
@@ -642,7 +677,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">Agnuxo1/OpenCLAW-2/literary-agent-skill/SKILL.md, Agnuxo1/OpenCLAW-2/.agents/archive/merge-pr-v1/SKILL.md, Agnuxo1/OpenCLAW-2/.agents/archive/review-pr-v1/SKILL.md, ...and 68 more</div>
+  <div class="evidence-block">Agnuxo1/OpenCLAW-2/literary-agent-skill/SKILL.md, Agnuxo1/OpenCLAW-2/skills/nano-pdf/SKILL.md, Agnuxo1/OpenCLAW-2/skills/himalaya/SKILL.md, ...and 68 more</div>
   
   
 </div>
@@ -653,7 +688,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">Agnuxo1/OpenCLAW-2/literary-agent-skill/SKILL.md, Agnuxo1/OpenCLAW-2/.agents/archive/merge-pr-v1/SKILL.md, Agnuxo1/OpenCLAW-2/.agents/archive/review-pr-v1/SKILL.md, ...and 69 more</div>
+  <div class="evidence-block">Agnuxo1/OpenCLAW-2/literary-agent-skill/SKILL.md, Agnuxo1/OpenCLAW-2/skills/nano-pdf/SKILL.md, Agnuxo1/OpenCLAW-2/skills/himalaya/SKILL.md, ...and 69 more</div>
   
   
 </div>
@@ -664,7 +699,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">Agnuxo1/OpenCLAW-2/literary-agent-skill/SKILL.md, Agnuxo1/OpenCLAW-2/.agents/archive/merge-pr-v1/SKILL.md, Agnuxo1/OpenCLAW-2/.agents/archive/review-pr-v1/SKILL.md, ...and 70 more</div>
+  <div class="evidence-block">Agnuxo1/OpenCLAW-2/literary-agent-skill/SKILL.md, Agnuxo1/OpenCLAW-2/skills/nano-pdf/SKILL.md, Agnuxo1/OpenCLAW-2/skills/himalaya/SKILL.md, ...and 70 more</div>
   
   
 </div>
@@ -675,7 +710,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">Agnuxo1/OpenCLAW-2/.agents/archive/merge-pr-v1/SKILL.md, Agnuxo1/OpenCLAW-2/.agents/archive/review-pr-v1/SKILL.md, Agnuxo1/OpenCLAW-2/.agents/archive/prepare-pr-v1/SKILL.md, ...and 61 more</div>
+  <div class="evidence-block">Agnuxo1/OpenCLAW-2/skills/nano-pdf/SKILL.md, Agnuxo1/OpenCLAW-2/skills/himalaya/SKILL.md, Agnuxo1/OpenCLAW-2/skills/bear-notes/SKILL.md, ...and 61 more</div>
   
   
 </div>

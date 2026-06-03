@@ -151,14 +151,14 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <div class="hero-card">
   <h2>2001Haru/CloseClaw</h2>
   <div class="hero-meta">
-    <span class="grade-badge grade-yellow">YELLOW</span>
-    <span>Exposure Score: <strong class="hero-score">5</strong></span>
+    <span class="grade-badge grade-red">RED</span>
+    <span>Exposure Score: <strong class="hero-score">6</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 56</span>
+    <span>Source Code Scan | Total Checks: 57</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **2 failure(s)** and **19 warning(s)** across 56 checks.</p>
+<div class="exec-tables"><p>The audit identified **3 failure(s)** and **19 warning(s)** across 57 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>2</td>
+<td>3</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -187,6 +187,10 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <th scope="col">Count</th>
 </tr></thead><tbody>
 <tr>
+<td>CRITICAL</td>
+<td>1</td>
+</tr>
+<tr>
 <td>HIGH</td>
 <td>1</td>
 </tr>
@@ -199,7 +203,20 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 <td>19</td>
 </tr>
 </tbody></table></div>
-  <details class="section-group">
+  <details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">1 finding</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-003: Secret-to-egress path</span>
+    <span class="severity-badge severity-critical">CRITICAL</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">The same asset can read secrets or sensitive files and can make outbound network calls — a direct path to credential exfiltration.</div>
+  <div class="evidence-block">skill:skills: reads sensitive sources (.env, github token) and can egress (caps: [])</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Remove direct secret access, use scoped secret references, add an egress allowlist, and require explicit approval to export data.</div>
+  
+</div>
+</details><details class="section-group">
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">18 findings</span></summary>
   <div class="finding-card sev-yellow">
   <div class="finding-header">
@@ -432,7 +449,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">HEARTBEAT.md is writable or contains instructions that could establish a persistent C2 channel.</div>
-  <div class="evidence-block">writable (0o644)</div>
+  <div class="evidence-block">writable (0o644) [2001Haru/CloseClaw/closeclaw/heartbeat/HEARTBEAT.md, 2001Haru/CloseClaw/closeclaw/heartbeat/heartbeat.md]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Lock HEARTBEAT.md to read-only. Review for injected instructions.</div>
   
 </div>
@@ -445,7 +462,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains base64-encoded strings, a common technique for hiding payload instructions from human review.</div>
-  
+  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/memory/SOUL.md, 2001Haru/CloseClaw/closeclaw/memory/soul.md</div>
   
   
 </div>
@@ -456,7 +473,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains zero-width or invisible Unicode characters that can carry steganographic instructions invisible to reviewers.</div>
-  
+  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/memory/SOUL.md, 2001Haru/CloseClaw/closeclaw/memory/soul.md</div>
   
   
 </div>
@@ -467,7 +484,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains shell command patterns (curl, wget, bash, eval, exec, /bin/sh) that may indicate injection.</div>
-  
+  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/memory/SOUL.md, 2001Haru/CloseClaw/closeclaw/memory/soul.md</div>
   
   
 </div>
@@ -478,7 +495,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md contains patterns like &#x27;ignore previous instructions&#x27;, &#x27;do not log&#x27;, &#x27;skip confirmation&#x27;, or permission escalation language.</div>
-  
+  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/memory/SOUL.md, 2001Haru/CloseClaw/closeclaw/memory/soul.md</div>
   
   
 </div>
@@ -489,7 +506,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">SOUL.md references external URLs that could serve as C2 endpoints or exfiltration targets.</div>
-  
+  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/memory/SOUL.md, 2001Haru/CloseClaw/closeclaw/memory/soul.md</div>
   
   
 </div>
@@ -500,7 +517,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill descriptor contains prompt injection indicators: hidden instructions, IMPORTANT tags, system prompt overrides.</div>
-  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/skills/complex_task/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/github/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/clawhub/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/skills/complex_task/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/clawhub/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/video-frames/SKILL.md, ...and 4 more</div>
   
   
 </div>
@@ -511,7 +528,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill instructs users to download and run external software (&#x27;Prerequisites&#x27; social engineering pattern from ClawHavoc).</div>
-  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/skills/complex_task/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/github/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/clawhub/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/skills/complex_task/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/clawhub/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/video-frames/SKILL.md, ...and 4 more</div>
   
   
 </div>
@@ -522,7 +539,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains scripts that execute shell commands, subprocess calls, or system() invocations.</div>
-  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/skills/complex_task/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/github/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/clawhub/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/skills/complex_task/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/clawhub/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/video-frames/SKILL.md, ...and 4 more</div>
   
   
 </div>
@@ -533,7 +550,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains obfuscated code: base64 decoding, hex encoding, eval(), exec(), or Unicode escape sequences.</div>
-  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/skills/complex_task/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/github/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/clawhub/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/skills/complex_task/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/clawhub/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/video-frames/SKILL.md, ...and 4 more</div>
   
   
 </div>
@@ -544,7 +561,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill contains outbound network calls (curl, wget, fetch, requests.post) that could exfiltrate data.</div>
-  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/skills/complex_task/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/github/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/clawhub/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/skills/complex_task/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/clawhub/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/video-frames/SKILL.md, ...and 4 more</div>
   
   
 </div>
@@ -555,7 +572,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Skill references credential stores, SSH keys, keychains, browser profiles, or cryptocurrency wallets.</div>
-  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/skills/complex_task/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/github/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/clawhub/SKILL.md, ...and 4 more</div>
+  <div class="evidence-block">2001Haru/CloseClaw/closeclaw/skills/complex_task/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/clawhub/SKILL.md, 2001Haru/CloseClaw/closeclaw/skills/video-frames/SKILL.md, ...and 4 more</div>
   
   
 </div>

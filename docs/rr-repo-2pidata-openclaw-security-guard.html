@@ -418,7 +418,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
-  <div class="evidence-block">return config.agents.defaults.tools.elevated.requireApproval === true;</div>
+  <div class="evidence-block">requireApproval: true</div>
   
   
 </div>
@@ -440,7 +440,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">The agent has no explicit allowlist or restrictions on which tools it can invoke. It may access filesystem, network, or system tools beyond what the task requires.</div>
-  <div class="evidence-block">if (this.state.configStatus.sandboxMode !== &#x27;always&#x27;) score -= 20;</div>
+  <div class="evidence-block">if (configStatus.sandboxMode !== &#x27;always&#x27;) score -= 20;</div>
   
   
 </div>

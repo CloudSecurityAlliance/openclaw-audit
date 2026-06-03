@@ -152,13 +152,13 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   <h2>AstrBotDevs/AstrBot</h2>
   <div class="hero-meta">
     <span class="grade-badge grade-red">RED</span>
-    <span>Exposure Score: <strong class="hero-score">18</strong></span>
+    <span>Exposure Score: <strong class="hero-score">19</strong></span>
     <span>✔ Confidence</span>
-    <span>Source Code Scan | Total Checks: 43</span>
+    <span>Source Code Scan | Total Checks: 44</span>
   </div>
 </div>
   <h2 class="section-h2">Executive Summary</h2>
-<div class="exec-tables"><p>The audit identified **14 failure(s)** and **2 warning(s)** across 43 checks.</p>
+<div class="exec-tables"><p>The audit identified **15 failure(s)** and **2 warning(s)** across 44 checks.</p>
 <table>
 <thead><tr>
 <th scope="col">Status</th>
@@ -166,7 +166,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr></thead><tbody>
 <tr>
 <td>FAIL</td>
-<td>14</td>
+<td>15</td>
 </tr>
 <tr>
 <td>WARN</td>
@@ -192,7 +192,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
 </tr>
 <tr>
 <td>HIGH</td>
-<td>9</td>
+<td>10</td>
 </tr>
 <tr>
 <td>MEDIUM</td>
@@ -217,6 +217,19 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
   
 </div>
 </details><details class="section-group" open>
+  <summary><span class="section-h2">Attack Path</span> <span class="count-badge">1 finding</span></summary>
+  <div class="finding-card sev-red">
+  <div class="finding-header">
+    <span class="finding-title">🔴 OC-PATH-002: Prompt injection reaches privileged capabilities</span>
+    <span class="severity-badge severity-high">HIGH</span>
+    <span class="status-badge status-fail">FAIL</span>
+  </div>
+  <div class="finding-desc">An asset whose documentation or tool descriptions contain instruction-override language also has access to shell, filesystem, network, or credential capabilities. Injected content can be turned directly into tool actions.</div>
+  <div class="evidence-block">skill:skills: injection (OC-SKILL-001) with capabilities [&#x27;write_file&#x27;]</div>
+  <div class="recommendation-box"><strong>Recommendation:</strong> Treat tool/skill descriptions as untrusted, remove instruction-override language, require confirmation before high-risk actions, and scope tool allowlists.</div>
+  
+</div>
+</details><details class="section-group" open>
   <summary><span class="section-h2">Configuration</span> <span class="count-badge">13 findings</span></summary>
   <div class="finding-card sev-red">
   <div class="finding-header">
@@ -225,7 +238,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">No authentication mode set for the Gateway WebSocket server. Any local process or website (ClawJacked) can control the agent.</div>
-  <div class="evidence-block">gateway.auth.mode = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json]</div>
+  <div class="evidence-block">gateway.auth.mode = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set gateway.auth.mode to &#x27;token&#x27; with a minimum 32-character random value.</div>
   
 </div>
@@ -236,7 +249,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">OpenClaw broadcasts its presence via mDNS, leaking filesystem paths and metadata to devices on the local network.</div>
-  <div class="evidence-block">mDNS not disabled [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json]</div>
+  <div class="evidence-block">mDNS not disabled [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set discovery.mdns.mode to &#x27;off&#x27; or OPENCLAW_DISABLE_BONJOUR=1.</div>
   
 </div>
@@ -247,7 +260,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">tools.exec.security is not set to &#x27;deny&#x27;. The agent may execute arbitrary shell commands, enabling prompt-injection-to-RCE.</div>
-  <div class="evidence-block">tools.exec.security = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json]</div>
+  <div class="evidence-block">tools.exec.security = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set tools.exec.security to &#x27;deny&#x27; and tools.exec.ask to &#x27;always&#x27;.</div>
   
 </div>
@@ -258,7 +271,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">tools.exec.ask is not &#x27;always&#x27;. The agent can invoke tools without user confirmation.</div>
-  <div class="evidence-block">tools.exec.ask = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json]</div>
+  <div class="evidence-block">tools.exec.ask = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set tools.exec.ask to &#x27;always&#x27;.</div>
   
 </div>
@@ -269,7 +282,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Control-plane tools (gateway, cron, sessions_spawn, sessions_send) or groups (automation, runtime, fs) are not explicitly denied.</div>
-  <div class="evidence-block">Missing deny entries: [&#x27;cron&#x27;, &#x27;gateway&#x27;, &#x27;group:automation&#x27;, &#x27;group:runtime&#x27;, &#x27;sessions_send&#x27;, &#x27;sessions_spawn&#x27;] [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json]</div>
+  <div class="evidence-block">Missing deny entries: [&#x27;cron&#x27;, &#x27;gateway&#x27;, &#x27;group:automation&#x27;, &#x27;group:runtime&#x27;, &#x27;sessions_send&#x27;, &#x27;sessions_spawn&#x27;] [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Add gateway, cron, sessions_spawn, sessions_send, group:automation, group:runtime to tools.deny.</div>
   
 </div>
@@ -280,7 +293,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Agent sandbox is not set to &#x27;all&#x27;. Code may execute directly on the host without containment.</div>
-  <div class="evidence-block">sandbox.mode = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json]</div>
+  <div class="evidence-block">sandbox.mode = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set sandbox.mode to &#x27;all&#x27; for full Docker isolation.</div>
   
 </div>
@@ -291,7 +304,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">session.dmScope is not &#x27;per-channel-peer&#x27;, allowing context leakage between different message senders.</div>
-  <div class="evidence-block">session.dmScope = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json]</div>
+  <div class="evidence-block">session.dmScope = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set session.dmScope to &#x27;per-channel-peer&#x27;.</div>
   
 </div>
@@ -302,7 +315,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">tools.fs.workspaceOnly is not true. The agent has access to the entire user home directory.</div>
-  <div class="evidence-block">tools.fs.workspaceOnly = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json]</div>
+  <div class="evidence-block">tools.fs.workspaceOnly = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set tools.fs.workspaceOnly to true.</div>
   
 </div>
@@ -313,7 +326,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Automatic updates are not disabled. Enterprise deployments should use a controlled update pipeline where security evaluates each release.</div>
-  <div class="evidence-block">updates.autoUpdate = None, updates.mode = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json]</div>
+  <div class="evidence-block">updates.autoUpdate = None, updates.mode = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set updates.autoUpdate to false. Use controlled update pipelines.</div>
   
 </div>
@@ -324,7 +337,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">Moltbook connectivity is not explicitly disabled. The 4-hour heartbeat polling moltbook.com is a documented C2 vector; 1.5M tokens were exposed in the Moltbook database breach.</div>
-  <div class="evidence-block">moltbook.enabled = None, moltbook.heartbeat.enabled = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json]</div>
+  <div class="evidence-block">moltbook.enabled = None, moltbook.heartbeat.enabled = None [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set moltbook.enabled to false and moltbook.heartbeat.enabled to false.</div>
   
 </div>
@@ -335,7 +348,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">config.patch is not in the tools deny list. OpenClaw config restrictions cover config.apply and config.update but omit config.patch, allowing unrestricted configuration modification.</div>
-  <div class="evidence-block">config.patch not in tools.deny list [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json]</div>
+  <div class="evidence-block">config.patch not in tools.deny list [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Add config.patch to tools.deny list.</div>
   
 </div>
@@ -346,7 +359,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">File system exclusions do not cover critical sensitive directories (~/.ssh, ~/.aws, ~/.gnupg, ~/.kube, browser profiles, keychains, cryptocurrency wallets). A compromised agent can access these.</div>
-  <div class="evidence-block">Sensitive dirs not excluded: [&#x27;.ssh&#x27;, &#x27;.gnupg&#x27;, &#x27;.aws&#x27;, &#x27;.kube&#x27;, &#x27;.docker&#x27;] [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json]</div>
+  <div class="evidence-block">Sensitive dirs not excluded: [&#x27;.ssh&#x27;, &#x27;.gnupg&#x27;, &#x27;.aws&#x27;, &#x27;.kube&#x27;, &#x27;.docker&#x27;] [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Add ~/.ssh, ~/.gnupg, ~/.aws, ~/.kube, ~/.docker, browser profiles, and keychain directories to tools.fs.exclude.</div>
   
 </div>
@@ -357,7 +370,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-warn">WARN</span>
   </div>
   <div class="finding-desc">browser.ssrfPolicy.dangerouslyAllowPrivateNetwork is true or browser mode allows unrestricted navigation.</div>
-  <div class="evidence-block">AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json</div>
+  <div class="evidence-block">AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Set dangerouslyAllowPrivateNetwork to false. Disable browser if not required, or use hostnameAllowlist.</div>
   
 </div>
@@ -370,7 +383,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-fail">FAIL</span>
   </div>
   <div class="finding-desc">No egress allowlist or network restriction policy is configured. Without egress controls, prompt injection attacks can exfiltrate data via URL parameters, DNS queries, or outbound HTTP requests.</div>
-  <div class="evidence-block">No network egress restrictions configured [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json]</div>
+  <div class="evidence-block">No network egress restrictions configured [AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json]</div>
   <div class="recommendation-box"><strong>Recommendation:</strong> Configure network.egress.allowlist with approved endpoints only. Block all other outbound connections.</div>
   
 </div>
@@ -396,7 +409,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Gateway listens on all network interfaces, exposing the agent to the local network and potentially the internet.</div>
-  <div class="evidence-block">AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json</div>
+  <div class="evidence-block">AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json</div>
   
   
 </div>
@@ -407,7 +420,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">tools.elevated.enabled is true. Elevated tools bypass sandbox restrictions and execute on the host.</div>
-  <div class="evidence-block">AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json</div>
+  <div class="evidence-block">AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json</div>
   
   
 </div>
@@ -418,7 +431,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Direct message policy allows anyone to interact with the agent without authentication or pairing.</div>
-  <div class="evidence-block">AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json</div>
+  <div class="evidence-block">AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json</div>
   
   
 </div>
@@ -429,7 +442,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">dangerouslyAllowContainerNamespaceJoin is true, allowing sandbox escape via container namespace access.</div>
-  <div class="evidence-block">AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json</div>
+  <div class="evidence-block">AstrBotDevs/AstrBot/dashboard/src/i18n/locales/en-US/features/config.json, AstrBotDevs/AstrBot/dashboard/src/i18n/locales/zh-CN/features/config.json</div>
   
   
 </div>
@@ -517,7 +530,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">&quot;maxRetriesReached&quot;: &quot;拉取状态达到最大次数，请手动检查。&quot;</div>
+  <div class="evidence-block">&quot;timeout&quot;: &quot;Network request timeout, please try again later&quot;,</div>
   
   
 </div>

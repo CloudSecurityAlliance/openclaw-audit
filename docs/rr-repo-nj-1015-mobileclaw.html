@@ -505,7 +505,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">setTimeout(async () =&gt; {</div>
+  <div class="evidence-block">// Tasks are single-turn — no need to wait IDLE_TIMEOUT (30 min) for the</div>
   
   
 </div>

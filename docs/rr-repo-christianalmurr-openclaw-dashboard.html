@@ -551,7 +551,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">timeout: 10000,</div>
+  <div class="evidence-block">const reconnectTimerRef = useRef&lt;NodeJS.Timeout | null&gt;(null);</div>
   
   
 </div>
@@ -562,7 +562,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">Agent actions, tool calls, and decisions are not being logged. This makes incident investigation and compliance auditing impossible.</div>
-  <div class="evidence-block">import { getConfig, getCompactionLog } from &#x27;@/lib/db/queries&#x27;;</div>
+  <div class="evidence-block">name: &#x27;008_compaction_log&#x27;,</div>
   
   
 </div>

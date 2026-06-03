@@ -420,7 +420,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No iteration limit, timeout, or circuit breaker configured. The agent may loop indefinitely consuming resources or taking repeated harmful actions.</div>
-  <div class="evidence-block">timeout-minutes: 10</div>
+  <div class="evidence-block">timeout-minutes: 15</div>
   
   
 </div>
@@ -431,7 +431,7 @@ details.section-group > summary:focus-visible { outline: 2px solid var(--csa-ora
     <span class="status-badge status-pass">PASS</span>
   </div>
   <div class="finding-desc">No mechanism requires user approval before the agent executes high-impact actions. The agent may take destructive or irreversible actions without human oversight.</div>
-  <div class="evidence-block">&quot;shell.require_approval&quot;,</div>
+  <div class="evidence-block">it(&quot;Require approval for action=require_approval&quot;, () =&gt; {</div>
   
   
 </div>
