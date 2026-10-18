@@ -92,7 +92,11 @@ def _discover_configs(ctx: ScanContext, root: Path) -> None:
     config_patterns = [
         "config.json", "config.json5", "config.jsonc",
         "openclaw.config.json", "openclaw.config.json5",
+        # Real installations use ~/.openclaw/openclaw.json; without these
+        # patterns every OC-CFG check silently falls back to defaults.
+        "openclaw.json", "openclaw.json5", "openclaw.jsonc",
         "**/config.json", "**/config.json5",
+        "**/openclaw.json", "**/openclaw.json5",
     ]
     for pattern in config_patterns:
         for f in root.glob(pattern):

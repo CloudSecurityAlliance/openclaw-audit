@@ -25,3 +25,20 @@ def test_hardened_config_passes_net_egress():
 def test_noauth_config_fails_net_egress():
     v = scan_fixture("configs/gateway-noauth")
     assert v.failed("OC-NET-002")
+
+
+def test_openclaw_json_filename_is_parsed():
+    """Real installations use ~/.openclaw/openclaw.json; it must be discovered
+    and parsed — regression test for silent fail-open on the real config name."""
+    v = scan_fixture("instances/openclaw-json")
+    assert v.passed("OC-CFG-001"), "token auth in openclaw.json not recognized"
+    assert v.failed("OC-CFG-002"), "lan bind in openclaw.json not flagged"
+    assert not v.for_check("OC-CFG-000"), \
+        "spurious OC-CFG-000 even though a config file exists"
+
+
+def test_instance_without_config_raises_oc_cfg_000():
+    """A config-less installed instance must surface OC-CFG-000 (HIGH) instead
+    of only silent default WARNs."""
+    v = scan_fixture("instances/no-config")
+    assert v.failed("OC-CFG-000"), "config-less instance did not raise OC-CFG-000"

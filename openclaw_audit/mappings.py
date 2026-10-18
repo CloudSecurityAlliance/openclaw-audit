@@ -22,6 +22,29 @@ def _reg(c: CheckDefinition) -> None:
 # ── Configuration Audit (OC-CFG) ──────────────────────────────────────────
 
 _reg(CheckDefinition(
+    check_id="OC-CFG-000",
+    title="No OpenClaw configuration file found",
+    description="The target looks like an installed OpenClaw instance, but no "
+                "configuration file was discovered. All other OC-CFG findings "
+                "reflect OpenClaw defaults, not the actual installation — the "
+                "audit may be silently blind to the real configuration.",
+    category="Configuration",
+    severity=Severity.HIGH,
+    applicability=Applicability.INSTANCE_ONLY,
+    frameworks=FrameworkMapping(
+        owasp_asi=["ASI03"],
+        atlas=["AML.T0040"],
+        aicm=["Application and Interface Security"],
+        maestro=["L4"],
+        whitepaper_section="2.2",
+    ),
+    recommendation="Verify the instance's config path and re-run the audit "
+                   "against it; an installed instance without a discoverable "
+                   "config.json/openclaw.json should be investigated.",
+    fix_level=FixLevel.BASIC,
+))
+
+_reg(CheckDefinition(
     check_id="OC-CFG-001",
     title="Gateway authentication not configured",
     description="No authentication mode set for the Gateway WebSocket server. "
