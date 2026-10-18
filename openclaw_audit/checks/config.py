@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from ..models import Finding, ScanContext, Severity, Status
+from ..models import ContextType, Finding, ScanContext, Severity, Status
 from ..mappings import CHECKS
 
 
@@ -56,7 +56,15 @@ def run(ctx: ScanContext) -> list[Finding]:
     findings: list[Finding] = []
 
     if not ctx.config_files:
-        # No config files found — everything is default (mostly insecure)
+        # No config files found — everything is default (mostly insecure).
+        # In an installed instance this means the audit never saw the real
+        # configuration; surface that explicitly instead of failing silently.
+        if ctx.context_type in (ContextType.INSTALLED_INSTANCE, ContextType.HYBRID):
+            findings.append(_make_finding(
+                "OC-CFG-000", Status.FAIL,
+                detail="No config file (config.json/openclaw.json) discovered "
+                       "under the instance path.",
+            ))
         for cid in [f"OC-CFG-{i:03d}" for i in range(1, 19)]:
             if cid in CHECKS:
                 findings.append(_make_finding(

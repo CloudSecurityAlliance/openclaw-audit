@@ -1,0 +1,6 @@
+{
+  "gateway": {
+    "bind": "lan",
+    "auth": { "mode": "token", "token": "0123456789abcdef0123456789abcdef01234567" }
+  }
+}
